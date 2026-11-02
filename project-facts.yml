@@ -36,7 +36,7 @@ bullets:
       - { value: "1.94", file: "results/SUMMARY.md", contains: "1.94" }
       - { value: "0.37", file: "results/SUMMARY.md", contains: "0.37" }
       - { value: "25.63", file: "results/SUMMARY.md", contains: "25.63" }
-      - { value: "0.8937", file: "results/runs/live-v1.1/budget.json", contains: "0.8937" }
+      - { value: "0.8937", file: "results/runs/live-v1.1/budget.json", contains: "0.8936682499999982" }
       - { value: "1.92", file: "results/gate_demo_defect.json", contains: "1.9154" }
   - kind: stack
     text: "Python with LangChain and LangGraph, MCP tools, PostgreSQL with pgvector for retrieval, and a deterministic record/replay run guarded by pytest, Ruff and strict mypy."

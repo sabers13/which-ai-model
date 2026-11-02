@@ -9,6 +9,7 @@
 {% elif name == 'code' %}<path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-14-2 16"/>
 {% elif name == 'database' %}<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/>
 {% elif name == 'flow' %}<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M9 6h9v9M6 9v9h9"/>
+{% elif name == 'search' %}<circle cx="11" cy="11" r="7"/><path d="m21 21-5-5"/>
 {% elif name == 'check' %}<path d="m5 12 4 4L19 6"/>
 {% else %}<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>{% endif %}</svg>{%- endmacro %}
 {% set task_de = {'T-ROUTE': ['Nachricht zuordnen', 'Welches Bankanliegen beschreibt die Nachricht?'], 'T-SCOPE': ['Zuständigkeit prüfen', 'Ist das Supportteam für diese Nachricht zuständig?'], 'T-REPLY': ['Antwort entwerfen', 'Anliegen, Dringlichkeit und Antwort im festgelegten Format ausgeben.'], 'T-DOCS': ['Im Leitfaden nachschlagen', 'Eine Frage zum Projekt mit passenden Quellen beantworten.']} %}
@@ -61,7 +62,7 @@
     <p class="project-context">{{ t('AI evaluation & provider portability', 'KI-Vergleich & Anbieterwechsel') }}</p>
     <p class="lead">{{ t('A cheaper AI model can handle one job well and struggle with another. I built a way to compare models on the same tasks, choose for quality and cost, and check a switch before accepting it.', 'Ein günstigeres KI-Modell kann eine Aufgabe gut lösen und bei einer anderen scheitern. Ich habe ein System gebaut, das Modelle an denselben Aufgaben vergleicht, Qualität und Kosten abwägt und einen Wechsel vor der Freigabe prüft.') }}</p>
     <p class="hero-question">{{ t('Which model should each tool use?', 'Welches Modell passt zu welcher Aufgabe?') }}</p>
-    <ul class="tags" aria-label="Skills" data-label-en="Skills" data-label-de="Kompetenzen"><li>{{ icon('code') }}Python</li><li>{{ icon('flow') }}LangChain / LangGraph</li><li>{{ icon('database') }}PostgreSQL</li><li>{{ icon('check') }}{{ t('Evaluation', 'Evaluierung') }}</li></ul>
+    <ul class="tags" aria-label="Skills" data-label-en="Skills" data-label-de="Kompetenzen"><li>{{ icon('code') }}Python</li><li>{{ icon('flow') }}LangChain / LangGraph</li><li>{{ icon('search') }}RAG</li><li>{{ icon('database') }}PostgreSQL</li><li>{{ icon('check') }}{{ t('Evaluation', 'Evaluierung') }}</li></ul>
     <div class="cta"><a class="btn btn-primary" href="#picker">{{ t('Compare models', 'Modelle vergleichen') }}{{ icon('arrow') }}</a><a class="btn project-source" href="https://github.com/sabers13/which-ai-model" target="_blank" rel="noopener">{{ icon('github') }}{{ t('View source', 'Quellcode') }}</a><a class="btn btn-quiet" href="https://sabersojudi.com/#contact">{{ icon('work') }}{{ t('Hire Me', 'Kontakt') }}</a></div>
     <p class="fine">{{ t('Recorded benchmark, not a live AI service. Public data. Independent project.', 'Aufgezeichneter Vergleich, kein Live-KI-Dienst. Öffentliche Daten. Unabhängiges Projekt.') }} <a href="#limits">{{ t('Read the limits', 'Grenzen des Vergleichs') }}</a></p>
   </div><aside class="example-card" aria-labelledby="preview-title" data-ui>
