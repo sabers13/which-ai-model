@@ -1,0 +1,59 @@
+# Published OpenCode Go token prices, retrieved on 2026-10-29.
+# Source: https://opencode.ai/docs/go/ (token-price table).
+# Prices are USD per 1M tokens. DeepSeek uses its off-peak price. The runner has
+# no off-peak wait, so future peak-hour calls could be underpriced by this table.
+# The 2026-11-01 run was on a Sunday (off-peak all day). See METHOD.md for limits.
+# Gateway-measured usage.opencode.list_cost is preferred where available;
+# this table provides the fallback and the pre-run estimate.
+
+[models."claude-haiku-5-5"]
+input_per_mtok = 0.10
+output_per_mtok = 0.50
+currency = "USD"
+source_url = "https://opencode.ai/docs/go/"
+retrieved = "2026-10-29"
+
+[models."gpt-6-luna"]
+input_per_mtok = 0.10
+output_per_mtok = 0.50
+currency = "USD"
+source_url = "https://opencode.ai/docs/go/"
+retrieved = "2026-10-29"
+
+[models."gemini-4-argon"]
+# 50% discount through 2026-11-30 (then $4.00 / $20.00).
+input_per_mtok = 2.00
+output_per_mtok = 10.00
+currency = "USD"
+source_url = "https://opencode.ai/docs/go/"
+retrieved = "2026-10-29"
+
+[models."muse-spark-1.3-contributor"]
+input_per_mtok = 0.10
+output_per_mtok = 0.20
+currency = "USD"
+source_url = "https://opencode.ai/docs/go/"
+retrieved = "2026-10-29"
+
+[models."deepseek-v4.1-flash"]
+# Off-Peak price. Peak is $0.30 / $1.20; this table has no peak row, so a weekday call
+# inside 01:00-04:00 or 06:00-10:00 UTC is priced low (known limitation, 2026-11-02).
+input_per_mtok = 0.15
+output_per_mtok = 0.60
+currency = "USD"
+source_url = "https://opencode.ai/docs/go/"
+retrieved = "2026-10-29"
+
+[models."mimo-v2.6-flash"]
+input_per_mtok = 0.14
+output_per_mtok = 0.28
+currency = "USD"
+source_url = "https://opencode.ai/docs/go/"
+retrieved = "2026-10-29"
+
+[models."glm-5.3-flash"]
+input_per_mtok = 0.15
+output_per_mtok = 0.50
+currency = "USD"
+source_url = "https://opencode.ai/docs/go/"
+retrieved = "2026-10-29"

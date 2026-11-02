@@ -1,0 +1,57 @@
+{
+  "against": "results/runs/live",
+  "candidate_run": "results/runs/recheck-demo-accepted",
+  "gate": {
+    "exit_code": 0,
+    "outcome": "PASS",
+    "pairs": [
+      {
+        "comparisons": [
+          {
+            "baseline_model": "gpt-6-luna",
+            "baseline_primary": 0.7096774193548386,
+            "candidate_model": "gpt-6-luna",
+            "candidate_primary": 0.711111111111111,
+            "failures": [],
+            "primary_delta": -0.0014336917562723928,
+            "schema_valid_baseline": null,
+            "schema_valid_candidate": null,
+            "task": "T-SCOPE"
+          }
+        ],
+        "exit_code": 0,
+        "outcome": "PASS",
+        "pair": "gpt-6-luna",
+        "reasons": [],
+        "warnings": [
+          "temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+        ]
+      }
+    ],
+    "reasons": [],
+    "warnings": [
+      "gpt-6-luna: temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+    ]
+  },
+  "mode": "replay",
+  "recorded_at": "2026-11-01T10:45:47.281176Z",
+  "recordings_root": "recordings/fresh/recheck-demo",
+  "run_id": "recheck-demo-accepted",
+  "settings": {
+    "accept_mismatch": true,
+    "pairs": [
+      {
+        "accepted": true,
+        "baseline_model": "gpt-6-luna",
+        "candidate_model": "gpt-6-luna",
+        "comparable": true,
+        "differences": [
+          "temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+        ]
+      }
+    ]
+  },
+  "tasks": [
+    "T-SCOPE"
+  ]
+}

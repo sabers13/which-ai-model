@@ -1,0 +1,136 @@
+{
+  "good_enough_points": 3.0,
+  "scorer_version": "v1",
+  "tasks": {
+    "T-ROUTE": {
+      "best_primary": 0.8593174160843333,
+      "cheapest": {
+        "baseline": true,
+        "connection_id": "baseline",
+        "cost_per_1k": 0.0,
+        "latency_p50": null,
+        "model": "tfidf-logreg",
+        "primary_metric": 0.8593174160843333
+      },
+      "fastest": null,
+      "good_enough": [
+        {
+          "baseline": true,
+          "connection_id": "baseline",
+          "cost_per_1k": 0.0,
+          "latency_p50": null,
+          "model": "tfidf-logreg",
+          "primary_metric": 0.8593174160843333
+        }
+      ],
+      "most_accurate": {
+        "baseline": true,
+        "connection_id": "baseline",
+        "cost_per_1k": 0.0,
+        "latency_p50": null,
+        "model": "tfidf-logreg",
+        "primary_metric": 0.8593174160843333
+      }
+    },
+    "T-SCOPE": {
+      "best_primary": 0.6839826839826838,
+      "cheapest": {
+        "baseline": true,
+        "connection_id": "baseline",
+        "cost_per_1k": 0.0,
+        "latency_p50": null,
+        "model": "tfidf-logreg",
+        "primary_metric": 0.6839826839826838
+      },
+      "fastest": null,
+      "good_enough": [
+        {
+          "baseline": true,
+          "connection_id": "baseline",
+          "cost_per_1k": 0.0,
+          "latency_p50": null,
+          "model": "tfidf-logreg",
+          "primary_metric": 0.6839826839826838
+        }
+      ],
+      "most_accurate": {
+        "baseline": true,
+        "connection_id": "baseline",
+        "cost_per_1k": 0.0,
+        "latency_p50": null,
+        "model": "tfidf-logreg",
+        "primary_metric": 0.6839826839826838
+      }
+    },
+    "defect": {
+      "best_primary": 0.7616216150628216,
+      "cheapest": {
+        "baseline": false,
+        "connection_id": "opencode-go-responses",
+        "cost_per_1k": 0.08888666666666667,
+        "latency_p50": 2261.0,
+        "model": "muse-spark-1.3-contributor",
+        "primary_metric": 0.7424671739009239
+      },
+      "fastest": {
+        "baseline": false,
+        "connection_id": "opencode-go-openai",
+        "cost_per_1k": 0.0892035,
+        "latency_p50": 1011.5,
+        "model": "glm-5.3-flash",
+        "primary_metric": 0.7387911347327645
+      },
+      "gate_floors": [
+        {
+          "max_drop_points": 2.0,
+          "metric": "safety_relevant.recall",
+          "min": 0.9
+        }
+      ],
+      "good_enough": [
+        {
+          "baseline": false,
+          "connection_id": "opencode-go-google",
+          "cost_per_1k": 1.3065099999999998,
+          "latency_p50": 2623.5,
+          "model": "gemini-4-argon",
+          "primary_metric": 0.7616216150628216
+        },
+        {
+          "baseline": false,
+          "connection_id": "opencode-go-responses",
+          "cost_per_1k": 0.08888666666666667,
+          "latency_p50": 2261.0,
+          "model": "muse-spark-1.3-contributor",
+          "primary_metric": 0.7424671739009239
+        },
+        {
+          "baseline": false,
+          "connection_id": "opencode-go-openai",
+          "cost_per_1k": 0.09618201666666666,
+          "latency_p50": 4016.5,
+          "model": "mimo-v2.6-flash",
+          "primary_metric": 0.739334684829591
+        },
+        {
+          "baseline": false,
+          "connection_id": "opencode-go-openai",
+          "cost_per_1k": 0.0892035,
+          "latency_p50": 1011.5,
+          "model": "glm-5.3-flash",
+          "primary_metric": 0.7387911347327645
+        }
+      ],
+      "most_accurate": {
+        "baseline": false,
+        "connection_id": "opencode-go-google",
+        "cost_per_1k": 1.3065099999999998,
+        "latency_p50": 2623.5,
+        "model": "gemini-4-argon",
+        "primary_metric": 0.7616216150628216
+      },
+      "no_model_meets_floor": false,
+      "picker_rule": "within 3.0 points of the best model on the primary metric; a model below any gate floor is not good enough; ties go to lower cost"
+    }
+  }
+}

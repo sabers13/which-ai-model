@@ -1,0 +1,68 @@
+{
+  "cap_usd": 4.99,
+  "estimated_usd_by_model": {
+    "claude-haiku-5-5": 0.3422608,
+    "deepseek-v4.1-flash": 0.42123120000000003,
+    "gemini-4-argon": 4.55905,
+    "glm-5.3-flash": 0.35979120000000003,
+    "gpt-6-luna": 0.3422608,
+    "mimo-v2.6-flash": 0.22111712000000003,
+    "muse-spark-1.3-contributor": 0.1579408
+  },
+  "measured_cost_available_by_model": {
+    "claude-haiku-5-5": true,
+    "deepseek-v4.1-flash": true,
+    "gemini-4-argon": false,
+    "glm-5.3-flash": true,
+    "gpt-6-luna": false,
+    "mimo-v2.6-flash": true,
+    "muse-spark-1.3-contributor": false
+  },
+  "measured_coverage_models": [
+    "claude-haiku-5-5",
+    "deepseek-v4.1-flash",
+    "glm-5.3-flash",
+    "mimo-v2.6-flash"
+  ],
+  "measured_gap_pct": -8.626940503055655,
+  "measured_usd_by_model": {
+    "claude-haiku-5-5": 0.09386369999999998,
+    "deepseek-v4.1-flash": 0.07664363999999999,
+    "glm-5.3-flash": 0.05352209999999994,
+    "mimo-v2.6-flash": 0.05770920999999999
+  },
+  "price_table_usd_by_model": {
+    "claude-haiku-5-5": 0.09386369999999998,
+    "deepseek-v4.1-flash": 0.10159320000000002,
+    "gemini-4-argon": 0.5226040000000001,
+    "glm-5.3-flash": 0.05352209999999994,
+    "gpt-6-luna": 0.03599360000000001,
+    "mimo-v2.6-flash": 0.05935985999999999,
+    "muse-spark-1.3-contributor": 0.053331999999999984
+  },
+  "reductions": [
+    "defect reduced to 400 items for `gemini-4-argon`: estimated $4.5591 exceeds the remaining allowance ($6.8452 for the 600-item cell)."
+  ],
+  "spent_usd_by_model": {
+    "claude-haiku-5-5": 0.09386369999999998,
+    "deepseek-v4.1-flash": 0.07664364,
+    "gemini-4-argon": 0.5226040000000001,
+    "glm-5.3-flash": 0.05352209999999994,
+    "gpt-6-luna": 0.0359936,
+    "mimo-v2.6-flash": 0.05770920999999999,
+    "muse-spark-1.3-contributor": 0.053331999999999984
+  },
+  "total_estimated_usd": 6.40365192,
+  "total_measured_covered_usd": 0.28173864999999987,
+  "total_measured_usd": 0.28173864999999987,
+  "total_price_covered_usd": 0.30833885999999994,
+  "total_price_table_usd": 0.92026846,
+  "total_spent_usd": 0.8936682499999982,
+  "unknown_cost_calls": 0,
+  "waits": [],
+  "window_ceilings_usd": {
+    "gemini-4-argon": 5.0
+  },
+  "window_hours": 5.0,
+  "window_overruns": []
+}

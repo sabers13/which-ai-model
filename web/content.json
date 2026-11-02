@@ -1,0 +1,382 @@
+{
+  "site": {
+    "brand": "Saber Sojudi",
+    "portfolio_url": "https://sabersojudi.com/",
+    "github_url": "https://github.com/sabers13/which-ai-model",
+    "title": "Which AI Model? — a portfolio project by Saber Sojudi",
+    "description": "Five AI tools moved onto one shared foundation, then seven models tested on real customer messages for quality, cost and speed. Results, a decision picker and the limits, stated plainly.",
+    "nav": [
+      {
+        "id": "example",
+        "label": "Example"
+      },
+      {
+        "id": "numbers",
+        "label": "Numbers"
+      },
+      {
+        "id": "picker",
+        "label": "Pick a model"
+      },
+      {
+        "id": "before-after",
+        "label": "Before / after"
+      },
+      {
+        "id": "safety",
+        "label": "Safety check"
+      },
+      {
+        "id": "docs",
+        "label": "Docs assistant"
+      },
+      {
+        "id": "your-task",
+        "label": "Your own task"
+      },
+      {
+        "id": "limits",
+        "label": "Limits"
+      }
+    ],
+    "skip": "Skip to the content",
+    "theme_light": "Light appearance",
+    "theme_dark": "Dark appearance",
+    "github_label": "View source on GitHub",
+    "back_label": "Back to the portfolio"
+  },
+  "hero": {
+    "eyebrow": "Portfolio project · AI engineering",
+    "title_before": "Which AI model should ",
+    "title_highlight": "each tool",
+    "title_after": " use?",
+    "lead": "I moved five scattered AI tools onto one shared foundation, then tested which AI model does each job best for the money. The whole benchmark ran on real customer messages, and every number here is rebuilt from the committed results.",
+    "tags": [
+      "Python",
+      "LangChain",
+      "LangGraph",
+      "Postgres + pgvector",
+      "Pydantic"
+    ],
+    "primary_cta": "Read the code",
+    "secondary_cta": "See the example",
+    "fine": "Independent project. Public datasets only. No employer or client is named anywhere on this page.",
+    "example_kicker": "One real example",
+    "example_task": "Ticket routing · one of 77 intents",
+    "example_correct_label": "Correct answer",
+    "example_legend": "Each row is one model answering the same message. ✓ means the intent matched; time and cost are that single recorded call.",
+    "example_source_prefix": "Message from",
+    "example_source_suffix": "shown exactly as the model saw it.",
+    "example_note": "The dataset is public, so a model may have seen this message during training. That is a limit of public benchmarks, not a hidden advantage: all seven models saw the same text."
+  },
+  "numbers": {
+    "kicker": "The headline numbers",
+    "title": "What the benchmark found",
+    "lead": "Every value below is copied from a committed file under results/ and names that file in the technical details.",
+    "baseline_title": "The simple non-AI method",
+    "baseline_lead": "A word-count model (TF-IDF plus logistic regression) trained on the public training split. It costs nothing and needs no API.",
+    "baseline_route": "Routing macro-F1",
+    "baseline_scope": "Out-of-scope F1",
+    "best_suffix": "best model",
+    "baseline_note": "The models still beat it, but not by a landslide. Any claimed AI win has to clear this line."
+  },
+  "picker": {
+    "kicker": "Choose what matters",
+    "title": "Pick a model for the job",
+    "lead": "A model is good enough when it is within three points of the best model on that task. The picker then chooses the cheapest, the most accurate or the fastest good-enough model. Ties go to the lower cost.",
+    "rule_prefix": "Good enough means",
+    "rule_suffix": "points behind the best.",
+    "priorities": [
+      {
+        "id": "cheapest",
+        "label": "Cheapest",
+        "hint": "lowest cost per 1,000 items"
+      },
+      {
+        "id": "most_accurate",
+        "label": "Most accurate",
+        "hint": "highest primary metric"
+      },
+      {
+        "id": "fastest",
+        "label": "Fastest",
+        "hint": "lowest median latency"
+      }
+    ],
+    "cost_label": "cost / 1k items",
+    "latency_label": "median time",
+    "metric_label": "primary metric",
+    "good_enough": "good enough",
+    "not_good_enough": "only good-enough pick",
+    "announce": "Showing picks for",
+    "task_summary": "What the tool does"
+  },
+  "before_after": {
+    "kicker": "Before / after",
+    "title": "One tool, two wirings",
+    "lead": "The router used to call a provider directly: a raw HTTP request, a key read from the environment, and a label pulled out of free text. The migrated version asks for a typed schema through the shared layer and never parses free text.",
+    "before_label": "Before · raw HTTP",
+    "after_label": "After · shared layer",
+    "before_caption": "src/which_ai_model/legacy/l1_router.py — 77 lines",
+    "after_caption": "src/which_ai_model/tools/router.py — 97 lines",
+    "lines_title": "Lines are not the whole story",
+    "lines_lead": "Raw lines went up, because every function is typed and documented. The tool's own logic moved into a shared frame, so what each tool owns is now a schema, a prompt and two small functions.",
+    "lines_before": "before",
+    "lines_after": "after",
+    "lines_source": "Counts and source hashes are recorded in results/inventory/migration.json.",
+    "inventory_title": "What the scanner found",
+    "inventory_lead": "A static scanner reads the code and lists every place a model is called. The before column is five different wirings; the after column is two shared call sites for the same five jobs.",
+    "inventory_col_path": "File",
+    "inventory_col_tool": "Tool",
+    "inventory_col_provider": "Provider",
+    "inventory_col_style": "Call style",
+    "inventory_col_output": "Structured output",
+    "inventory_before": "Before",
+    "inventory_after": "After",
+    "inventory_after_note": "The other three tools now run through the same shared module, so the scanner sees two call sites instead of five."
+  },
+  "gate": {
+    "kicker": "Safety check",
+    "title": "A cheaper model is not automatically a safe swap",
+    "lead": "The regression gate compares a candidate model with the current baseline. It blocks a change when any task drops more than the point limit, or when structured replies fall below the schema-valid floor, or when the runs are not comparable at all.",
+    "blocked": "blocked",
+    "passed": "passed",
+    "blocked_word": "would lose",
+    "points_word": "points",
+    "schema_word": "schema-valid",
+    "limit_word": "limit",
+    "refusal_title": "A refusal is never a pass",
+    "refusal_body": "Two fixture runs with the same metrics but a different prompt version were refused before any comparison. An incomparable run cannot silently pass the gate.",
+    "source_label": "Gate evidence",
+    "floor_label": "Schema-valid floor",
+    "limit_label": "Point limit"
+  },
+  "docs": {
+    "kicker": "Docs assistant",
+    "title": "It answers with citations, or it says it does not know",
+    "lead": "The docs assistant retrieves passages from this project's own guide and must cite the ids it used. These three answers are recorded from the live run, not rewritten for the page.",
+    "question_label": "Question",
+    "answer_label": "Answer",
+    "citations_label": "Cited passages",
+    "model_label": "Answered by",
+    "metric_label": "retrieval hit@4",
+    "metric_note": "",
+    "abstain_note": ""
+  },
+  "v11": {
+    "kicker": "Your own task",
+    "title": "Your own task: test it, re-test it",
+    "lead": "The four tasks above are fixed benchmarks. This one is the template for your own: one specification file plus one labelled data file, no Python. It is T-DEFECT, sorting public vehicle-owner complaints into component groups and flagging the safety-relevant ones.",
+    "defect_kicker": "Spec task · T-DEFECT",
+    "defect_sample_note": "600 items, sampled from public NHTSA complaints. Gemini 4 Argon was scored on 400 of them after the budget cut, so its interval is wider.",
+    "defect_source_note": "Every row is a committed cell in results/runs/live-v1.1/cells.json; the baseline is results/baseline/defect.json. No model was called to build this page.",
+    "col_model": "Model",
+    "col_primary": "Group macro-F1",
+    "col_coverage": "Coverage",
+    "col_answered": "Right when answered",
+    "col_safety": "Safety recall",
+    "col_cost": "Cost / 1k",
+    "col_latency": "Median",
+    "baseline_label": "TF-IDF + keyword rule (baseline)",
+    "floor_title": "The safety floor, stated plainly",
+    "floor_rule_prefix": "A model below",
+    "floor_rule_suffix": "safety recall on this task is never recommended, whatever its group accuracy.",
+    "coverage_title": "Coverage and accuracy on answered",
+    "recheck_title": "When a new model comes out",
+    "recheck_lead": "A benchmark result is about one model, at one moment, with one prompt and one set of settings. When any of those changes, re-test instead of trusting the old number. These are the exact commands from docs/recheck.md.",
+    "steps": [
+      {
+        "title": "A new model came out",
+        "body": "A new model has no earlier answers, so a normal record run is enough: only the new model's calls are made. Then gate it against the committed run.",
+        "commands": [
+          {
+            "note": "",
+            "text": "wam bench --mode record --models config/new-model.lock.toml \\\n  --tasks T-SCOPE --run-id new-model"
+          },
+          {
+            "note": "Then compare it with the committed run:",
+            "text": "wam gate --baseline results/runs/live --candidate results/runs/new-model \\\n  --model-a <same-task-model> --model-b new-model-id"
+          }
+        ]
+      },
+      {
+        "title": "The same model id behaves differently",
+        "body": "This is what re-check is for. It records fresh answers, never reuses a saved one, scores them, and gates them against the earlier run with the same model id on both sides.",
+        "commands": [
+          {
+            "note": "",
+            "text": "wam recheck run \\\n  --models config/models.lock.toml \\\n  --tasks T-SCOPE \\\n  --against results/runs/live \\\n  --candidate gpt-6-luna \\\n  --run-id recheck-gpt-6-luna"
+          }
+        ]
+      },
+      {
+        "title": "You changed a setting",
+        "body": "Temperature, reasoning and the output allowance are recorded in the run manifest. A difference is refused unless you say it was intended; then the gate returns its normal verdict plus a WARN line naming every difference.",
+        "commands": [
+          {
+            "note": "",
+            "text": "wam recheck run \\\n  --models config/models.lock.toml \\\n  --tasks T-SCOPE \\\n  --against results/runs/live \\\n  --candidate gpt-6-luna \\\n  --accept-settings-mismatch \\\n  --run-id recheck-gpt-6-luna-warm"
+          }
+        ]
+      }
+    ],
+    "demo_title": "The re-check demo, as it ran",
+    "demo_lead": "GPT 6 Luna on T-SCOPE, recorded fresh at temperature 0 and gated against the committed v1 run.",
+    "demo_refused_label": "Without --accept-settings-mismatch",
+    "demo_accepted_label": "With --accept-settings-mismatch",
+    "demo_note": "The demo answers are committed under recordings/fresh/recheck-demo/, so make all replays them with no network call and no cost.",
+    "volume_title": "What it costs at your volume",
+    "volume_lead": "Cost is linear from the measured cost per 1,000 items: cost per month = cost per 1,000 × items per month ÷ 1,000. There are no volume discounts and no other extrapolation.",
+    "volume_label": "Items per month",
+    "volume_hint": "Type a volume and the last column recalculates in the browser.",
+    "volume_no_js": "Without JavaScript the three fixed volumes still show the same arithmetic in the static table.",
+    "volume_live_col": "At your volume",
+    "volume_price_note": "Prices as of 29 October 2026, from the committed price table; a later price change is not reflected.",
+    "volume_unknown": "An unknown measured cost stays unknown.",
+    "models_label": "Models",
+    "cards_title": "Five cards, one job each",
+    "cards_lead": "Every card states the job, the data, the results, the recommendation, the gate rule, the exact re-check command and the monthly cost.",
+    "cards_pick_labels": {
+      "cheapest": "Cheapest",
+      "most_accurate": "Most accurate",
+      "fastest": "Fastest"
+    }
+  },
+  "limits": {
+    "kicker": "Limits",
+    "title": "What this benchmark does not prove",
+    "lead": "Read these before quoting a number.",
+    "items": [
+      "All seven models were reached through one gateway (OpenCode Go), each in its lab's own API format. Other providers' direct endpoints were tested only with mocks.",
+      "Four of the five before tools were written for this project. Only the tool-calling agent is adapted from real earlier code, and it is credited in THIRD_PARTY.md.",
+      "Tiers are mixed on purpose: Gemini 4 Argon is a flagship, the other six are small models. A flagship winning on quality is expected; the useful question is what the small models cost.",
+      "The datasets are public, so models may already know some test messages. All seven saw the same text, so the comparison is still like for like, but absolute scores may be optimistic.",
+      "The structured-reply sample is a subset of the routing sample, so the recorded answers are not independent questions.",
+      "The gateway did not send measured cost on every model. Where it did not, the committed price table is used, and the measured-versus-list gap is computed only over models that have both.",
+      "Results and prices are dated in the technical details below. A later price change is not reflected here.",
+      "The docs task was scored with an in-memory index built from the same guide and the same pinned embeddings as the pgvector store. Retrieval ids matched pgvector on every gold question."
+    ]
+  },
+  "technical": {
+    "kicker": "Technical details",
+    "title": "How it was built and how to reproduce it",
+    "summary": "Fixed samples, versioned prompts and deterministic scoring make the recorded comparisons reproducible. No model judged another model.",
+    "method_link": "https://github.com/sabers13/which-ai-model/blob/main/METHOD.md",
+    "method_label": "Read the method",
+    "arch_title": "The shape of the system",
+    "stack_title": "Stack",
+    "stack": [
+      "Python 3.12, uv, Ruff, strict mypy, pytest",
+      "LangChain v1 and LangGraph v1 for the shared model layer",
+      "Pydantic schemas for every structured output",
+      "Postgres with pgvector for the docs index",
+      "A local JSONL trace for every model call; no hosted tracing required",
+      "Committed recordings replayed by make all, with no key and no network"
+    ],
+    "data_title": "Data and licences",
+    "data": [
+      "Banking77 (PolyAI) — routing and structured replies, CC-BY-4.0",
+      "CLINC150 plus (clinc_oos) — out-of-scope detection, CC-BY-3.0",
+      "BAAI/bge-small-en-v1.5 — CPU embeddings, MIT",
+      "The project guide in docs/guide — written for this repository, MIT"
+    ],
+    "reproduce_title": "Reproduce it",
+    "reproduce_body": "Clone the repository, run make all, and open dist/which-ai-model/index.html. Replay uses the committed recordings: no API key, no paid call, no network. The live run is the only step that ever spent money.",
+    "reproduce_command": "make all",
+    "results_title": "All results",
+    "results_lead": "Every model on every task, with the primary metric, cost per 1,000 items and median latency.",
+    "results_col_model": "Model",
+    "results_col_metric": "Primary",
+    "results_col_cost": "Cost / 1k",
+    "results_col_latency": "Median",
+    "run_date_label": "Run date",
+    "spend_label": "Recorded spend",
+    "measured_label": "Gateway-measured, four models",
+    "price_note": "Prices as of 29 October 2026."
+  },
+  "footer": {
+    "line": "Independent project by Saber Sojudi. MIT licence. Every number on this page is rebuilt from files under results/.",
+    "portfolio": "Portfolio",
+    "github": "GitHub",
+    "top": "Back to top"
+  },
+  "example": {
+    "item_id": "b77-test-808",
+    "task": "T-ROUTE",
+    "text": "I would appreciate that someone let me know when there is an extra charge for payments. I was checking the app earlier and saying a charge on one of my payments that was additional that no one made me aware of before.",
+    "true_label": "card_payment_fee_charged",
+    "dataset": "Banking77 (PolyAI), CC-BY-4.0",
+    "dataset_url": "https://huggingface.co/datasets/PolyAI/banking77",
+    "sample_source": "data/samples/route.txt"
+  },
+  "line_counts": [
+    {
+      "tool": "L1 router",
+      "before_file": "src/which_ai_model/legacy/l1_router.py",
+      "after_file": "src/which_ai_model/tools/router.py",
+      "before": 77,
+      "after": 97,
+      "source": "results/inventory/migration.json"
+    },
+    {
+      "tool": "L2 reply drafter",
+      "before_file": "src/which_ai_model/legacy/l2_drafter.py",
+      "after_file": "src/which_ai_model/tools/drafter.py",
+      "before": 87,
+      "after": 97,
+      "source": "results/inventory/migration.json"
+    },
+    {
+      "tool": "L3 scope checker",
+      "before_file": "src/which_ai_model/legacy/l3_scope.py",
+      "after_file": "src/which_ai_model/tools/scope.py",
+      "before": 70,
+      "after": 157,
+      "source": "results/inventory/migration.json"
+    },
+    {
+      "tool": "L5 tool agent",
+      "before_file": "src/which_ai_model/legacy/l5_agent.py",
+      "after_file": "src/which_ai_model/tools/agent.py",
+      "before": 124,
+      "after": 271,
+      "source": "results/inventory/migration.json"
+    },
+    {
+      "tool": "Shared plumbing",
+      "before_file": "src/which_ai_model/legacy/_common.py",
+      "after_file": "src/which_ai_model/tools/_template.py",
+      "before": 76,
+      "after": 297,
+      "source": "results/inventory/migration.json"
+    }
+  ],
+  "code": {
+    "before": {
+      "file": "src/which_ai_model/legacy/l1_router.py",
+      "start": 34,
+      "end": 71,
+      "language": "python"
+    },
+    "after": {
+      "file": "src/which_ai_model/tools/router.py",
+      "start": 49,
+      "end": 65,
+      "language": "python"
+    }
+  },
+  "docs_examples": [
+    {
+      "item_id": "t-docs-001",
+      "model": "gpt-6-luna"
+    },
+    {
+      "item_id": "t-docs-002",
+      "model": "gpt-6-luna"
+    },
+    {
+      "item_id": "t-docs-003",
+      "model": "gpt-6-luna"
+    }
+  ]
+}

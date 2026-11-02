@@ -1,0 +1,13 @@
+# Three component groups used by the fixture only.
+
+[[groups]]
+id = "battery_charging"
+description = "Battery, charging and 12-volt power problems"
+
+[[groups]]
+id = "braking_system"
+description = "Brakes, stability control and related warning lights"
+
+[[groups]]
+id = "exterior_lighting"
+description = "Headlights, tail lights, turn signals and other exterior lamps"

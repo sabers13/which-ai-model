@@ -1,0 +1,99 @@
+{
+  "root": "src/which_ai_model/legacy",
+  "summary": {
+    "modules": 9,
+    "sites": 5,
+    "call_style:hand-written tool loop": 1,
+    "call_style:raw HTTP": 1,
+    "call_style:vendor SDK": 3,
+    "provider:anthropic": 1,
+    "provider:gemini": 1,
+    "provider:openai-compatible": 3,
+    "structured_output:none": 3,
+    "structured_output:regex": 1,
+    "structured_output:substring": 1
+  },
+  "sites": [
+    {
+      "path": "src/which_ai_model/legacy/l1_router.py",
+      "line": 57,
+      "tool": "route_message",
+      "provider": "openai-compatible",
+      "call_style": "raw HTTP",
+      "model": "ROUTER_MODEL",
+      "model_source": "env",
+      "credentials": [
+        "ROUTER_KEY"
+      ],
+      "structured_output": "none",
+      "inputs": [
+        "message"
+      ]
+    },
+    {
+      "path": "src/which_ai_model/legacy/l2_drafter.py",
+      "line": 72,
+      "tool": "draft_reply",
+      "provider": "anthropic",
+      "call_style": "vendor SDK",
+      "model": "DRAFTER_MODEL",
+      "model_source": "env",
+      "credentials": [
+        "ANTHROPIC_API_KEY"
+      ],
+      "structured_output": "regex",
+      "inputs": [
+        "message"
+      ]
+    },
+    {
+      "path": "src/which_ai_model/legacy/l3_scope.py",
+      "line": 56,
+      "tool": "check_scope",
+      "provider": "gemini",
+      "call_style": "vendor SDK",
+      "model": "SCOPE_MODEL",
+      "model_source": "env",
+      "credentials": [
+        "GEMINI_API_KEY"
+      ],
+      "structured_output": "substring",
+      "inputs": [
+        "message"
+      ]
+    },
+    {
+      "path": "src/which_ai_model/legacy/l4_docs.py",
+      "line": 72,
+      "tool": "docs_answer",
+      "provider": "openai-compatible",
+      "call_style": "vendor SDK",
+      "model": "DOCS_MODEL",
+      "model_source": "env",
+      "credentials": [
+        "DOCS_KEY"
+      ],
+      "structured_output": "none",
+      "inputs": [
+        "question",
+        "guide_path"
+      ]
+    },
+    {
+      "path": "src/which_ai_model/legacy/l5_agent.py",
+      "line": 73,
+      "tool": "run_agent",
+      "provider": "openai-compatible",
+      "call_style": "hand-written tool loop",
+      "model": "AGENT_MODEL",
+      "model_source": "env",
+      "credentials": [
+        "AGENT_KEY"
+      ],
+      "structured_output": "none",
+      "inputs": [
+        "question"
+      ]
+    }
+  ]
+}

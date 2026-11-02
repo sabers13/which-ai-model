@@ -1,0 +1,14 @@
+# The label ids the model may answer, with one line of meaning each.
+# The loader also accepts a [labels] table of id = "description".
+
+[[groups]]
+id = "billing"
+description = "Invoices, payments, refunds and plan changes"
+
+[[groups]]
+id = "technical"
+description = "Errors, outages, setup and anything that needs a fix"
+
+[[groups]]
+id = "account"
+description = "Sign-in, passwords, profile details and access rights"

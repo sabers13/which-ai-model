@@ -1,0 +1,22 @@
+{
+  "finished_at": "2026-11-01T10:45:47.117683Z",
+  "lock_sha256": "2badd2e193ea4ed83e2c7813f55393b23d745c79a3e948445f2f5f55c97d87e7",
+  "models": [
+    {
+      "connection_id": "opencode-go-responses",
+      "model_id": "gpt-6-luna"
+    }
+  ],
+  "prompt_version": "v1",
+  "run_id": "recheck-demo",
+  "sample_hash": "2d9708cfaef7037d778183410f8085b43ff344be3f1c6cc0b8bda383487bde53",
+  "scorer_version": "v1",
+  "settings": {
+    "gpt-6-luna": {
+      "max_output_tokens": 1024,
+      "reasoning": "none",
+      "temperature": 0.0
+    }
+  },
+  "started_at": "2026-11-01T10:36:22.854456Z"
+}

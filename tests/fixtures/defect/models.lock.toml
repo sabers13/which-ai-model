@@ -1,0 +1,14 @@
+# Two fake models for the tiny committed spec replay fixture.
+[[model]]
+model_id = "fixture-accurate"
+connection_id = "fixture-openai"
+protocol = "OPENAI_COMPATIBLE"
+reasoning = "minimal"
+max_tokens = 1024
+
+[[model]]
+model_id = "fixture-cheap"
+connection_id = "fixture-openai"
+protocol = "OPENAI_COMPATIBLE"
+reasoning = "minimal"
+max_tokens = 1024

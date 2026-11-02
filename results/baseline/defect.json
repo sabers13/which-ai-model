@@ -1,0 +1,61 @@
+{
+  "component_group": {
+    "accuracy": 0.8133333333333334,
+    "accuracy_answered": 0.8133333333333334,
+    "ci": {
+      "accuracy_high": 0.8416666666666667,
+      "accuracy_low": 0.7816666666666666,
+      "macro_f1_high": 0.7327996804844606,
+      "macro_f1_low": 0.6405277173156431
+    },
+    "coverage": 1.0,
+    "macro_f1": 0.6917809095519935,
+    "n": 600
+  },
+  "cost_per_1k_usd": 0.0,
+  "data": {
+    "groups": {
+      "airbags": 111,
+      "battery_charging_12v": 33,
+      "driver_assist_sensors": 185,
+      "ev_high_voltage": 33,
+      "exterior_lighting": 77,
+      "instrument_panel_displays": 53,
+      "power_windows_locks_switches": 32,
+      "wipers_washers": 76
+    },
+    "n_test": 600,
+    "n_train": 20000,
+    "safety_positive": 120,
+    "sample_hash": "fd2768b204382de47fa744a00a11bd428dfe8a5e4f003fe24f05b7669d733cc1",
+    "test_file": "data/defect/test.jsonl",
+    "train_file": "data/defect/train.jsonl.gz"
+  },
+  "description": "TF-IDF word 1-2 grams + LogisticRegression(max_iter=2000)",
+  "model": {
+    "connection_id": "baseline",
+    "model_id": "tfidf-logreg"
+  },
+  "safety_relevant": {
+    "ci": {
+      "precision_high": 0.5898295939450908,
+      "precision_low": 0.4536819924231039,
+      "recall_high": 0.9292188219216995,
+      "recall_low": 0.8136664838239611
+    },
+    "f1": 0.6563467492260062,
+    "keyword_count": 74,
+    "keywords_file": "data/defect/safety_keywords.txt",
+    "n": 600,
+    "precision": 0.5221674876847291,
+    "predicted_positive": 203,
+    "recall": 0.8833333333333333,
+    "rule": "keyword",
+    "support": 120,
+    "true_positive": 106
+  },
+  "schema_valid_rate": 1.0,
+  "schema_version": "1.0.0",
+  "seed": 20261031,
+  "task": "defect"
+}

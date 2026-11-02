@@ -1,0 +1,16 @@
+{
+  "baseline": "results/gate_refused/a",
+  "candidate": "results/gate_refused/b",
+  "description": "Refusal demonstration: two 10-item fixture runs over the same recordings, where the candidate manifest names a different prompt version. The gate refuses before comparing metrics; a refusal is never a pass.",
+  "fixture_items_per_task": 10,
+  "gate": {
+    "baseline": "results/gate_refused/a",
+    "candidate": "results/gate_refused/b",
+    "comparisons": [],
+    "exit_code": 2,
+    "outcome": "REFUSED",
+    "reasons": [
+      "runs are not comparable: prompt_version differs ('v1' vs 'v2-refusal-demo')"
+    ]
+  }
+}

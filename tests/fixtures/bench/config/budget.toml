@@ -1,0 +1,7 @@
+# Replay fixture: no cap, no window ceiling, default pacing.
+[budget]
+window_hours = 5
+
+[limits.opencode-go]
+max_concurrency = 2
+requests_per_minute = 30

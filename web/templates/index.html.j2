@@ -1,0 +1,196 @@
+{% macro t(en, de) -%}<span data-copy-lang="en" lang="en">{{ en }}</span><span data-copy-lang="de" lang="de">{{ de }}</span>{%- endmacro %}
+{% macro icon(name) -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{% if name == 'sun' %}<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+{% elif name == 'moon' %}<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+{% elif name == 'arrow' %}<path d="M5 12h14m-6-6 6 6-6 6"/>
+{% elif name == 'back' %}<path d="M19 12H5m6-6-6 6 6 6"/>
+{% elif name == 'github' %}<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+{% elif name == 'work' %}<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V3h8v4M3 12a24 24 0 0 0 18 0M12 11v4"/>
+{% elif name == 'code' %}<path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-14-2 16"/>
+{% elif name == 'database' %}<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/>
+{% elif name == 'flow' %}<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M9 6h9v9M6 9v9h9"/>
+{% elif name == 'check' %}<path d="m5 12 4 4L19 6"/>
+{% else %}<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>{% endif %}</svg>{%- endmacro %}
+{% set task_de = {'T-ROUTE': ['Nachricht zuordnen', 'Welches Bankanliegen beschreibt die Nachricht?'], 'T-SCOPE': ['Zuständigkeit prüfen', 'Ist das Supportteam für diese Nachricht zuständig?'], 'T-REPLY': ['Antwort entwerfen', 'Anliegen, Dringlichkeit und Antwort im festgelegten Format ausgeben.'], 'T-DOCS': ['Im Leitfaden nachschlagen', 'Eine Frage zum Projekt mit passenden Quellen beantworten.']} %}
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Which model fits each job? A recorded AI benchmark with a task picker, cost comparison and clear limits. A project by Saber Sojudi.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f9fafb">
+<meta property="og:title" content="Which AI Model? — Saber Sojudi">
+<meta property="og:description" content="Compare recorded AI results by task, quality, cost and speed.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://sabersojudi.com/which-ai-model/">
+<title>Which AI Model? — Saber Sojudi</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M8 22V15M16 22V8M24 22V12' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<script>
+(function () {
+  var q = new URLSearchParams(location.search), theme, lang;
+  try { theme = localStorage.getItem('wam-theme'); lang = localStorage.getItem('wam-lang'); } catch (e) {}
+  theme = q.get('theme') || theme;
+  if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  lang = q.get('lang') || lang || ((navigator.language || 'en').startsWith('de') ? 'de' : 'en');
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.lang = lang === 'de' ? 'de' : 'en';
+})();
+</script>
+<link rel="preload" href="assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-Medium-Latin1.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/page.css">
+<script defer src="assets/page.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">{{ t('Skip to the content', 'Zum Inhalt springen') }}</a>
+<header class="site-header"><div class="header-inner">
+  <a class="portfolio-brand" href="https://sabersojudi.com/">Saber Sojudi</a>
+  <nav class="nav" aria-label="Sections" data-label-en="Sections" data-label-de="Abschnitte"><a href="#top" aria-current="location">{{ t('Overview', 'Überblick') }}</a><a href="#picker">{{ t('Compare', 'Vergleich') }}</a><a href="#your-task">{{ t('Your task', 'Eigene Aufgabe') }}</a><a href="#method">{{ t('How it works', 'Funktionsweise') }}</a></nav>
+  <div class="header-right"><a class="project-badge" href="#top">Which AI Model?</a><a class="portfolio-back" href="https://sabersojudi.com/" aria-label="Back to the portfolio" data-label-en="Back to the portfolio" data-label-de="Zurück zum Portfolio">{{ icon('back') }}{{ t('Back', 'Zurück') }}</a></div>
+</div></header>
+<div class="page-shell">
+<aside class="utility-rail" aria-label="Page preferences" data-label-en="Page preferences" data-label-de="Seiteneinstellungen">
+  <div class="seg" role="group" aria-label="Appearance" data-label-en="Appearance" data-label-de="Darstellung"><button type="button" data-theme-set="light" aria-pressed="true" aria-label="Light appearance" data-label-en="Light appearance" data-label-de="Helle Darstellung">{{ icon('sun') }}</button><button type="button" data-theme-set="dark" aria-pressed="false" aria-label="Dark appearance" data-label-en="Dark appearance" data-label-de="Dunkle Darstellung">{{ icon('moon') }}</button></div>
+  <div class="seg" role="group" aria-label="Language" data-label-en="Language" data-label-de="Sprache"><button type="button" data-lang="en" aria-pressed="true" aria-label="English">EN</button><button type="button" data-lang="de" aria-pressed="false" aria-label="Deutsch">DE</button></div>
+</aside>
+<main id="main">
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-grid"><div class="hero-copy">
+    <h1 id="hero-title">Which AI Model?</h1>
+    <p class="project-context">{{ t('AI evaluation & provider portability', 'KI-Vergleich & Anbieterwechsel') }}</p>
+    <p class="lead">{{ t('A cheaper AI model can handle one job well and struggle with another. I built a way to compare models on the same tasks, choose for quality and cost, and check a switch before accepting it.', 'Ein günstigeres KI-Modell kann eine Aufgabe gut lösen und bei einer anderen scheitern. Ich habe ein System gebaut, das Modelle an denselben Aufgaben vergleicht, Qualität und Kosten abwägt und einen Wechsel vor der Freigabe prüft.') }}</p>
+    <p class="hero-question">{{ t('Which model should each tool use?', 'Welches Modell passt zu welcher Aufgabe?') }}</p>
+    <ul class="tags" aria-label="Skills" data-label-en="Skills" data-label-de="Kompetenzen"><li>{{ icon('code') }}Python</li><li>{{ icon('flow') }}LangChain / LangGraph</li><li>{{ icon('database') }}PostgreSQL</li><li>{{ icon('check') }}{{ t('Evaluation', 'Evaluierung') }}</li></ul>
+    <div class="cta"><a class="btn btn-primary" href="#picker">{{ t('Compare models', 'Modelle vergleichen') }}{{ icon('arrow') }}</a><a class="btn project-source" href="https://github.com/sabers13/which-ai-model" target="_blank" rel="noopener">{{ icon('github') }}{{ t('View source', 'Quellcode') }}</a><a class="btn btn-quiet" href="https://sabersojudi.com/#contact">{{ icon('work') }}{{ t('Hire Me', 'Kontakt') }}</a></div>
+    <p class="fine">{{ t('Recorded benchmark, not a live AI service. Public data. Independent project.', 'Aufgezeichneter Vergleich, kein Live-KI-Dienst. Öffentliche Daten. Unabhängiges Projekt.') }} <a href="#limits">{{ t('Read the limits', 'Grenzen des Vergleichs') }}</a></p>
+  </div><aside class="example-card" aria-labelledby="preview-title" data-ui>
+    <div class="card-head"><h2 id="preview-title">{{ t('One message. Different answers.', 'Eine Nachricht. Andere Antworten.') }}</h2><span class="chip">{{ page.example.correct }} / {{ page.example.total }}</span></div>
+    <p class="fine">{{ t('A real English support message', 'Eine echte englische Supportnachricht') }}</p>
+    <blockquote class="message" lang="en">“{{ page.example.text }}”</blockquote>
+    <div class="correct-answer"><span>{{ t('Expected category', 'Erwartete Kategorie') }}</span><strong lang="en">{{ page.example.true_label_display }}</strong></div>
+    <div class="mini-results">{% for row in page.example.rows if row.model in ['gemini-4-argon', 'gpt-6-luna'] %}<div><strong translate="no">{{ row.name }}</strong><span class="{{ 'positive' if row.correct else 'negative' }}">{{ t('Matched' if row.correct else 'Missed', 'Richtig' if row.correct else 'Falsch') }}</span><span class="mini-answer" lang="en">{{ row.answer_display }}</span></div>{% endfor %}</div>
+    <a class="text-link" href="#example">{{ t('See every model’s answer', 'Alle Modellantworten ansehen') }}{{ icon('arrow') }}</a><p class="fine">{{ t('This is one example, not the overall ranking.', 'Dies ist ein Einzelbeispiel, keine Gesamtrangliste.') }}</p>
+  </aside></div>
+  <div class="facts-strip" id="numbers">{% for id, en, de in [('models','models compared','Modelle verglichen'), ('messages-per-model','items per model in the original run','Aufgaben je Modell im ursprünglichen Lauf'), ('tools-moved','tools on one shared foundation','Tools auf einer gemeinsamen Basis'), ('spend','original benchmark spend','Kosten des ursprünglichen Vergleichs')] %}{% set item = page.numbers.cards | selectattr('id','equalto',id) | first %}<div><strong>{{ item.value.display }}</strong><span>{{ t(en,de) }}</span></div>{% endfor %}</div>
+  <p class="fine facts-note">{{ t('Original run:', 'Ursprünglicher Lauf:') }} <time datetime="2026-10-29">{{ t('29 October 2026', '29. Oktober 2026') }}</time>. {{ t('Vehicle complaints use a separate run. Reply items overlap with routing items.', 'Fahrzeugbeschwerden nutzen einen separaten Lauf. Antwort- und Zuordnungsaufgaben überschneiden sich.') }}</p>
+</section>
+
+<section class="section" id="picker" aria-labelledby="picker-title">
+  <div class="section-head">
+    <div><h2 id="picker-title">{{ t('Choose for the job', 'Nach Aufgabe auswählen') }}</h2></div>
+    <p>{{ t('Keep the quality you need. Then choose what matters most: cost, score or speed.', 'Die nötige Qualität beibehalten. Dann nach Kosten, Testwert oder Tempo auswählen.') }}</p>
+  </div>
+  <div class="comparison">
+    <div class="picker-rule" id="picker-rule">
+      <strong>{{ t('Quality comes first', 'Qualität kommt zuerst') }}</strong>
+      <p class="recorded-rule">{{ t('Only models within three points of the best score qualify. The buttons compare those models.', 'Nur Modelle mit höchstens drei Punkten Abstand zum besten Wert kommen infrage. Die Schaltflächen vergleichen diese Auswahl.') }}</p>
+      <p class="explorer-rule">{{ t('Set the minimum test score you accept. Then choose the lowest cost, highest score or fastest model that meets it.', 'Wählen Sie den Mindest-Testwert. Danach das günstigste, beste oder schnellste Modell auswählen, das ihn erreicht.') }}</p>
+    </div>
+    <div class="picker-toolbar">
+      <div class="picker-control"><span class="control-label">{{ t('Priority', 'Priorität') }}</span>
+      <div class="priority-group" role="radiogroup" aria-label="Priority" data-label-en="Priority" data-label-de="Priorität" aria-describedby="picker-rule">
+        {% for id,en,de in [('cheapest','Lowest cost','Geringste Kosten'), ('most_accurate','Highest score','Höchster Wert'), ('fastest','Fastest','Am schnellsten')] %}
+        <button type="button" role="radio" data-pick="{{ id }}" aria-checked="{{ 'true' if loop.first else 'false' }}" tabindex="{{ '0' if loop.first else '-1' }}"><strong>{{ t(en,de) }}</strong></button>
+        {% endfor %}
+      </div></div>
+      <div class="picker-control qualification-control">
+        <span class="control-label" id="qualification-label">{{ t('Minimum score', 'Mindestwert') }}</span>
+        <div class="priority-group threshold-group" role="radiogroup" aria-labelledby="qualification-label" aria-describedby="picker-rule">
+          {% for limit in [65, 75, 85] %}
+          <button type="button" role="radio" data-min-score="{{ limit }}" aria-checked="{{ 'true' if limit == 75 else 'false' }}" tabindex="{{ '0' if limit == 75 else '-1' }}"><strong>{{ limit }}%</strong></button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div id="picks" class="picks" data-mode="cheapest">
+      {% for task in page.tasks %}
+      <article class="task-row" data-ui data-task="{{ task.id }}">
+        <div class="task-description">
+          <h3>{{ t(task.name,task_de[task.id][0]) }}</h3>
+          <p>{{ t(task.question,task_de[task.id][1]) }}</p>
+          {% if task.picks.cheapest.good_enough == 1 %}
+          <p class="qualification-note recorded-note">{{ t('The same choice for every priority. The other models score below the cutoff.', 'Bei jeder Priorität dieselbe Wahl. Die anderen Modelle liegen unter dem Mindestwert.') }}</p>
+          {% endif %}
+          <p class="qualification-note" data-qualification-note hidden></p>
+        </div>
+        {% for priority in page.picker.priorities %}
+        {% set pick = task.picks[priority.id] %}
+        <div class="pick" data-priority="{{ priority.id }}">
+          <span class="nojs-priority">{{ t(priority.label, {'cheapest':'Geringste Kosten', 'most_accurate':'Höchster Wert', 'fastest':'Am schnellsten'}[priority.id]) }}</span>
+          <div class="pick-heading">
+            <p class="pick-name" translate="no">{{ pick.name }}</p>
+            {% if pick.good_enough == 1 %}
+            <span class="qualification-badge">{{ t('Only qualifying model', 'Einziges passendes Modell') }}</span>
+            {% endif %}
+          </div>
+          <dl class="pick-stats">
+            <div><dt>{{ t('Test score', 'Testwert') }} <span class="metric-name">{{ task.metric_label }}</span></dt><dd>{{ pick.metric.display }}</dd></div>
+            <div><dt>{{ t('USD / 1,000 items', 'USD / 1.000 Aufgaben') }}</dt><dd>{{ pick.cost.display }}</dd></div>
+            <div><dt>{{ t('Median time', 'Median der Laufzeit') }}</dt><dd>{{ pick.latency.display }}</dd></div>
+          </dl>
+        </div>
+        {% endfor %}
+        <div class="pick explorer-pick" hidden>
+          <div class="pick-heading"><p class="pick-name" data-selected-model translate="no"></p><span class="qualification-badge" data-qualifying-badge hidden>{{ t('Only qualifying model', 'Einziges passendes Modell') }}</span></div>
+          <dl class="pick-stats">
+            <div><dt>{{ t('Test score', 'Testwert') }} <span class="metric-name">{{ task.metric_label }}</span></dt><dd data-selected-score>—</dd></div>
+            <div><dt>{{ t('USD / 1,000 items', 'USD / 1.000 Aufgaben') }}</dt><dd data-selected-cost>—</dd></div>
+            <div><dt>{{ t('Median time', 'Median der Laufzeit') }}</dt><dd data-selected-latency>—</dd></div>
+          </dl>
+        </div>
+        <p class="empty-pick" data-empty-pick hidden></p>
+      </article>
+      {% else %}<p>{{ t('No recorded results are available.', 'Keine aufgezeichneten Ergebnisse verfügbar.') }}</p>{% endfor %}
+    </div>
+    <p class="sr-only" id="picker-live" aria-live="polite"></p>
+  </div>
+  <script type="application/json" id="picker-data">{{ page.tasks | tojson }}</script>
+  <p class="score-note">{{ t('Each task uses a different test. Compare scores within the same task.', 'Jede Aufgabe nutzt einen anderen Test. Werte nur innerhalb derselben Aufgabe vergleichen.') }}</p>
+  <p class="fine explorer-rule">{{ t('Your limit changes this comparison only. The saved benchmark recommendations still use their original three-point rule.', 'Ihr Mindestwert ändert nur diesen Vergleich. Die gespeicherten Benchmark-Empfehlungen verwenden weiterhin ihre ursprüngliche Drei-Punkte-Regel.') }}</p>
+  <details class="disclosure score-guide">
+    <summary>{{ t('What do the scores mean?', 'Was bedeuten die Testwerte?') }}<span aria-hidden="true">+</span></summary>
+    <div class="disclosure-body">
+      <dl class="score-definitions">
+        <div><dt>{{ t('Route a message', 'Nachricht zuordnen') }}</dt><dd>{{ t('How well it sorts messages into the correct category. Macro-F1 balances false matches and missed matches, giving each category equal weight. It is not the percentage of correct messages.', 'Wie gut Nachrichten der richtigen Kategorie zugeordnet werden. Makro-F1 berücksichtigt falsche und übersehene Zuordnungen und gewichtet jede Kategorie gleich. Der Wert ist nicht der Anteil richtiger Nachrichten.') }}</dd></div>
+        <div><dt>{{ t('Check the scope', 'Zuständigkeit prüfen') }}</dt><dd>{{ t('How well it detects messages outside the support team’s remit. F1 balances wrongly rejecting relevant messages and missing unrelated ones.', 'Wie gut Nachrichten außerhalb der Zuständigkeit erkannt werden. F1 berücksichtigt fälschlich abgewiesene passende Nachrichten und übersehene unpassende Nachrichten.') }}</dd></div>
+        <div><dt>{{ t('Draft a reply', 'Antwort entwerfen') }}</dt><dd>{{ t('The share of valid-format replies that identify the correct customer intent. This does not rate the writing or helpfulness of the reply. Invalid formats are tracked separately.', 'Anteil der Antworten im gültigen Format, die das richtige Kundenanliegen erkennen. Textqualität und Hilfreichkeit werden damit nicht bewertet. Ungültige Formate werden separat erfasst.') }}</dd></div>
+        <div><dt>{{ t('Answer from the guide', 'Im Leitfaden nachschlagen') }}</dt><dd>{{ t('How often a relevant guide passage appears among the first four search results. This measures retrieval, not whether the written answer is correct.', 'Wie oft ein passender Leitfadenabschnitt unter den ersten vier Suchtreffern steht. Das misst die Suche, nicht die Richtigkeit der formulierten Antwort.') }}</dd></div>
+      </dl>
+    </div>
+  </details>
+  <details class="disclosure"><summary>{{ t('All recorded task results', 'Alle aufgezeichneten Ergebnisse') }}<span aria-hidden="true">+</span></summary><div class="disclosure-body">{% for task in page.tasks %}<h3>{{ t(task.name,task_de[task.id][0]) }}</h3><div class="table-wrap" data-ui role="region" tabindex="0" aria-label="{{ task.name }}" data-label-en="{{ task.name }}" data-label-de="{{ task_de[task.id][0] }}"><table><caption>{{ task.metric_label }}</caption><thead><tr><th>{{ t('Model', 'Modell') }}</th><th>{{ t('Score', 'Wert') }}</th><th>{{ t('USD / 1,000', 'USD / 1.000') }}</th><th>{{ t('Median time', 'Median der Laufzeit') }}</th></tr></thead><tbody>{% for row in task.rows %}<tr><th scope="row">{{ row.name }}</th><td>{{ row.metric.display }}</td><td>{{ row.cost.display }}</td><td>{{ row.latency.display }}</td></tr>{% endfor %}</tbody></table></div>{% endfor %}</div></details>
+  <div class="baseline-card" data-ui><div><h3>{{ t('Does it need an AI model?', 'Braucht es ein KI-Modell?') }}</h3><p>{{ t('A simple word-based classifier costs nothing per prediction. Its routing score was close to the best AI result. An AI upgrade needs to justify that difference.', 'Ein einfacher wortbasierter Klassifikator verursacht keine Kosten je Vorhersage. Bei der Zuordnung lag er nah am besten KI-Ergebnis. Ein KI-Einsatz muss diesen Unterschied rechtfertigen.') }}</p></div><dl class="baseline-stats"><div><dt>{{ t('Simple method · routing F1', 'Einfaches Verfahren · Zuordnungs-F1') }}</dt><dd>{{ page.numbers.baseline.route.display }}</dd></div><div><dt>{{ t('Best AI · routing F1', 'Beste KI · Zuordnungs-F1') }}</dt><dd>{{ page.numbers.baseline.best_route.display }}</dd></div></dl></div>
+</section>
+
+<section class="section" id="example" aria-labelledby="example-title">
+  <div class="section-head"><div><h2 id="example-title">{{ t('The answers, side by side', 'Die Antworten im Vergleich') }}</h2></div><p>{{ t('The message from the overview, sent to every model. Categories are the original English outputs.', 'Die Nachricht aus dem Überblick, an jedes Modell gesendet. Die Kategorien sind die englischen Originalausgaben.') }}</p></div>
+  <div class="table-wrap example-table" role="region" tabindex="0" aria-label="Recorded answers" data-label-en="Recorded answers" data-label-de="Aufgezeichnete Antworten" data-ui><div class="example-rows" role="table" aria-label="Each model’s answer" data-label-en="Each model’s answer" data-label-de="Antwort jedes Modells"><div class="example-row head" role="row"><span role="columnheader">{{ t('Model', 'Modell') }}</span><span role="columnheader">{{ t('Category returned', 'Ausgegebene Kategorie') }}</span><span role="columnheader">{{ t('Time', 'Zeit') }}</span><span role="columnheader">USD</span><span role="columnheader">{{ t('Match', 'Treffer') }}</span></div>{% for row in page.example.rows %}<div class="example-row is-{{ 'correct' if row.correct else 'wrong' }}" role="row"><strong role="cell">{{ row.name }}</strong><span role="cell" lang="en">{{ row.answer_display }}</span><span role="cell">{{ row.latency.display }}</span><span role="cell">{{ row.cost.display }}</span><span class="verdict" role="cell" aria-label="{{ 'Correct' if row.correct else 'Wrong' }}" data-label-en="{{ 'Correct' if row.correct else 'Wrong' }}" data-label-de="{{ 'Richtig' if row.correct else 'Falsch' }}">{{ '✓' if row.correct else '✗' }}</span></div>{% endfor %}</div></div>
+  <p class="fine">{{ t('Time and cost are for this single call. Expected category:', 'Zeit und Kosten gelten für diesen einzelnen Aufruf. Erwartete Kategorie:') }} <span lang="en">{{ page.example.true_label_display }}</span>. {{ t('Public message from', 'Öffentliche Nachricht aus') }} <a href="{{ page.example.dataset_url }}" target="_blank" rel="noopener">{{ page.example.dataset }}</a>.</p>
+</section>
+
+<section class="section" id="your-task" aria-labelledby="your-task-title">
+  <div class="section-head"><div><h2 id="your-task-title">{{ t('Bring a different task', 'Eine andere Aufgabe testen') }}</h2></div><p>{{ t('A task definition and labelled data extend the comparison to a new job. I tested that with public vehicle complaints.', 'Eine Aufgabenbeschreibung und Daten mit bekannten Antworten erweitern den Vergleich auf neue Aufgaben. Getestet mit öffentlichen Fahrzeugbeschwerden.') }}</p></div>
+  <div class="extension-grid"><article class="defect-card"><h3>{{ t('Sort complaints. Flag safety reports.', 'Beschwerden ordnen. Risiken markieren.') }}</h3><p>{{ t('Identify the electrical component in a complaint and flag reports of a crash, fire or injury.', 'Das elektrische Bauteil einer Beschwerde zuordnen und Berichte über Unfälle, Feuer oder Verletzungen markieren.') }}</p><dl class="decision-list">{% for pick in page.v11.defect.picks %}<div><dt>{{ t(pick.label, {'cheapest':'Günstig genug', 'most_accurate':'Höchster Wert', 'fastest':'Schnell genug'}[pick.key]) }}</dt><dd translate="no">{{ pick.name }}</dd></div>{% endfor %}</dl><p class="floor-note"><strong>{{ page.v11.defect.floor.value.display }}</strong> {{ t('minimum safety recall: the share of safety-related reports caught. The simple keyword baseline fell below this floor.', 'Mindest-Erkennungsrate: der Anteil erfasster sicherheitsrelevanter Berichte. Das einfache Stichwortverfahren lag darunter.') }}</p></article><aside class="extension-note"><p class="large-number">{{ page.v11.defect.sample.display }}</p><h3>{{ t('public complaints', 'öffentliche Beschwerden') }}</h3><p>{{ t('This sample deliberately includes extra safety cases. It does not represent their natural frequency.', 'Diese Stichprobe enthält gezielt mehr Risikofälle. Ihre natürliche Häufigkeit lässt sich daraus nicht ableiten.') }}</p><p>{{ t('Gemini 4 Argon was scored on 400 items after the budget cut; other models used the full sample. Consider uncertainty before treating small gaps as meaningful.', 'Gemini 4 Argon wurde nach der Budgetkürzung an 400 Fällen bewertet; die übrigen Modelle an der vollen Stichprobe. Kleine Abstände nur unter Berücksichtigung der Unsicherheit bewerten.') }}</p></aside></div>
+  <details class="disclosure"><summary>{{ t('Complaint results and uncertainty', 'Beschwerde-Ergebnisse und Unsicherheit') }}<span aria-hidden="true">+</span></summary><div class="disclosure-body"><p>{{ t('Macro-F1 balances performance across component groups. The interval describes uncertainty. Coverage is the share of complaints the model classified; unclear answers count as wrong.', 'Makro-F1 gewichtet die Leistung über die Bauteilgruppen. Das Intervall beschreibt die Unsicherheit. Abdeckung ist der Anteil zugeordneter Beschwerden; unklare Antworten zählen als falsch.') }}</p><div class="table-wrap" data-ui role="region" tabindex="0" aria-label="Complaint results" data-label-en="Complaint results" data-label-de="Beschwerde-Ergebnisse"><table><caption>{{ t('Vehicle complaint task', 'Aufgabe Fahrzeugbeschwerden') }}</caption><thead><tr><th>{{ t('Model', 'Modell') }}</th><th>{{ t('Macro-F1 with interval', 'Makro-F1 mit Intervall') }}</th><th>{{ t('Coverage', 'Abdeckung') }}</th><th>{{ t('Right when answered', 'Richtig bei Zuordnung') }}</th><th>{{ t('Safety recall', 'Risiko-Erkennungsrate') }}</th><th>{{ t('USD / 1,000', 'USD / 1.000') }}</th><th>{{ t('Median', 'Median') }}</th></tr></thead><tbody>{% for row in page.v11.defect.rows %}<tr><th scope="row">{{ row.name }}</th><td>{{ row.primary.display }}</td><td>{{ row.coverage.display }}</td><td>{{ row.answered.display }}</td><td>{{ row.safety.display }}</td><td>{{ row.cost.display }}</td><td>{{ row.latency.display }}</td></tr>{% endfor %}</tbody></table></div><p class="fine">{{ t('NHTSA ODI complaints. U.S. government work, public domain.', 'NHTSA-ODI-Beschwerden. Werk der US-Regierung, gemeinfrei.') }}</p><a href="downloads/defect.md" download>{{ t('Download the task card (English)', 'Aufgabenkarte herunterladen (Englisch)') }}</a></div></details>
+  <div class="volume-card" data-ui><div class="volume-intro"><div><h3>{{ t('What would that volume cost?', 'Was kostet dieses Volumen?') }}</h3><p>{{ t('Monthly model cost for the complaint task, scaled linearly from the recording. No discounts or hosting costs included.', 'Monatliche Modellkosten für die Beschwerdeaufgabe, linear aus der Aufzeichnung hochgerechnet. Ohne Rabatte oder Hostingkosten.') }}</p></div><div class="volume-control"><label for="volume-items">{{ t('Items per month', 'Aufgaben pro Monat') }}</label><input id="volume-items" name="volume-items" type="number" inputmode="numeric" autocomplete="off" min="1" max="1000000000" step="1" value="{{ page.v11.volume.default_items }}" aria-describedby="volume-hint"><p class="fine" id="volume-hint" aria-live="polite">{{ t('Change the volume to recalculate.', 'Volumen ändern, um neu zu berechnen.') }}</p></div></div><div class="table-wrap" data-ui role="region" tabindex="0" aria-label="Monthly costs" data-label-en="Monthly costs" data-label-de="Monatliche Kosten"><table id="volume-table"><caption>{{ t('Estimated monthly model cost in USD', 'Geschätzte monatliche Modellkosten in USD') }}</caption><thead><tr><th>{{ t('Model', 'Modell') }}</th>{% for header in page.v11.volume.headers %}<th class="fixed-volume">{{ header.display }}</th>{% endfor %}<th class="live-col">{{ t('At your volume', 'Bei Ihrem Volumen') }}</th></tr></thead><tbody>{% for row in page.v11.volume.rows %}<tr data-cost="{{ row.per_1k }}"><th scope="row">{{ row.name }}</th>{% for entry in row.volumes %}<td class="fixed-volume">{{ entry.amount.display }}</td>{% endfor %}<td class="live-col" data-live>—</td></tr>{% endfor %}</tbody></table></div><p class="fine">{{ t('Price table dated 29 October 2026. Historical costs, not current quotes.', 'Preistabelle vom 29. Oktober 2026. Historische Kosten, keine aktuellen Preisangebote.') }} <span id="volume-nojs">{{ t('Fixed volumes remain readable without JavaScript.', 'Feste Volumen bleiben ohne JavaScript lesbar.') }}</span></p></div>
+</section>
+
+<section class="section" id="method" aria-labelledby="method-title">
+  <div class="section-head"><div><h2 id="method-title">{{ t('One foundation. Checked changes.', 'Eine Basis. Geprüfte Wechsel.') }}</h2></div><p>{{ t('The comparison is useful when the tools can switch models. I moved provider-specific wiring into a shared layer.', 'Der Vergleich hilft, wenn die Tools das Modell wechseln können. Ich habe die anbieterabhängige Anbindung in einer gemeinsamen Schicht gebündelt.') }}</p></div>
+  <div class="architecture"><div><strong>{{ t('Different tools', 'Verschiedene Tools') }}</strong><span>{{ t('Route, check scope, draft, look up and call tools', 'Zuordnen, Zuständigkeit prüfen, entwerfen, nachschlagen und Tools aufrufen') }}</span></div><span class="flow-arrow" aria-hidden="true">→</span><div class="architecture-core"><strong>{{ t('Shared model layer', 'Gemeinsame Modellschicht') }}</strong><span>{{ t('Typed answers, costs, traces and replay', 'Strukturierte Antworten, Kosten, Protokolle und Wiedergabe') }}</span></div><span class="flow-arrow" aria-hidden="true">→</span><div><strong>{{ t('Chosen model', 'Gewähltes Modell') }}</strong><span>{{ t('One gateway in the recorded run', 'Ein Gateway im aufgezeichneten Lauf') }}</span></div></div>
+  <p class="fine">{{ t('Four earlier tools were staged for this project. The tool-calling agent was adapted from earlier code. The scanner finds visible call sites, not calls hidden behind shared helpers.', 'Vier frühere Tools wurden für dieses Projekt nachgebaut. Der Agent mit Toolaufrufen stammt aus früherem Code. Der Scanner erkennt sichtbare Aufrufstellen, nicht Aufrufe hinter gemeinsamen Hilfsfunktionen.') }}</p>
+  <div class="gate-grid" id="safety"><div class="gate-copy"><h3>{{ t('Cheap is not enough to pass', 'Günstig allein reicht nicht') }}</h3><p>{{ t('The switch check blocks larger quality losses and malformed answers. It refuses comparisons with incompatible settings.', 'Die Wechselprüfung blockiert größere Qualitätsverluste und fehlerhafte Antwortformate. Sie verweigert Vergleiche mit unvereinbaren Einstellungen.') }}</p><p>{{ t('Maximum quality drop:', 'Maximaler Qualitätsverlust:') }} <strong>{{ page.gate.limit.display }}</strong> {{ t('points. The original benchmark shortlist allows three points.', 'Punkte. Die ursprüngliche Benchmark-Vorauswahl erlaubt drei Punkte.') }}</p></div><div class="gate-outcomes">{% for pair in page.gate.pairs %}<article class="gate-result"><span class="status negative">{{ t('Blocked', 'Blockiert') }}</span><h4>{{ pair.candidate_name }}</h4><p>{{ t('Routing score would fall by', 'Der Zuordnungswert würde um') }} <strong>{{ pair.route_drop.display }}</strong> {{ t('points against', 'Punkte sinken gegenüber') }} {{ pair.baseline_name }}.</p></article>{% endfor %}<article class="gate-result"><span class="status positive">{{ t('Passed on the complaint task', 'Bei der Beschwerdeaufgabe bestanden') }}</span><h4>{{ page.v11.defect.gate_demo.candidate }}</h4><p>{{ t('Group score drop:', 'Verlust beim Gruppenwert:') }} <strong>{{ page.v11.defect.gate_demo.primary_drop.display }}</strong> {{ t('points. Safety recall:', 'Punkte. Risiko-Erkennungsrate:') }} <strong>{{ page.v11.defect.gate_demo.floor.display }}</strong>.</p></article></div></div>
+  <details class="disclosure" id="before-after"><summary>{{ t('Code change and re-check', 'Codeänderung und erneute Prüfung') }}<span aria-hidden="true">+</span></summary><div class="disclosure-body"><div class="code-grid">{% for side,en,de in [('before','Before: provider-specific request','Vorher: anbieterabhängiger Aufruf'),('after','After: shared typed interface','Nachher: gemeinsame typisierte Schnittstelle')] %}<div><h3>{{ t(en,de) }}</h3><pre><code>{{ page.before_after[side].text }}</code></pre></div>{% endfor %}</div><p>{{ t('The foundation adds validation and traceability; fewer lines of code is not the claim.', 'Die Basis ergänzt Validierung und Nachvollziehbarkeit; weniger Codezeilen sind nicht das Ziel.') }}</p><h3>{{ t('When the same model changes', 'Wenn sich dasselbe Modell ändert') }}</h3><p>{{ t('A fresh GPT 6 Luna scope run changed the temperature from the provider default to zero. The comparison was refused until that setting change was explicitly accepted, then passed with a warning.', 'Ein neuer Zuständigkeitslauf mit GPT 6 Luna änderte die Temperatur vom Anbieterstandard auf null. Der Vergleich wurde verweigert, bis die Änderung ausdrücklich bestätigt wurde. Danach bestand er mit einer Warnung.') }}</p><p><strong>{{ page.v11.recheck.demo.refused.outcome }}</strong> → <strong>{{ page.v11.recheck.demo.accepted.outcome }}</strong> · {{ page.v11.recheck.demo.accepted.baseline.display }} → {{ page.v11.recheck.demo.accepted.candidate.display }}.</p><pre><code>{{ page.v11.recheck.steps[1].commands[0].text }}</code></pre></div></details>
+  <details class="disclosure" id="docs"><summary>{{ t('Guide assistant’s recorded answers', 'Aufgezeichnete Antworten des Leitfaden-Assistenten') }}<span aria-hidden="true">+</span></summary><div class="disclosure-body"><p>{{ t('The assistant looks up and cites passages from this project’s guide. These are original English recordings, not live answers. Retrieval success does not establish answer correctness.', 'Der Assistent sucht und zitiert Abschnitte im Projektleitfaden. Dies sind englische Originalaufzeichnungen, keine Live-Antworten. Erfolgreiche Suche belegt nicht die Richtigkeit der Antwort.') }}</p>{% for example in page.docs.examples %}<article class="docs-example"><h3 lang="en">{{ example.question }}</h3><p class="fine">{{ t('Recorded answer by', 'Aufgezeichnete Antwort von') }} {{ example.model_name }}</p><p lang="en">{{ example.answer | inline_code }}</p><details><summary>{{ t('Cited passages (original English)', 'Zitierte Abschnitte (englisches Original)') }}</summary>{% for passage in example.passages %}<blockquote lang="en"><strong>{{ passage.label }}</strong><p>{{ passage.text }}</p></blockquote>{% endfor %}</details></article>{% endfor %}</div></details>
+</section>
+
+<section class="section" id="limits" aria-labelledby="limits-title">
+  <div class="section-head"><div><h2 id="limits-title">{{ t('Evidence, with limits', 'Ergebnisse mit Grenzen') }}</h2></div><p>{{ t('A different task, prompt, language or price needs a new check. This is a dated benchmark, not a production deployment.', 'Andere Aufgaben, Prompts, Sprachen oder Preise erfordern eine neue Prüfung. Dies ist ein datierter Vergleich, kein Produktivsystem.') }}</p></div>
+  <div class="limits-grid"><article><h3>{{ t('One gateway, mixed model tiers', 'Ein Gateway, verschiedene Modellklassen') }}</h3><p>{{ t('All models were reached through OpenCode Go in their lab’s API format. Direct provider endpoints were mock-tested only. Gemini 4 Argon is a flagship; the others are smaller models.', 'Alle Modelle wurden über OpenCode Go im API-Format ihres Anbieters aufgerufen. Direkte Endpunkte wurden nur mit simulierten Antworten getestet. Gemini 4 Argon ist ein Spitzenmodell; die anderen sind kleinere Modelle.') }}</p></article><article><h3>{{ t('Public data and fixed samples', 'Öffentliche Daten, feste Stichproben') }}</h3><p>{{ t('Models may already know the public test messages. Reply and routing samples overlap. The vehicle sample overrepresents safety cases; the flagship used a reduced sample. Absolute scores may be optimistic.', 'Modelle könnten die öffentlichen Testnachrichten kennen. Antwort- und Zuordnungsstichprobe überschneiden sich. Die Fahrzeugstichprobe enthält mehr Risikofälle; das Spitzenmodell nutzte eine kleinere Stichprobe. Absolute Werte können zu optimistisch sein.') }}</p></article><article><h3>{{ t('Historical cost, not a price promise', 'Historische Kosten, kein Preisversprechen') }}</h3><p>{{ t('Gateway measurements supplied cost where available; otherwise the stored token price table was used. Prices can change. The original run cost', 'Soweit verfügbar wurden Gateway-Kosten gemessen, sonst die gespeicherte Token-Preistabelle genutzt. Preise können sich ändern. Der ursprüngliche Lauf kostete') }} <strong>{{ page.technical.spend.display }}</strong>; {{ t('the complaint extension was separate.', 'die Beschwerdeerweiterung lief separat.') }}</p></article><article><h3>{{ t('Settings and scoring matter', 'Einstellungen und Bewertung zählen') }}</h3><p>{{ t('The original run used provider-default temperatures rather than the planned zero. That deviation remains disclosed. Scoring is deterministic; no model judged another. The guide’s search score does not measure answer quality.', 'Der ursprüngliche Lauf nutzte Anbietertemperaturen statt der geplanten null. Diese Abweichung bleibt offengelegt. Die Bewertung ist deterministisch; kein Modell bewertete ein anderes. Der Suchwert des Leitfadens misst nicht die Antwortqualität.') }}</p></article></div>
+  <div class="downloads" id="downloads"><div><h3>{{ t('Take the evidence with you', 'Ergebnisse zum Mitnehmen') }}</h3><p>{{ t('English source documents from this project. This page works offline and makes no model calls.', 'Englische Quelldokumente aus diesem Projekt. Die Seite funktioniert offline und ruft keine Modelle auf.') }}</p></div><div class="download-links"><a href="downloads/SUMMARY.md" download>{{ icon('download') }}{{ t('Benchmark results', 'Vergleichsergebnisse') }}</a><a href="downloads/METHOD.md" download>{{ icon('download') }}{{ t('Method & deviations', 'Methode & Abweichungen') }}</a><a href="downloads/THIRD_PARTY.md" download>{{ icon('download') }}{{ t('Data & licences', 'Daten & Lizenzen') }}</a></div></div>
+  <details class="disclosure"><summary>{{ t('Task cards and source files', 'Aufgabenkarten und Quelldateien') }}<span aria-hidden="true">+</span></summary><div class="disclosure-body"><ul class="task-downloads">{% for card in page.v11.cards.entries %}<li><a href="downloads/{{ 'defect' if card.task == 'T-DEFECT' else card.task }}.md" download>{{ t(card.title, task_de[card.task][0] if card.task in task_de else 'Fahrzeugbeschwerden zuordnen') }}</a> <span class="fine">{{ t('English ·', 'Englisch ·') }} {{ card.sample.display }} {{ t('items', 'Aufgaben') }}</span></li>{% endfor %}</ul><p>{{ t('Each value in the page data names its source file.', 'Jeder Wert in den Seitendaten nennt seine Quelldatei.') }} <a href="data/page-data.json" download>{{ t('Download page data (JSON)', 'Seitendaten herunterladen (JSON)') }}</a></p><ul class="sources">{% for source in page.sources %}<li><code>{{ source }}</code></li>{% endfor %}</ul></div></details>
+</section>
+<footer class="footer"><p>{{ t('An independent project by', 'Ein unabhängiges Projekt von') }} <a href="https://sabersojudi.com/">Saber Sojudi</a>. MIT.</p><div><a href="https://sabersojudi.com/#contact">{{ t('Hire Me', 'Kontakt') }}</a><a href="#top">{{ t('Back to top', 'Nach oben') }}</a></div></footer>
+</main></div>
+</body></html>

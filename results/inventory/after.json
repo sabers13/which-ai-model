@@ -1,0 +1,41 @@
+{
+  "root": "src/which_ai_model/tools",
+  "summary": {
+    "modules": 8,
+    "sites": 2,
+    "call_style:LangChain": 2,
+    "provider:langchain": 2,
+    "structured_output:none": 2
+  },
+  "sites": [
+    {
+      "path": "src/which_ai_model/tools/agent.py",
+      "line": 212,
+      "tool": "arun_agent",
+      "provider": "langchain",
+      "call_style": "LangChain",
+      "model": null,
+      "model_source": null,
+      "credentials": [],
+      "structured_output": "none",
+      "inputs": [
+        "question",
+        "max_turns"
+      ]
+    },
+    {
+      "path": "src/which_ai_model/tools/scope.py",
+      "line": 129,
+      "tool": "check_scope",
+      "provider": "langchain",
+      "call_style": "LangChain",
+      "model": null,
+      "model_source": null,
+      "credentials": [],
+      "structured_output": "none",
+      "inputs": [
+        "message"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "_notice": "Fictional example bank policies for the legacy demo and its tests. Not a real bank.",
+  "policies": {
+    "refunds": "Refunds are returned to the original payment method within five business days once approved.",
+    "lost_card": "Report a lost or stolen card immediately; a replacement is posted within three business days.",
+    "disputes": "Disputed transactions are reviewed within ten business days; provisional credit may apply.",
+    "overdraft": "Accounts do not offer an overdraft facility; a declined payment is not charged.",
+    "international_use": "Cards work abroad; the foreign transaction fee depends on the card type."
+  }
+}

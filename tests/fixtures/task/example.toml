@@ -1,0 +1,45 @@
+id = "example"
+title = "Sort support messages and flag urgent ones"
+description = "Sort a customer message into one queue and say whether it is urgent."
+prompt_version = "e1"
+scorer_version = "s1"
+
+[data]
+file = "tests/fixtures/task/example.jsonl"
+id_field = "id"
+text_field = "text"
+
+[prompt]
+template_file = "tests/fixtures/task/example.prompt.txt"
+
+[[outputs]]
+name = "queue"
+kind = "label"
+labels_file = "tests/fixtures/task/queues.toml"
+allow_unclear = true
+truth_field = "queue"
+
+[[outputs]]
+name = "urgent"
+kind = "bool"
+truth_field = "urgent"
+
+[metrics]
+primary = "queue.macro_f1"
+report = [
+  "queue.accuracy",
+  "queue.coverage",
+  "queue.accuracy_answered",
+  "urgent.recall",
+  "urgent.precision",
+  "schema_valid_rate",
+]
+
+[gate]
+primary_drop_points = 2.0
+schema_valid_floor = 0.98
+
+[[gate.floors]]
+metric = "urgent.recall"
+min = 0.90
+max_drop_points = 2.0

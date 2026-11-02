@@ -1,0 +1,282 @@
+# nhtsa-spec.toml -- binding data specification for the NHTSA ODI snapshot 2026-10-31.
+# Normative file. which-ai-model (T-DEFECT) and field-return-triage copy this file
+# and groups.toml byte for byte. Do not edit a copy per repo.
+#
+# Downstream repos treat their committed derived files as the source of truth.
+# A fresh download whose sha256 differs from the values below is a warning, never
+# a stop, and never silently replaces committed derived files.
+
+schema = "nhtsa-odi-snapshot-spec"
+version = 1
+snapshot = "2026-10-31"
+snapshot_dir = "data/raw/nhtsa-snapshot/2026-10-31"
+
+# --------------------------------------------------------------------------
+# Licence (quoted evidence; full URLs and retrieval date in report.md)
+# --------------------------------------------------------------------------
+[licence]
+status = "us-government-work-public-domain"
+redistribution_allowed = true
+statement_ownership = "Information presented on this web site is considered public information and may be distributed or copied."
+statement_ownership_source = "https://www.nhtsa.gov/about-nhtsa/privacy-policy (section Ownership; retrieved 2026-10-31)"
+statement_catalog = "Public: This dataset is intended for public access and use. License: us-pd"
+statement_catalog_source = "https://catalog.data.gov/dataset/nhtsas-office-of-defects-investigation-odi-complaints and ...-odi-recalls (retrieved 2026-10-31)"
+license_uri = "http://www.usa.gov/publicdomain/label/1.0/"
+privacy_note = "Public-domain status covers the government record. Complaints contain personal data contributed by the public; privacy and publicity rights can still apply. Identity and location columns are dropped and narratives that match a PII pattern are discarded, never committed."
+
+# --------------------------------------------------------------------------
+# Files and checksums
+# --------------------------------------------------------------------------
+[[files.entry]]
+name = "COMPLAINTS_RECEIVED_2020-2024.zip"
+url = "https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2020-2024.zip"
+sha256 = "c11743646e7d6dd2466ce11667dcee9450ef9763bc7a0c9175d1c891b1fa33bb"
+size_bytes = 75874096
+last_modified = "Fri, 30 Oct 2026 09:23:42 GMT"
+downloaded_at = "2026-10-31T09:16:04Z"
+role = "complaints"
+
+[[files.entry]]
+name = "COMPLAINTS_RECEIVED_2025-2026.zip"
+url = "https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2025-2026.zip"
+sha256 = "dd92183e9b12bbf3e474e440c0951dd15810f0e1f1ee01dfcf41b064d21fb423"
+size_bytes = 42975218
+last_modified = "Fri, 30 Oct 2026 09:24:41 GMT"
+downloaded_at = "2026-10-31T09:16:08Z"
+role = "complaints"
+
+[[files.entry]]
+name = "FLAT_RCL_POST_2010.zip"
+url = "https://static.nhtsa.gov/odi/ffdd/rcl/FLAT_RCL_POST_2010.zip"
+sha256 = "5d8cc101ff4c191d87234bbac807c73b92348a3a48fca9a2281436d704c99c56"
+size_bytes = 14990524
+last_modified = "Fri, 30 Oct 2026 07:04:17 GMT"
+downloaded_at = "2026-10-31T09:16:09Z"
+role = "recalls"
+
+[[files.entry]]
+name = "CMPL.txt"
+url = "https://static.nhtsa.gov/odi/ffdd/cmpl/CMPL.txt"
+sha256 = "84585b4ded99b0c45abc4a5dc86f85332ba0a6969d2d7d9b1247f10fc53e8f45"
+size_bytes = 9982
+last_modified = "Fri, 01 May 2026 13:46:45 GMT"
+downloaded_at = "2026-10-31T09:16:09Z"
+role = "complaint-field-layout"
+
+[[files.entry]]
+name = "RCL.txt"
+url = "https://static.nhtsa.gov/odi/ffdd/rcl/RCL.txt"
+sha256 = "3438cc7e4131efa401dfe6437dbe035607e092c129155dfb411d459d58802203"
+size_bytes = 3053
+last_modified = "Sat, 31 Oct 2026 07:04:34 GMT"
+downloaded_at = "2026-10-31T09:16:09Z"
+role = "recall-field-layout"
+
+[files.checksums_file]
+name = "SHA256SUMS"
+algorithm = "sha256"
+
+# --------------------------------------------------------------------------
+# Parsing
+# --------------------------------------------------------------------------
+[parse]
+encoding = "utf-8"
+byte_order_mark = false
+header_row = false
+delimiter = "\t"
+date_format = "YYYYMMDD"
+complaint_field_count = 51
+recall_field_count = 29
+complaint_line_ending = "LF"
+recall_line_ending = "CRLF"
+complaint_file_has_no_embedded_newlines = true
+
+[[parse.archive]]
+file = "COMPLAINTS_RECEIVED_2020-2024.zip"
+member = "COMPLAINTS_RECEIVED_2020-2024.txt"
+
+[[parse.archive]]
+file = "COMPLAINTS_RECEIVED_2025-2026.zip"
+member = "COMPLAINTS_RECEIVED_2025-2026.txt"
+
+[[parse.archive]]
+file = "FLAT_RCL_POST_2010.zip"
+member = "FLAT_RCL_POST_2010.txt"
+
+# --------------------------------------------------------------------------
+# Columns
+# --------------------------------------------------------------------------
+[columns]
+complaint_kept = [
+  "ODINO", "MAKETXT", "MODELTXT", "YEARTXT", "LDATE", "FAILDATE", "MILES",
+  "CRASH", "FIRE", "INJURED", "DEATHS", "COMPDESC", "CDESCR",
+]
+complaint_dropped = [
+  "CMPLID", "MFR_NAME", "DATEA", "OCCURENCES", "CMPL_TYPE", "POLICE_RPT_YN",
+  "PURCH_DT", "ORIG_OWNER_YN", "ANTI_BRAKES_YN", "CRUISE_CONT_YN", "NUM_CYLS",
+  "DRIVE_TRAIN", "FUEL_SYS", "FUEL_TYPE", "TRANS_TYPE", "VEH_SPEED", "DOT",
+  "TIRE_SIZE", "LOC_OF_TIRE", "TIRE_FAIL_TYPE", "ORIG_EQUIP_YN", "MANUF_DT",
+  "SEAT_TYPE", "RESTRAINT_TYPE", "REPAIRED_YN", "MEDICAL_ATTN",
+  "VEHICLES_TOWED_YN", "PROD_TYPE",
+]
+identity_location_dropped = [
+  "CITY", "STATE", "VIN", "STATE_OF_INCIDENT", "VEHICLE_OPERATOR",
+  "DEALER_NAME", "DEALER_TEL", "DEALER_CITY", "DEALER_STATE", "DEALER_ZIP",
+]
+identity_location_note = "These fields are dropped from every derived file. VEHICLE_OPERATOR was added to the complaint layout on 2026-04-30 and is a person name; VIN is stored truncated to 11 characters but is still an identifier; dealer fields carry business names, telephone numbers and addresses."
+recall_kept = ["CAMPNO", "MAKETXT", "MODELTXT", "YEARTXT", "COMPNAME", "RCDATE"]
+recall_dropped = [
+  "RECORD_ID", "MFGCAMPNO", "MFGNAME", "BGMAN", "ENDMAN", "RCLTYPECD",
+  "POTAFF", "ODATE", "INFLUENCED_BY", "MFGTXT", "DATEA", "RPNO", "FMVSS",
+  "DESC_DEFECT", "CONEQUENCE_DEFECT", "CORRECTIVE_ACTION", "NOTES",
+  "RCL_CMPT_ID", "MFR_COMP_NAME", "MFR_COMP_DESC", "MFR_COMP_PTNO",
+  "DO_NOT_DRIVE", "PARK_OUTSIDE",
+]
+
+[columns.normalisation]
+make = "strip, uppercase"
+model = "strip, uppercase"
+year = "strip; keep the string; 9999 means unknown and must not be cast to an integer"
+odino = "keep as a string; one ODINO is one complaint and may span several component rows"
+mileage = "MILES is an integer; blank means unknown and is stored as null; 0 is kept but is usually unknown"
+dates = "LDATE and FAILDATE are YYYYMMDD strings; do not parse to a timezone-bearing datetime"
+
+# --------------------------------------------------------------------------
+# Filters and labels
+# --------------------------------------------------------------------------
+[filters]
+product_type = "V"
+product_type_note = "Only vehicle rows (PROD_TYPE == 'V') are used. Tire, equipment and child-restraint rows are out of scope for these vehicle component groups."
+single_group_rule = "A complaint counts only when every one of its component rows maps to one and the same group. If any row is unmapped, or the mapped rows name more than one group, the complaint is excluded."
+minimum_narrative_chars = 80
+minimum_narrative_measure = "length of CDESCR after trimming leading and trailing whitespace"
+case_handling = "Keep the narrative exactly as published apart from trimming. Do not uppercase or lowercase it. In this snapshot only 2020 (99.9%) and part of 2021 (44.1%) are upper case; from 2022 on about 1-2% are."
+pii_action = "drop-the-whole-narrative"
+pii_note = "Never redact in place. A narrative that matches any pattern below is discarded before any derived file is written."
+
+[pii.patterns]
+vin17 = '\b[A-HJ-NPR-Z0-9]{17}\b'
+email = '[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}'
+phone_us = '(?<!\d)(?:\+?1[\s.\-]?)?(?:\(\d{3}\)\s?|\d{3}[\s.\-])\d{3}[\s.\-]\d{4}(?!\d)'
+street = '\b\d{1,6}\s+(?:[A-Z][A-Za-z.\-]*\s+){1,4}(?:STREET|ST|AVENUE|AVE|ROAD|RD|BOULEVARD|BLVD|DRIVE|DR|LANE|LN|COURT|CT|PLACE|PL|WAY|HIGHWAY|HWY|PARKWAY|PKWY|CIRCLE|CIR|TERRACE|TER|TRAIL|TRL|ALLEY|PLAZA|SQUARE|SQ)\b'
+
+[safety]
+rule = "crash == 'Y' or fire == 'Y' or injured > 0 or deaths > 0"
+fields = ["CRASH", "FIRE", "INJURED", "DEATHS"]
+note = "INJURED and DEATHS are counts. Since the 2021 flat-file change, blank Y/N values are published as N and blank counts as 0."
+
+# --------------------------------------------------------------------------
+# Component groups
+# --------------------------------------------------------------------------
+[groups]
+file = "groups.toml"
+count = 8
+matching = "Normalise the component value (trim, uppercase, collapse whitespace, remove spaces around ':'); a prefix matches when the value equals it or starts with prefix + ':'; the longest matching prefix wins; no match means unmapped."
+[groups.merge_policy]
+rule = "Keep a candidate group only when the filtered 2025-2026 test pool has at least 60 items and the filtered 2020-2024 train pool has at least 100 items; otherwise merge it into its nearest neighbour."
+rationale = "The brief's 300/1000 floors leave only 4 groups on this data, below the required 8-12. 60/100 is the smallest floor that keeps a group able to supply 30 items in one half of the test pool; it keeps exactly 8 groups."
+brief_floor_result = "With the brief's 300/1000 floors only airbags, driver_assist_sensors, wipers_washers and exterior_lighting survive."
+merged = [
+  { id = "wiring_connectors", into = "battery_charging_12v", reason = "electrical distribution and battery cables" },
+  { id = "control_units_software", into = "instrument_panel_displays", reason = "cabin electronics modules and software" },
+]
+
+[groups.excluded_families]
+note = "Top-level component families with no prefix in groups.toml. They are excluded from every derived file. Row counts are for all vehicle complaint rows in the snapshot."
+families = [
+  "ENGINE", "POWER TRAIN", "STEERING", "SERVICE BRAKES", "FUEL/PROPULSION SYSTEM",
+  "STRUCTURE", "SUSPENSION", "ENGINE AND ENGINE COOLING", "SERVICE BRAKES, HYDRAULIC",
+  "SERVICE BRAKES, AIR", "SEAT BELTS", "SEATS", "WHEELS", "TIRES",
+  "FUEL SYSTEM, GASOLINE", "FUEL SYSTEM, DIESEL", "FUEL SYSTEM, OTHER",
+  "VISIBILITY (other than wipers)", "ELECTRONIC STABILITY CONTROL (ESC)",
+  "TRACTION CONTROL SYSTEM", "LATCHES/LOCKS/LINKAGES (other than power locks)",
+  "VEHICLE SPEED CONTROL", "PARKING BRAKE", "TRAILER HITCHES", "EQUIPMENT",
+  "EQUIPMENT ADAPTIVE/MOBILITY", "CHILD SEAT", "COMMUNICATION", "ROLLOVER",
+  "UNKNOWN OR OTHER", "NONE", "ELECTRICAL SYSTEM (the bare top-level bucket)", "INTERIOR LIGHTING",
+]
+
+# --------------------------------------------------------------------------
+# Derived item schema (both repos carry these fields)
+# --------------------------------------------------------------------------
+[derived]
+id_field = "id"
+id_source = "ODINO"
+fields = [
+  "id", "make", "model", "year", "received", "failure_date", "mileage",
+  "crash", "fire", "injured", "deaths", "component_description",
+  "component_group", "safety_relevant", "narrative", "period", "split_half",
+]
+note = "split_half is null for train items and wam or frt for test items. component_description is kept for audit and may be omitted from a model-facing sample; the narrative and the labels must be kept."
+
+# --------------------------------------------------------------------------
+# Splits and sampling
+# --------------------------------------------------------------------------
+[split]
+train_start = "2020-01-01"
+train_end = "2024-12-31"
+test_start = "2025-01-01"
+test_end = "2026-10-31"
+train_field = "LDATE"
+test_field = "LDATE"
+halving_rule = 'int(hexdigest(sha256("20261031:" + ODINO)), 16) % 2'
+halving_key_prefix = "20261031:"
+half_0 = "wam"
+half_1 = "frt"
+disjointness = "The halves are disjoint by construction and independent of file order. The train/library window is shared; only test items are split."
+
+[sampling]
+seed = 20261031
+order_key = 'full lowercase hex sha256("20261031:" + ODINO)'
+algorithm = """
+For each group, the quota starts at min(min_per_group, pool_size). The remaining
+items are shared between groups in proportion to pool size by the largest-remainder
+method, capped at pool size. Within a group, items are sorted by order_key and the
+first quota are taken. If the sample then has fewer than min_safety safety_relevant
+items, repeatedly take the group with the most unselected safety items, and swap in
+its smallest-hash unselected safety item for the largest-hash selected non-safety
+item of that group, until min_safety is met or no swap is possible. The procedure is
+deterministic and depends only on ODINO, the group and the safety flag.
+"""
+stratify_by = "component_group"
+
+[sampling.wam]
+pool = "test half 0"
+n = 600
+min_per_group = 30
+min_safety = 120
+consumer = "which-ai-model T-DEFECT"
+
+[sampling.frt]
+pool = "test half 1"
+n = 400
+min_per_group = 20
+min_safety = 80
+consumer = "field-return-triage evaluation"
+
+[sampling.train]
+max_items = 20000
+stratify_by = "component_group"
+consumer = "which-ai-model baseline train and field-return-triage library"
+
+# --------------------------------------------------------------------------
+# Recall mapping and trend table
+# --------------------------------------------------------------------------
+[recalls]
+file = "FLAT_RCL_POST_2010.zip"
+layout = "RCL.txt"
+component_field = "COMPNAME"
+group_rule = "Same groups.toml and same normalisation and prefix rule as complaints."
+date_field = "RCDATE"
+join_key = ["MAKETXT", "MODELTXT", "YEARTXT", "component_group"]
+join_normalisation = "strip and uppercase MAKETXT and MODELTXT; keep YEARTXT as a string; 9999 never joins."
+kept_fields = ["CAMPNO", "MAKETXT", "MODELTXT", "YEARTXT", "COMPNAME", "RCDATE"]
+product_type = "V"
+
+[trend]
+file = "weekly.csv.gz"
+grain = "ISO week x make x model x model year x component group"
+period = "2020-01-01 to snapshot date"
+value = "count of single-group complaints by LDATE"
+filters = "single-group rule only; no narrative length or PII filter applies to counts-only tables"
+recall_file = "recalls.csv"
+recall_fields = ["CAMPNO", "MAKETXT", "MODELTXT", "YEARTXT", "component_group", "RCDATE"]

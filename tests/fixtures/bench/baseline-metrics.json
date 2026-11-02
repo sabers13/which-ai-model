@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "model": {"connection_id": "baseline", "model_id": "tfidf-logreg"},
+  "description": "fixture baseline row",
+  "route": {"n": 16, "accuracy": 0.5, "macro_f1": 0.5},
+  "scope": {"n": 4, "precision": 0.5, "recall": 0.5, "f1": 0.5, "accuracy": 0.5}
+}

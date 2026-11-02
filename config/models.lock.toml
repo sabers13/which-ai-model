@@ -1,0 +1,121 @@
+# The seven locked benchmark models, each reached through OpenCode Go in its
+# listed native API format. Reasoning uses the lowest supported setting;
+# an empty value means the gateway rejects the parameter (MiMo).
+# Every model allows at least 1,024 output tokens.
+# DeepSeek runs first. The recorded initial run used an off-peak window.
+# Discovery on 2026-10-29 is recorded in results/doctor.json.
+
+[meta]
+locked_at = "2026-10-29T04:31:18Z"
+source_url = "https://opencode.ai/docs/go/"
+doctor_snapshot = "results/doctor.json"
+gateway = "OpenCode Go"
+protocol_fallbacks_allowed = "recorded before the first benchmark call"
+
+[[model]]
+model_id = "deepseek-v4.1-flash"
+display_name = "DeepSeek V4.1 Flash"
+lab = "DeepSeek"
+tier = "small"
+connection_id = "opencode-go-openai"
+protocol = "OPENAI_COMPATIBLE"
+native_format = true
+gateway_endpoint = "https://opencode.ai/inference/go/openai/v1/chat/completions"
+reasoning = "minimal"
+reasoning_note = "Chat Completions reasoning_effort = minimal; the run is scheduled Off-Peak only"
+max_tokens = 1024
+discovered_at = "2026-10-29T04:31:18Z"
+verified_live_at = "2026-10-29T04:36:00Z"
+
+[[model]]
+model_id = "claude-haiku-5-5"
+display_name = "Claude Haiku 5.5"
+lab = "Anthropic"
+tier = "small"
+connection_id = "opencode-go-anthropic"
+protocol = "ANTHROPIC"
+native_format = true
+gateway_endpoint = "https://opencode.ai/inference/go/anthropic/v1/messages"
+reasoning = ""
+reasoning_note = "no thinking parameter is sent; the API default (extended thinking off) is the lowest setting"
+# 2026-11-01: the gateway now rejects `temperature` for this model (HTTP 400,
+# "`temperature` is deprecated for this model"), so no parameter is sent and the run
+temperature = "provider-default"
+max_tokens = 1024
+discovered_at = "2026-10-29T04:31:18Z"
+verified_live_at = "2026-10-29T04:36:00Z"
+
+[[model]]
+model_id = "gpt-6-luna"
+display_name = "GPT 6 Luna"
+lab = "OpenAI"
+tier = "small"
+connection_id = "opencode-go-responses"
+protocol = "OPENAI_RESPONSES"
+native_format = true
+gateway_endpoint = "https://opencode.ai/inference/go/openai/v1/responses"
+reasoning = "none"
+reasoning_note = "Responses API reasoning.effort = none (the gateway rejects minimal; none is the lowest it accepts)"
+max_tokens = 1024
+discovered_at = "2026-10-29T04:31:18Z"
+verified_live_at = "2026-10-29T04:36:00Z"
+
+[[model]]
+model_id = "gemini-4-argon"
+display_name = "Gemini 4 Argon"
+lab = "Google"
+tier = "flagship"
+connection_id = "opencode-go-google"
+protocol = "GEMINI"
+native_format = true
+gateway_endpoint = "https://opencode.ai/inference/go/google/v1beta/models/gemini-4-argon"
+reasoning = "low"
+reasoning_note = "GenerateContent thinking_level = low (the gateway rejects minimal; low is the API minimum; thinking tokens are billed)"
+max_tokens = 1024
+discovered_at = "2026-10-29T04:31:18Z"
+verified_live_at = "2026-10-29T04:36:00Z"
+
+[[model]]
+model_id = "muse-spark-1.3-contributor"
+display_name = "Muse Spark 1.3 Contributor"
+lab = "Muse"
+tier = "small"
+connection_id = "opencode-go-responses"
+protocol = "OPENAI_RESPONSES"
+native_format = true
+gateway_endpoint = "https://opencode.ai/inference/go/openai/v1/responses"
+reasoning = "minimal"
+reasoning_note = "Responses API reasoning.effort = minimal (accepted by Muse; lowest non-off setting)"
+max_tokens = 1024
+discovered_at = "2026-10-29T04:31:18Z"
+verified_live_at = "2026-10-29T04:36:00Z"
+
+[[model]]
+model_id = "mimo-v2.6-flash"
+display_name = "MiMo-V2.6-Flash"
+lab = "Xiaomi"
+tier = "small"
+connection_id = "opencode-go-openai"
+protocol = "OPENAI_COMPATIBLE"
+native_format = true
+gateway_endpoint = "https://opencode.ai/inference/go/openai/v1/chat/completions"
+reasoning = ""
+reasoning_note = "no reasoning parameter: MiMo rejects reasoning_effort (HTTP 400 Param Incorrect)"
+max_tokens = 1024
+discovered_at = "2026-10-29T04:31:18Z"
+verified_live_at = "2026-10-29T04:36:00Z"
+
+[[model]]
+model_id = "glm-5.3-flash"
+display_name = "GLM-5.3-Flash"
+lab = "Zhipu (Z.ai)"
+tier = "small"
+connection_id = "opencode-go-openai"
+protocol = "OPENAI_COMPATIBLE"
+native_format = true
+gateway_endpoint = "https://opencode.ai/inference/go/openai/v1/chat/completions"
+reasoning = "low"
+reasoning_note = "Chat Completions reasoning_effort = low (the model always thinks; it rejects minimal and none)"
+max_tokens = 1024
+discovered_at = "2026-10-29T04:31:18Z"
+verified_live_at = "2026-10-29T04:36:00Z"

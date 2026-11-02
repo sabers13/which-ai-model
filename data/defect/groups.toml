@@ -1,0 +1,95 @@
+# groups.toml -- component groups for NHTSA ODI complaints and recalls.
+# Normative file, snapshot 2026-10-31. Copy byte for byte; do not edit per repo.
+#
+# Matching rule (normative):
+#   1. Normalise the component value: trim, uppercase, collapse runs of
+#      whitespace to one space, remove whitespace around ":".
+#   2. Apply the group whose prefix is the longest match. A prefix matches when
+#      the normalised value equals it or starts with prefix + ":".
+#   3. A value that matches no prefix is UNMAPPED and never receives a group.
+#
+# The list holds 8 groups. Two of the scout's ten seed groups were merged
+# because they cannot support the sample floor of 30 items per group in the
+# 2025-2026 wam half (see report.md, "Component groups"):
+#   wiring_connectors      -> battery_charging_12v
+#   control_units_software -> instrument_panel_displays
+
+version = 1
+snapshot = "2026-10-31"
+
+[[group]]
+id = "battery_charging_12v"
+description = "12 V battery, charging and starting: battery, alternator/generator/regulator, starter, battery cables, wiring and connectors."
+prefixes = [
+  "ELECTRICAL SYSTEM:12V/24V/48V BATTERY",
+  "ELECTRICAL SYSTEM:ALTERNATOR/GENERATOR/REGULATOR",
+  "ELECTRICAL SYSTEM:STARTER ASSEMBLY",
+  "ELECTRICAL SYSTEM:WIRING",
+  "ELECTRICAL SYSTEM:SEAT HEATER:WIRING HARNESS",
+  "ELECTRICAL SYSTEM:HAND HEATER:WIRING HARNESS",
+]
+
+[[group]]
+id = "ev_high_voltage"
+description = "High-voltage electric and hybrid propulsion: traction battery, charging, inverter, DC/DC converter and hybrid management."
+prefixes = [
+  "ELECTRICAL SYSTEM:PROPULSION SYSTEM",
+  "HYBRID PROPULSION SYSTEM",
+]
+
+[[group]]
+id = "instrument_panel_displays"
+description = "Instrument panel, gauges, infotainment and navigation displays, body control modules and software."
+prefixes = [
+  "ELECTRICAL SYSTEM:INSTRUMENT PANEL",
+  "ELECTRICAL SYSTEM:INSTRUMENT CLUSTER/PANEL",
+  "EQUIPMENT:ELECTRICAL:INFOTAINMENT",
+  "EQUIPMENT:ELECTRICAL:NAVIGATIONAL SYSTEM",
+  "ELECTRICAL SYSTEM:SOFTWARE",
+  "ELECTRICAL SYSTEM:BODY CONTROL MODULE",
+  "ELECTRICAL SYSTEM:CYBERSECURITY",
+  "ELECTRICAL SYSTEM:IGNITION:MODULE",
+]
+
+[[group]]
+id = "exterior_lighting"
+description = "Exterior lamps: headlights, tail lights, brake lights, turn signals, hazard and back-up lights."
+prefixes = [
+  "EXTERIOR LIGHTING",
+]
+
+[[group]]
+id = "wipers_washers"
+description = "Windshield and rear-window wipers, washers and their linkages."
+prefixes = [
+  "VISIBILITY/WIPER",
+  "VISIBILITY:WINDSHIELD WIPER/WASHER",
+  "VISIBILITY:REAR WINDOW WIPER/WASHER",
+]
+
+[[group]]
+id = "power_windows_locks_switches"
+description = "Power windows, power door locks and actuators, and cabin switches and buttons."
+prefixes = [
+  "VISIBILITY:POWER WINDOW DEVICES AND CONTROLS",
+  "LATCHES/LOCKS/LINKAGES:DOORS:LOCK",
+  "LATCHES/LOCKS/LINKAGES:ELECTRONIC LOCK/LATCH ACTUATOR",
+  "ELECTRICAL SYSTEM:WIRING:SWITCHES/KNOBS/BUTTONS",
+]
+
+[[group]]
+id = "driver_assist_sensors"
+description = "Forward-collision, lane-departure and back-over prevention sensors, cameras, radar, warnings and ADAS software."
+prefixes = [
+  "FORWARD COLLISION AVOIDANCE",
+  "LANE DEPARTURE",
+  "BACK OVER PREVENTION",
+  "ELECTRICAL SYSTEM:ADAS",
+]
+
+[[group]]
+id = "airbags"
+description = "Airbag sensors, restraint control modules, inflators and airbag warning electronics."
+prefixes = [
+  "AIR BAGS",
+]

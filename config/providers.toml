@@ -1,0 +1,72 @@
+# Connections only. Never put a key value here; use credential_ref = env:NAME.
+
+[[connection]]
+id = "opencode-go-openai"
+provider = "opencode-go"
+protocol = "OPENAI_COMPATIBLE"
+base_url = "https://opencode.ai/inference/go/openai/v1"
+credential_ref = "env:OPENCODE_GO_API_KEY"
+preset = "opencode-go"
+
+[[connection]]
+id = "opencode-go-responses"
+provider = "opencode-go"
+protocol = "OPENAI_RESPONSES"
+base_url = "https://opencode.ai/inference/go/openai/v1"
+credential_ref = "env:OPENCODE_GO_API_KEY"
+preset = "opencode-go"
+
+[[connection]]
+id = "opencode-go-anthropic"
+provider = "opencode-go"
+protocol = "ANTHROPIC"
+base_url = "https://opencode.ai/inference/go/anthropic"
+credential_ref = "env:OPENCODE_GO_API_KEY"
+preset = "opencode-go"
+
+[[connection]]
+id = "opencode-go-google"
+provider = "opencode-go"
+protocol = "GEMINI"
+base_url = "https://opencode.ai/inference/go/google/"
+credential_ref = "env:OPENCODE_GO_API_KEY"
+preset = "opencode-go"
+
+[[connection]]
+id = "openai"
+provider = "openai"
+protocol = "OPENAI_COMPATIBLE"
+base_url = "https://api.openai.com/v1"
+credential_ref = "env:OPENAI_API_KEY"
+preset = "openai"
+
+[[connection]]
+id = "anthropic"
+provider = "anthropic"
+protocol = "ANTHROPIC"
+base_url = "https://api.anthropic.com"
+credential_ref = "env:ANTHROPIC_API_KEY"
+preset = "anthropic"
+
+[[connection]]
+id = "gemini"
+provider = "google"
+protocol = "GEMINI"
+base_url = "https://generativelanguage.googleapis.com"
+credential_ref = "env:GEMINI_API_KEY"
+preset = "gemini"
+
+[[connection]]
+id = "openrouter"
+provider = "openrouter"
+protocol = "OPENAI_COMPATIBLE"
+base_url = "https://openrouter.ai/api/v1"
+credential_ref = "env:OPENROUTER_API_KEY"
+preset = "openrouter"
+
+[[connection]]
+id = "custom"
+provider = "custom"
+protocol = "OPENAI_COMPATIBLE"
+credential_ref = "env:CUSTOM_API_KEY"
+preset = "custom"

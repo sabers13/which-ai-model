@@ -1,0 +1,10 @@
+[budget]
+window_hours = 5
+
+[limits.opencode-go]
+max_concurrency = 1
+requests_per_minute = 600
+
+[limits.fixture-openai]
+max_concurrency = 1
+requests_per_minute = 600

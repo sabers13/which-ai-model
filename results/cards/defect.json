@@ -1,0 +1,315 @@
+{
+  "baseline": {
+    "cost_per_1k": 0.0,
+    "is_baseline": true,
+    "latency_p50": null,
+    "metrics": {
+      "component_group.accuracy": 0.8133333333333334,
+      "component_group.accuracy_answered": 0.8133333333333334,
+      "component_group.coverage": 1.0,
+      "component_group.macro_f1": 0.6917809095519935,
+      "safety_relevant.f1": 0.6563467492260062,
+      "safety_relevant.precision": 0.5221674876847291,
+      "safety_relevant.recall": 0.8833333333333333,
+      "schema_valid_rate": 1.0
+    },
+    "model_id": "tfidf-logreg + keyword rule",
+    "primary_ci": [
+      0.6405277173156431,
+      0.7327996804844606
+    ],
+    "primary_metric": 0.6917809095519935
+  },
+  "cheapest": "muse-spark-1.3-contributor",
+  "data_source": "NHTSA ODI vehicle owner complaints (2020-2024 and 2025-2026 received-date flat files), sampled into data/defect/test.jsonl",
+  "fastest": "glm-5.3-flash",
+  "gate": {
+    "floors": [
+      {
+        "max_drop_points": 2.0,
+        "metric": "safety_relevant.recall",
+        "min": 0.9
+      }
+    ],
+    "primary_drop_points": 2.0,
+    "schema_valid_floor": 0.98
+  },
+  "job": "Sort a vehicle owner's electrical complaint into a component group and say whether it describes a crash, a fire or an injury.",
+  "licence": "U.S. government work, public domain",
+  "limits": [
+    "The sample oversamples safety-relevant complaints; the natural rate and the PII drops are in data/defect/STATS.md.",
+    "A model below the safety-recall floor is never recommended, whatever its group accuracy.",
+    "One fixed English-language sample; another fleet, period or language needs its own run.",
+    "Scored on a reduced sample after the §A10 budget cut: gemini-4-argon on 400 of 600 items; its interval is wider, so compare intervals before treating a gap as real.",
+    "One fixed sample; a different domain, language or message mix needs its own run.",
+    "Cost is linear from the measured cost per 1,000 items; the price date is in config/prices.toml.",
+    "Point estimates carry 95% intervals; compare intervals before treating a small gap as real."
+  ],
+  "models": [
+    {
+      "cost_per_1k": 1.3065099999999998,
+      "is_baseline": false,
+      "latency_p50": 2623.5,
+      "metrics": {
+        "component_group.accuracy": 0.84,
+        "component_group.accuracy_answered": 0.9572649572649573,
+        "component_group.coverage": 0.8775,
+        "component_group.macro_f1": 0.7616216150628216,
+        "safety_relevant.f1": 0.9746835443037976,
+        "safety_relevant.precision": 0.9625,
+        "safety_relevant.recall": 0.9871794871794872,
+        "schema_valid_rate": 1.0
+      },
+      "model_id": "gemini-4-argon",
+      "primary_ci": [
+        0.7307232072520408,
+        0.7899086287781956
+      ],
+      "primary_metric": 0.7616216150628216
+    },
+    {
+      "cost_per_1k": 0.08888666666666667,
+      "is_baseline": false,
+      "latency_p50": 2261.0,
+      "metrics": {
+        "component_group.accuracy": 0.8183333333333334,
+        "component_group.accuracy_answered": 0.9571150097465887,
+        "component_group.coverage": 0.855,
+        "component_group.macro_f1": 0.7424671739009239,
+        "safety_relevant.f1": 0.9669421487603306,
+        "safety_relevant.precision": 0.9590163934426229,
+        "safety_relevant.recall": 0.975,
+        "schema_valid_rate": 1.0
+      },
+      "model_id": "muse-spark-1.3-contributor",
+      "primary_ci": [
+        0.7130801609825005,
+        0.767967909341214
+      ],
+      "primary_metric": 0.7424671739009239
+    },
+    {
+      "cost_per_1k": 0.09618201666666666,
+      "is_baseline": false,
+      "latency_p50": 4016.5,
+      "metrics": {
+        "component_group.accuracy": 0.8216666666666667,
+        "component_group.accuracy_answered": 0.9372623574144486,
+        "component_group.coverage": 0.8766666666666667,
+        "component_group.macro_f1": 0.739334684829591,
+        "safety_relevant.f1": 0.9593495934959351,
+        "safety_relevant.precision": 0.9365079365079365,
+        "safety_relevant.recall": 0.9833333333333333,
+        "schema_valid_rate": 0.9966666666666667
+      },
+      "model_id": "mimo-v2.6-flash",
+      "primary_ci": [
+        0.7121269684382487,
+        0.764730197220257
+      ],
+      "primary_metric": 0.739334684829591
+    },
+    {
+      "cost_per_1k": 0.0892035,
+      "is_baseline": false,
+      "latency_p50": 1011.5,
+      "metrics": {
+        "component_group.accuracy": 0.8233333333333334,
+        "component_group.accuracy_answered": 0.9285714285714286,
+        "component_group.coverage": 0.8866666666666667,
+        "component_group.macro_f1": 0.7387911347327645,
+        "safety_relevant.f1": 0.9707112970711297,
+        "safety_relevant.precision": 0.9747899159663865,
+        "safety_relevant.recall": 0.9666666666666667,
+        "schema_valid_rate": 1.0
+      },
+      "model_id": "glm-5.3-flash",
+      "primary_ci": [
+        0.7104356560624396,
+        0.7637263102303328
+      ],
+      "primary_metric": 0.7387911347327645
+    },
+    {
+      "cost_per_1k": 0.1277394,
+      "is_baseline": false,
+      "latency_p50": null,
+      "metrics": {
+        "component_group.accuracy": 0.7966666666666666,
+        "component_group.accuracy_answered": 0.9484126984126984,
+        "component_group.coverage": 0.84,
+        "component_group.macro_f1": 0.7210038419636235,
+        "safety_relevant.f1": 0.9672131147540983,
+        "safety_relevant.precision": 0.9516129032258065,
+        "safety_relevant.recall": 0.9833333333333333,
+        "schema_valid_rate": 0.995
+      },
+      "model_id": "deepseek-v4.1-flash",
+      "primary_ci": [
+        0.6913505432651659,
+        0.7476034073014576
+      ],
+      "primary_metric": 0.7210038419636235
+    },
+    {
+      "cost_per_1k": 0.05998933333333333,
+      "is_baseline": false,
+      "latency_p50": null,
+      "metrics": {
+        "component_group.accuracy": 0.7683333333333333,
+        "component_group.accuracy_answered": 0.9183266932270916,
+        "component_group.coverage": 0.8366666666666667,
+        "component_group.macro_f1": 0.6921956480296879,
+        "safety_relevant.f1": 0.9527896995708154,
+        "safety_relevant.precision": 0.9823008849557522,
+        "safety_relevant.recall": 0.925,
+        "schema_valid_rate": 1.0
+      },
+      "model_id": "gpt-6-luna",
+      "primary_ci": [
+        0.6643661558977045,
+        0.7190434750108506
+      ],
+      "primary_metric": 0.6921956480296879
+    },
+    {
+      "cost_per_1k": 0.15643949999999998,
+      "is_baseline": false,
+      "latency_p50": null,
+      "metrics": {
+        "component_group.accuracy": 0.7483333333333333,
+        "component_group.accuracy_answered": 0.9276859504132231,
+        "component_group.coverage": 0.8066666666666666,
+        "component_group.macro_f1": 0.6818696384528986,
+        "safety_relevant.f1": 0.9669421487603306,
+        "safety_relevant.precision": 0.9590163934426229,
+        "safety_relevant.recall": 0.975,
+        "schema_valid_rate": 1.0
+      },
+      "model_id": "claude-haiku-5-5",
+      "primary_ci": [
+        0.6509560221148795,
+        0.7101879234224407
+      ],
+      "primary_metric": 0.6818696384528986
+    }
+  ],
+  "most_accurate": "gemini-4-argon",
+  "no_model_meets_floor": false,
+  "notes": [
+    "Every number is read from `results/runs/live-v1.1/cells.json` and `results/baseline/defect.json`. No model call was made to build this card."
+  ],
+  "picker_rule": "within 3.0 points of the best model on the primary metric; a model below any gate floor is not good enough; ties go to lower cost",
+  "prompt_version": "d1",
+  "recheck": "`wam recheck run --tasks defect --against results/runs/live-v1.1` when a new model is released, when a model changes under the same id, or after a prompt change (that needs a new baseline run first).",
+  "sample_size": 600,
+  "task": "defect",
+  "title": "Sort electrical complaints and flag safety",
+  "volumes": [
+    {
+      "cost_usd": 1.3065099999999998,
+      "items_per_month": 1000,
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "cost_usd": 13.0651,
+      "items_per_month": 10000,
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "cost_usd": 130.65099999999998,
+      "items_per_month": 100000,
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "cost_usd": 0.08888666666666667,
+      "items_per_month": 1000,
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "cost_usd": 0.8888666666666667,
+      "items_per_month": 10000,
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "cost_usd": 8.888666666666666,
+      "items_per_month": 100000,
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "cost_usd": 0.09618201666666666,
+      "items_per_month": 1000,
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "cost_usd": 0.9618201666666666,
+      "items_per_month": 10000,
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "cost_usd": 9.618201666666666,
+      "items_per_month": 100000,
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "cost_usd": 0.0892035,
+      "items_per_month": 1000,
+      "model_id": "glm-5.3-flash"
+    },
+    {
+      "cost_usd": 0.8920350000000001,
+      "items_per_month": 10000,
+      "model_id": "glm-5.3-flash"
+    },
+    {
+      "cost_usd": 8.920350000000001,
+      "items_per_month": 100000,
+      "model_id": "glm-5.3-flash"
+    },
+    {
+      "cost_usd": 0.1277394,
+      "items_per_month": 1000,
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "cost_usd": 1.277394,
+      "items_per_month": 10000,
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "cost_usd": 12.77394,
+      "items_per_month": 100000,
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "cost_usd": 0.05998933333333333,
+      "items_per_month": 1000,
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "cost_usd": 0.5998933333333333,
+      "items_per_month": 10000,
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "cost_usd": 5.9989333333333335,
+      "items_per_month": 100000,
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "cost_usd": 0.15643949999999998,
+      "items_per_month": 1000,
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "cost_usd": 1.5643949999999998,
+      "items_per_month": 10000,
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "cost_usd": 15.643949999999998,
+      "items_per_month": 100000,
+      "model_id": "claude-haiku-5-5"
+    }
+  ]
+}

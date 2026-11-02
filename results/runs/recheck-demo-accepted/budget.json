@@ -1,0 +1,32 @@
+{
+  "cap_usd": null,
+  "estimated_usd_by_model": {
+    "gpt-6-luna": 0.0049693
+  },
+  "measured_cost_available_by_model": {
+    "gpt-6-luna": false
+  },
+  "measured_coverage_models": [],
+  "measured_gap_pct": null,
+  "measured_usd_by_model": {},
+  "price_table_usd_by_model": {
+    "gpt-6-luna": 0.0051244999999999945
+  },
+  "reductions": [],
+  "spent_usd_by_model": {
+    "gpt-6-luna": 0.0051244999999999945
+  },
+  "total_estimated_usd": 0.0049693,
+  "total_measured_covered_usd": 0,
+  "total_measured_usd": 0,
+  "total_price_covered_usd": 0,
+  "total_price_table_usd": 0.0051244999999999945,
+  "total_spent_usd": 0.0051244999999999945,
+  "unknown_cost_calls": 0,
+  "waits": [],
+  "window_ceilings_usd": {
+    "gemini-4-argon": 5.0
+  },
+  "window_hours": 5.0,
+  "window_overruns": []
+}

@@ -1,0 +1,136 @@
+{
+  "description": "Regression gate on the live run: for each task the cheapest model (candidate) against Gemini 4 Argon, the one flagship (baseline). The seven models are one per lab, so a per-lab cheapest-vs-flagship pair would compare a model with itself; the meaningful comparison is cheapest overall vs the flagship.",
+  "pairs": [
+    {
+      "baseline_model": "gemini-4-argon",
+      "candidate_model": "glm-5.3-flash",
+      "chosen_for_tasks": [
+        "T-ROUTE"
+      ],
+      "comparisons": [
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 1.0,
+          "candidate_model": "glm-5.3-flash",
+          "candidate_primary": 1.0,
+          "failures": [],
+          "primary_delta": 0.0,
+          "schema_valid_baseline": null,
+          "schema_valid_candidate": null,
+          "task": "T-DOCS"
+        },
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 0.7933333333333333,
+          "candidate_model": "glm-5.3-flash",
+          "candidate_primary": 0.2608695652173913,
+          "failures": [
+            "T-REPLY primary metric dropped 53.25 points (0.7933 \u2192 0.2609); limit 2.0",
+            "T-REPLY schema-valid rate 0.6133 is below 0.98"
+          ],
+          "primary_delta": 0.5324637681159421,
+          "schema_valid_baseline": 1.0,
+          "schema_valid_candidate": 0.6133333333333333,
+          "task": "T-REPLY"
+        },
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 0.8893685568939881,
+          "candidate_model": "glm-5.3-flash",
+          "candidate_primary": 0.7880785761642285,
+          "failures": [
+            "T-ROUTE primary metric dropped 10.13 points (0.8894 \u2192 0.7881); limit 2.0"
+          ],
+          "primary_delta": 0.10128998072975959,
+          "schema_valid_baseline": null,
+          "schema_valid_candidate": null,
+          "task": "T-ROUTE"
+        },
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 0.7047619047619047,
+          "candidate_model": "glm-5.3-flash",
+          "candidate_primary": 0.7204030226700253,
+          "failures": [],
+          "primary_delta": -0.015641117908120616,
+          "schema_valid_baseline": null,
+          "schema_valid_candidate": null,
+          "task": "T-SCOPE"
+        }
+      ],
+      "exit_code": 1,
+      "outcome": "FAIL",
+      "reasons": [
+        "T-REPLY primary metric dropped 53.25 points (0.7933 \u2192 0.2609); limit 2.0",
+        "T-REPLY schema-valid rate 0.6133 is below 0.98",
+        "T-ROUTE primary metric dropped 10.13 points (0.8894 \u2192 0.7881); limit 2.0"
+      ]
+    },
+    {
+      "baseline_model": "gemini-4-argon",
+      "candidate_model": "gpt-6-luna",
+      "chosen_for_tasks": [
+        "T-DOCS",
+        "T-REPLY",
+        "T-SCOPE"
+      ],
+      "comparisons": [
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 1.0,
+          "candidate_model": "gpt-6-luna",
+          "candidate_primary": 1.0,
+          "failures": [],
+          "primary_delta": 0.0,
+          "schema_valid_baseline": null,
+          "schema_valid_candidate": null,
+          "task": "T-DOCS"
+        },
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 0.7933333333333333,
+          "candidate_model": "gpt-6-luna",
+          "candidate_primary": 0.013333333333333334,
+          "failures": [
+            "T-REPLY primary metric dropped 78.00 points (0.7933 \u2192 0.0133); limit 2.0"
+          ],
+          "primary_delta": 0.78,
+          "schema_valid_baseline": 1.0,
+          "schema_valid_candidate": 1.0,
+          "task": "T-REPLY"
+        },
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 0.8893685568939881,
+          "candidate_model": "gpt-6-luna",
+          "candidate_primary": 0.7963576560061815,
+          "failures": [
+            "T-ROUTE primary metric dropped 9.30 points (0.8894 \u2192 0.7964); limit 2.0"
+          ],
+          "primary_delta": 0.09301090088780661,
+          "schema_valid_baseline": null,
+          "schema_valid_candidate": null,
+          "task": "T-ROUTE"
+        },
+        {
+          "baseline_model": "gemini-4-argon",
+          "baseline_primary": 0.7047619047619047,
+          "candidate_model": "gpt-6-luna",
+          "candidate_primary": 0.7096774193548386,
+          "failures": [],
+          "primary_delta": -0.004915514592933934,
+          "schema_valid_baseline": null,
+          "schema_valid_candidate": null,
+          "task": "T-SCOPE"
+        }
+      ],
+      "exit_code": 1,
+      "outcome": "FAIL",
+      "reasons": [
+        "T-REPLY primary metric dropped 78.00 points (0.7933 \u2192 0.0133); limit 2.0",
+        "T-ROUTE primary metric dropped 9.30 points (0.8894 \u2192 0.7964); limit 2.0"
+      ]
+    }
+  ],
+  "run": "results/runs/live"
+}

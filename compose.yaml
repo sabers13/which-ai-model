@@ -1,0 +1,26 @@
+# Local pgvector for the docs index (T05). Podman needs the fully qualified
+# image name; the file stays on compose format 3.8 for the legacy
+# docker-compose 1.29.2 that `podman compose` delegates to on this machine.
+# Start it with: podman compose up -d pgvector
+version: "3.8"
+
+services:
+  pgvector:
+    image: docker.io/pgvector/pgvector:pg17-trixie
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: wam
+      POSTGRES_PASSWORD: wam
+      POSTGRES_DB: wam
+    volumes:
+      - pgvector-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wam -d wam"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+volumes:
+  pgvector-data: {}

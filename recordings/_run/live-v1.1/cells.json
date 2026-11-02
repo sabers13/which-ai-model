@@ -1,0 +1,286 @@
+{
+  "cells": [],
+  "scorer_version": "v1",
+  "spec_cells": [
+    {
+      "ci": {
+        "component_group.accuracy_answered_high": 0.9475473398792774,
+        "component_group.accuracy_answered_low": 0.9010890203858007,
+        "component_group.accuracy_high": 0.7833749999999998,
+        "component_group.accuracy_low": 0.7166666666666667,
+        "component_group.coverage_high": 0.8362744001131348,
+        "component_group.coverage_low": 0.7731570899317954,
+        "component_group.macro_f1_high": 0.7101879234224407,
+        "component_group.macro_f1_low": 0.6509560221148795,
+        "safety_relevant.f1_high": 0.9876568405139834,
+        "safety_relevant.f1_low": 0.9416666666666668,
+        "safety_relevant.precision_high": 0.9823692805447255,
+        "safety_relevant.precision_low": 0.9076394737210987,
+        "safety_relevant.recall_high": 0.9914618252300978,
+        "safety_relevant.recall_low": 0.9290699666721339,
+        "schema_valid_rate_high": 1.0,
+        "schema_valid_rate_low": 0.9936382989862994
+      },
+      "cost_per_1k": 0.15643949999999998,
+      "latency_p50": null,
+      "latency_p95": null,
+      "metrics": {
+        "component_group.accuracy": 0.7483333333333333,
+        "component_group.accuracy_answered": 0.9276859504132231,
+        "component_group.coverage": 0.8066666666666666,
+        "component_group.macro_f1": 0.6818696384528986,
+        "safety_relevant.f1": 0.9669421487603306,
+        "safety_relevant.precision": 0.9590163934426229,
+        "safety_relevant.recall": 0.975,
+        "schema_valid_rate": 1.0
+      },
+      "model": {
+        "connection_id": "opencode-go-anthropic",
+        "model_id": "claude-haiku-5-5"
+      },
+      "n": 600,
+      "primary_metric": 0.6818696384528986,
+      "task": "defect"
+    },
+    {
+      "ci": {
+        "component_group.accuracy_answered_high": 0.97393358526613,
+        "component_group.accuracy_answered_low": 0.9306957696768768,
+        "component_group.accuracy_high": 0.875,
+        "component_group.accuracy_low": 0.8025,
+        "component_group.coverage_high": 0.9060868447953232,
+        "component_group.coverage_low": 0.8417313729822828,
+        "component_group.macro_f1_high": 0.7899086287781956,
+        "component_group.macro_f1_low": 0.7307232072520408,
+        "safety_relevant.f1_high": 0.9942213047068539,
+        "safety_relevant.f1_low": 0.945945945945946,
+        "safety_relevant.precision_high": 0.9871654310800886,
+        "safety_relevant.precision_low": 0.8954527990995489,
+        "safety_relevant.recall_high": 0.9977332682461664,
+        "safety_relevant.recall_low": 0.930891429982978,
+        "schema_valid_rate_high": 0.9999999999999999,
+        "schema_valid_rate_low": 0.9904877056657034
+      },
+      "cost_per_1k": 1.3065099999999998,
+      "latency_p50": 2623.5,
+      "latency_p95": 7022.5,
+      "metrics": {
+        "component_group.accuracy": 0.84,
+        "component_group.accuracy_answered": 0.9572649572649573,
+        "component_group.coverage": 0.8775,
+        "component_group.macro_f1": 0.7616216150628216,
+        "safety_relevant.f1": 0.9746835443037976,
+        "safety_relevant.precision": 0.9625,
+        "safety_relevant.recall": 0.9871794871794872,
+        "schema_valid_rate": 1.0
+      },
+      "model": {
+        "connection_id": "opencode-go-google",
+        "model_id": "gemini-4-argon"
+      },
+      "n": 400,
+      "primary_metric": 0.7616216150628216,
+      "task": "defect"
+    },
+    {
+      "ci": {
+        "component_group.accuracy_answered_high": 0.9645552546697116,
+        "component_group.accuracy_answered_low": 0.9254862969783779,
+        "component_group.accuracy_high": 0.8283749999999998,
+        "component_group.accuracy_low": 0.766625,
+        "component_group.coverage_high": 0.8671575109343569,
+        "component_group.coverage_low": 0.8085165323763267,
+        "component_group.macro_f1_high": 0.7476034073014576,
+        "component_group.macro_f1_low": 0.6913505432651659,
+        "safety_relevant.f1_high": 0.9878542510121457,
+        "safety_relevant.f1_low": 0.9417464843920067,
+        "safety_relevant.precision_high": 0.9776375894656152,
+        "safety_relevant.precision_low": 0.8984475321621598,
+        "safety_relevant.recall_high": 0.9954174354340789,
+        "safety_relevant.recall_low": 0.941264037027841,
+        "schema_valid_rate_high": 0.998298122341722,
+        "schema_valid_rate_low": 0.9854037936547144
+      },
+      "cost_per_1k": 0.1277394,
+      "latency_p50": null,
+      "latency_p95": null,
+      "metrics": {
+        "component_group.accuracy": 0.7966666666666666,
+        "component_group.accuracy_answered": 0.9484126984126984,
+        "component_group.coverage": 0.84,
+        "component_group.macro_f1": 0.7210038419636235,
+        "safety_relevant.f1": 0.9672131147540983,
+        "safety_relevant.precision": 0.9516129032258065,
+        "safety_relevant.recall": 0.9833333333333333,
+        "schema_valid_rate": 0.995
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "deepseek-v4.1-flash"
+      },
+      "n": 600,
+      "primary_metric": 0.7210038419636235,
+      "task": "defect"
+    },
+    {
+      "ci": {
+        "component_group.accuracy_answered_high": 0.9475202574813479,
+        "component_group.accuracy_answered_low": 0.9034777242791283,
+        "component_group.accuracy_high": 0.8533333333333334,
+        "component_group.accuracy_low": 0.7933333333333333,
+        "component_group.coverage_high": 0.9096101781340336,
+        "component_group.coverage_low": 0.8588034397487048,
+        "component_group.macro_f1_high": 0.7637263102303328,
+        "component_group.macro_f1_low": 0.7104356560624396,
+        "safety_relevant.f1_high": 0.9895945805647839,
+        "safety_relevant.f1_low": 0.9469026548672567,
+        "safety_relevant.precision_high": 0.9913897687107348,
+        "safety_relevant.precision_low": 0.9284951063536421,
+        "safety_relevant.recall_high": 0.9869624489016494,
+        "safety_relevant.recall_low": 0.917419662440894,
+        "schema_valid_rate_high": 1.0,
+        "schema_valid_rate_low": 0.9936382989862994
+      },
+      "cost_per_1k": 0.0892035,
+      "latency_p50": 1011.5,
+      "latency_p95": 1738.9499999999991,
+      "metrics": {
+        "component_group.accuracy": 0.8233333333333334,
+        "component_group.accuracy_answered": 0.9285714285714286,
+        "component_group.coverage": 0.8866666666666667,
+        "component_group.macro_f1": 0.7387911347327645,
+        "safety_relevant.f1": 0.9707112970711297,
+        "safety_relevant.precision": 0.9747899159663865,
+        "safety_relevant.recall": 0.9666666666666667,
+        "schema_valid_rate": 1.0
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "glm-5.3-flash"
+      },
+      "n": 600,
+      "primary_metric": 0.7387911347327645,
+      "task": "defect"
+    },
+    {
+      "ci": {
+        "component_group.accuracy_answered_high": 0.9549816891522789,
+        "component_group.accuracy_answered_low": 0.9132025428326147,
+        "component_group.accuracy_high": 0.8500416666666665,
+        "component_group.accuracy_low": 0.7916666666666666,
+        "component_group.coverage_high": 0.9006063941372342,
+        "component_group.coverage_low": 0.8479344577657781,
+        "component_group.macro_f1_high": 0.764730197220257,
+        "component_group.macro_f1_low": 0.7121269684382487,
+        "safety_relevant.f1_high": 0.9836065573770492,
+        "safety_relevant.f1_low": 0.9312158601632287,
+        "safety_relevant.precision_high": 0.9674794600272171,
+        "safety_relevant.precision_low": 0.8797075709803873,
+        "safety_relevant.recall_high": 0.9954174354340789,
+        "safety_relevant.recall_low": 0.941264037027841,
+        "schema_valid_rate_high": 0.9990854033131954,
+        "schema_valid_rate_low": 0.9879286403465287
+      },
+      "cost_per_1k": 0.09618201666666666,
+      "latency_p50": 4016.5,
+      "latency_p95": 13576.349999999991,
+      "metrics": {
+        "component_group.accuracy": 0.8216666666666667,
+        "component_group.accuracy_answered": 0.9372623574144486,
+        "component_group.coverage": 0.8766666666666667,
+        "component_group.macro_f1": 0.739334684829591,
+        "safety_relevant.f1": 0.9593495934959351,
+        "safety_relevant.precision": 0.9365079365079365,
+        "safety_relevant.recall": 0.9833333333333333,
+        "schema_valid_rate": 0.9966666666666667
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "mimo-v2.6-flash"
+      },
+      "n": 600,
+      "primary_metric": 0.739334684829591,
+      "task": "defect"
+    },
+    {
+      "ci": {
+        "component_group.accuracy_answered_high": 0.9392263447279989,
+        "component_group.accuracy_answered_low": 0.8910733325249831,
+        "component_group.accuracy_high": 0.8000416666666664,
+        "component_group.accuracy_low": 0.7366666666666667,
+        "component_group.coverage_high": 0.8640875220297528,
+        "component_group.coverage_low": 0.8049622659543554,
+        "component_group.macro_f1_high": 0.7190434750108506,
+        "component_group.macro_f1_low": 0.6643661558977045,
+        "safety_relevant.f1_high": 0.978103783508112,
+        "safety_relevant.f1_low": 0.923765015217822,
+        "safety_relevant.precision_high": 0.9951327681795126,
+        "safety_relevant.precision_low": 0.9377552760143921,
+        "safety_relevant.recall_high": 0.9600428846040397,
+        "safety_relevant.recall_low": 0.8635908239400624,
+        "schema_valid_rate_high": 1.0,
+        "schema_valid_rate_low": 0.9936382989862994
+      },
+      "cost_per_1k": 0.05998933333333333,
+      "latency_p50": null,
+      "latency_p95": null,
+      "metrics": {
+        "component_group.accuracy": 0.7683333333333333,
+        "component_group.accuracy_answered": 0.9183266932270916,
+        "component_group.coverage": 0.8366666666666667,
+        "component_group.macro_f1": 0.6921956480296879,
+        "safety_relevant.f1": 0.9527896995708154,
+        "safety_relevant.precision": 0.9823008849557522,
+        "safety_relevant.recall": 0.925,
+        "schema_valid_rate": 1.0
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "gpt-6-luna"
+      },
+      "n": 600,
+      "primary_metric": 0.6921956480296879,
+      "task": "defect"
+    },
+    {
+      "ci": {
+        "component_group.accuracy_answered_high": 0.9715112749358553,
+        "component_group.accuracy_answered_low": 0.9359236685962357,
+        "component_group.accuracy_high": 0.8483333333333334,
+        "component_group.accuracy_low": 0.7866666666666666,
+        "component_group.coverage_high": 0.8809159154960283,
+        "component_group.coverage_low": 0.8245672767842441,
+        "component_group.macro_f1_high": 0.767967909341214,
+        "component_group.macro_f1_low": 0.7130801609825005,
+        "safety_relevant.f1_high": 0.9876543209876543,
+        "safety_relevant.f1_low": 0.942077792077792,
+        "safety_relevant.precision_high": 0.9823692805447255,
+        "safety_relevant.precision_low": 0.9076394737210987,
+        "safety_relevant.recall_high": 0.9914618252300978,
+        "safety_relevant.recall_low": 0.9290699666721339,
+        "schema_valid_rate_high": 1.0,
+        "schema_valid_rate_low": 0.9936382989862994
+      },
+      "cost_per_1k": 0.08888666666666667,
+      "latency_p50": 2261.0,
+      "latency_p95": 5240.799999999998,
+      "metrics": {
+        "component_group.accuracy": 0.8183333333333334,
+        "component_group.accuracy_answered": 0.9571150097465887,
+        "component_group.coverage": 0.855,
+        "component_group.macro_f1": 0.7424671739009239,
+        "safety_relevant.f1": 0.9669421487603306,
+        "safety_relevant.precision": 0.9590163934426229,
+        "safety_relevant.recall": 0.975,
+        "schema_valid_rate": 1.0
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "muse-spark-1.3-contributor"
+      },
+      "n": 600,
+      "primary_metric": 0.7424671739009239,
+      "task": "defect"
+    }
+  ]
+}

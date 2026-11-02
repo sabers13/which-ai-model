@@ -1,0 +1,3 @@
+{"item_id": "t-docs-001", "question": "Where should I keep my provider API key?", "gold_ids": ["guide/connect-provider#0"], "answerable": true}
+{"item_id": "t-docs-002", "question": "Which protocols does the project support?", "gold_ids": ["guide/connect-provider#1"], "answerable": true}
+{"item_id": "t-docs-003", "question": "What is the capital of France?", "gold_ids": [], "answerable": false}

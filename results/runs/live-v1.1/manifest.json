@@ -1,0 +1,76 @@
+{
+  "finished_at": "2026-11-01T10:32:46.718795Z",
+  "lock_sha256": "2badd2e193ea4ed83e2c7813f55393b23d745c79a3e948445f2f5f55c97d87e7",
+  "models": [
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "connection_id": "opencode-go-anthropic",
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "connection_id": "opencode-go-responses",
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "connection_id": "opencode-go-google",
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "connection_id": "opencode-go-responses",
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "glm-5.3-flash"
+    }
+  ],
+  "prompt_version": "d1",
+  "run_id": "live-v1.1",
+  "sample_hash": "00cd2ea1f0466c1b2df479e3b2e24a086eec3e10a6e809c0be1f9e2ccf12bdf1",
+  "scorer_version": "s1",
+  "settings": {
+    "claude-haiku-5-5": {
+      "max_output_tokens": 1024,
+      "reasoning": "not-sent",
+      "temperature": "provider-default"
+    },
+    "deepseek-v4.1-flash": {
+      "max_output_tokens": 1024,
+      "reasoning": "minimal",
+      "temperature": 0.0
+    },
+    "gemini-4-argon": {
+      "max_output_tokens": 1024,
+      "reasoning": "low",
+      "temperature": 0.0
+    },
+    "glm-5.3-flash": {
+      "max_output_tokens": 1024,
+      "reasoning": "low",
+      "temperature": 0.0
+    },
+    "gpt-6-luna": {
+      "max_output_tokens": 1024,
+      "reasoning": "none",
+      "temperature": 0.0
+    },
+    "mimo-v2.6-flash": {
+      "max_output_tokens": 1024,
+      "reasoning": "not-sent",
+      "temperature": 0.0
+    },
+    "muse-spark-1.3-contributor": {
+      "max_output_tokens": 1024,
+      "reasoning": "minimal",
+      "temperature": 0.0
+    }
+  },
+  "started_at": "2026-11-01T09:15:33.147165Z"
+}

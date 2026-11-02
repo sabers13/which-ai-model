@@ -1,0 +1,19 @@
+# Benchmark budget and pacing, read by the runner and core rate limiter.
+# No cap_usd is configured. Spend is estimated and recorded but not capped.
+# A configured cap would be enforced. See METHOD.md for the recorded run's limits.
+# Every OpenCode Go connection has a separate request slot per model.
+
+[budget]
+window_hours = 5
+
+# This pacing ceiling leaves headroom under the provider allowance.
+# It is a per-window ceiling, not a total-run spending cap.
+[window.ceilings]
+gemini-4-argon = 5.0
+
+[limits.opencode-go]
+max_concurrency = 2
+requests_per_minute = 30
+
+# No off-peak schedule is configured. DeepSeek can run during peak-price hours;
+# config/prices.toml uses off-peak prices, so that estimate has a known limit.

@@ -1,0 +1,5 @@
+# sha256	bytes	url	retrieved	file
+8dc89b87a188509c42cce5a086e8f7c1ff4a225bdd9ae3f23e6cdfa5806e363a	293553	https://huggingface.co/api/datasets/PolyAI/banking77/parquet/default/train/0.parquet	2026-10-28	banking77_train.parquet
+1f40f777c33f0edfa6c530ff84fe2878db6490838c12d22d036f626948905341	92409	https://huggingface.co/api/datasets/PolyAI/banking77/parquet/default/test/0.parquet	2026-10-28	banking77_test.parquet
+30188119cf9f86fc9db27e1c22442d091cb5cb0913c9496f945fe11e7a02a28f	312096	https://huggingface.co/api/datasets/clinc/clinc_oos/parquet/plus/train/0.parquet	2026-10-28	clinc150_plus_train.parquet
+3e60e45b25bf86543aa5df8ba4fcc674114164e6184f0197690648c2908d0102	135844	https://huggingface.co/api/datasets/clinc/clinc_oos/parquet/plus/test/0.parquet	2026-10-28	clinc150_plus_test.parquet

@@ -1,0 +1,89 @@
+# Fixed keyword rule for the T-DEFECT `safety_relevant` baseline (PLAN-v1.1 §A4).
+#
+# One keyword per line; `#` starts a comment. A narrative is flagged safety-relevant
+# when it contains any keyword as a whole word or phrase, ignoring case. Inflections are
+# written out, so the list can be read and argued with: nothing is stemmed, and nothing
+# is tuned on the test sample.
+#
+# The list was fixed before any T-DEFECT model result existed and is a baseline, not a
+# classifier: it is reported beside the models at cost 0.
+
+# Crash and collision
+crash
+crashed
+crashes
+crashing
+collision
+collisions
+collided
+collides
+colliding
+impact
+impacted
+impacting
+struck
+rear-ended
+rearended
+rear ended
+rollover
+rolled over
+flipped
+overturned
+
+# Fire, smoke and heat
+fire
+fires
+caught fire
+on fire
+smoke
+smoking
+smoked
+burn
+burns
+burned
+burnt
+burning
+flame
+flames
+sparks
+sparking
+melted
+melting
+exploded
+explosion
+exploding
+
+# Injury and death
+injure
+injured
+injures
+injury
+injuries
+hurt
+wound
+wounded
+bleeding
+bled
+blood
+fracture
+fractured
+hospital
+ambulance
+emergency room
+concussion
+whiplash
+bruise
+bruised
+laceration
+lacerated
+paralysis
+paralyzed
+fatal
+fatality
+fatalities
+death
+deaths
+died
+dies
+killed
+kill

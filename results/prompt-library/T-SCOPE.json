@@ -1,0 +1,30 @@
+{
+  "fallback_model": "glm-5.3-flash",
+  "guardrails": [
+    "An `unclear` or abstained answer goes to a human; it is scored as wrong, so abstaining is never free.",
+    "The schema-valid rate must stay at or above 98%.",
+    "Never auto-close, auto-send or auto-approve a model answer; a person makes the final call."
+  ],
+  "output_schema": {
+    "additionalProperties": false,
+    "description": "T-SCOPE: is the message outside the supported scope?",
+    "properties": {
+      "out_of_scope": {
+        "title": "Out Of Scope",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "out_of_scope"
+    ],
+    "title": "ScopeOut",
+    "type": "object"
+  },
+  "prompt": "You decide whether a customer-service message is outside the supported banking scope.\nA message is out of scope when it asks for something this bank does not handle (for\nexample restaurant booking, weather, or travel advice). A message about cards,\naccounts, transfers, payments, top-ups, identity checks or other retail banking topics\nis in scope.\n\nReply with one JSON object and nothing else: {\"out_of_scope\": true} or\n{\"out_of_scope\": false}.\n\nCustomer message:\n{text}",
+  "prompt_version": "v1",
+  "recheck_trigger": "`wam recheck run --tasks T-SCOPE --against results/runs/live` when a new model is released, when a model changes under the same id, or after a prompt change (that needs a new baseline run first).",
+  "recommended_model": "gpt-6-luna",
+  "task": "T-SCOPE",
+  "title": "Check whether a message is in scope",
+  "when_to_use": "Decide whether a support message is inside the supported banking scope or outside it."
+}

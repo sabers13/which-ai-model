@@ -1,0 +1,4 @@
+{"item_id": "b77-test-1000", "text": "My card was swallowed by the ATM.", "intent": "card_not_working"}
+{"item_id": "b77-test-1001", "text": "The card reader rejected my card at the shop.", "intent": "card_not_working"}
+{"item_id": "b77-test-2000", "text": "How long until my new card arrives?", "intent": "card_arrival"}
+{"item_id": "b77-test-2001", "text": "When will the replacement card reach me?", "intent": "card_arrival"}

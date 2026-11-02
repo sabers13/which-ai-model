@@ -1,0 +1,31 @@
+{
+  "cells": [
+    {
+      "ci": {
+        "f1_high": 0.7598064925270808,
+        "f1_low": 0.6616896577717474,
+        "precision_high": 0.624152770911691,
+        "precision_low": 0.5033383974287715,
+        "recall_high": 0.9815408393979256,
+        "recall_low": 0.915486535783444
+      },
+      "cost_per_1k": 0.01708166666666667,
+      "latency_p50": 0.0,
+      "latency_p95": 0.0,
+      "metrics": {
+        "accuracy": 0.61,
+        "f1": 0.711111111111111,
+        "precision": 0.5647058823529412,
+        "recall": 0.96
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "gpt-6-luna"
+      },
+      "n": 300,
+      "primary_metric": 0.711111111111111,
+      "task": "T-SCOPE"
+    }
+  ],
+  "scorer_version": "v1"
+}

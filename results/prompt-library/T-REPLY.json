@@ -1,0 +1,47 @@
+{
+  "fallback_model": null,
+  "guardrails": [
+    "An `unclear` or abstained answer goes to a human; it is scored as wrong, so abstaining is never free.",
+    "The schema-valid rate must stay at or above 98%.",
+    "Never auto-close, auto-send or auto-approve a model answer; a person makes the final call."
+  ],
+  "output_schema": {
+    "additionalProperties": false,
+    "description": "T-REPLY: a structured customer-service reply.",
+    "properties": {
+      "intent": {
+        "minLength": 1,
+        "title": "Intent",
+        "type": "string"
+      },
+      "reply": {
+        "minLength": 1,
+        "title": "Reply",
+        "type": "string"
+      },
+      "urgency": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "Urgency",
+        "type": "string"
+      }
+    },
+    "required": [
+      "intent",
+      "urgency",
+      "reply"
+    ],
+    "title": "ReplyOut",
+    "type": "object"
+  },
+  "prompt": "You draft a structured customer-service reply for a retail bank. Read the message and\nreturn exactly one JSON object with these fields:\n- \"intent\": one Banking77 intent label in snake_case;\n- \"urgency\": one of \"low\", \"medium\", \"high\";\n- \"reply\": a short, polite, specific answer that does not promise anything the bank\n  cannot do.\n\nReply with the JSON object and nothing else.\n\nCustomer message:\n{text}",
+  "prompt_version": "v1",
+  "recheck_trigger": "`wam recheck run --tasks T-REPLY --against results/runs/live` when a new model is released, when a model changes under the same id, or after a prompt change (that needs a new baseline run first).",
+  "recommended_model": "gemini-4-argon",
+  "task": "T-REPLY",
+  "title": "Draft a structured reply",
+  "when_to_use": "Turn a customer message into one typed object: intent, urgency and reply text."
+}

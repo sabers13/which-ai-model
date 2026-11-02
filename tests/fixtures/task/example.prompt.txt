@@ -1,0 +1,10 @@
+You sort a customer message into one queue.
+
+Queues (answer with the id exactly as written):
+{labels}
+
+Message:
+{text}
+
+Reply with one JSON object and nothing else:
+{"queue": "<one queue id>", "urgent": true or false}

@@ -1,0 +1,38 @@
+{
+  "finished_at": "2026-10-29T00:00:00Z",
+  "models": [
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "connection_id": "opencode-go-anthropic",
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "connection_id": "opencode-go-responses",
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "connection_id": "opencode-go-google",
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "connection_id": "opencode-go-responses",
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "glm-5.3-flash"
+    }
+  ],
+  "prompt_version": "v2-refusal-demo",
+  "run_id": "gate-refused-b",
+  "sample_hash": "e2c373cbe33f766e27513a1dd5090c1c28b29a9648481c7b074de2dc326cbb1c",
+  "scorer_version": "v1",
+  "started_at": "2026-10-29T00:00:00Z"
+}

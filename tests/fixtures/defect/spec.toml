@@ -1,0 +1,44 @@
+id = "defect"
+title = "Sort electrical complaints and flag safety"
+description = "Sort a vehicle owner's electrical complaint into a component group and say whether it describes a crash, a fire or an injury."
+prompt_version = "d1"
+scorer_version = "s1"
+
+[data]
+file = "tests/fixtures/defect/items.jsonl"
+id_field = "id"
+text_field = "text"
+
+[prompt]
+template_file = "tests/fixtures/defect/prompt.txt"
+
+[[outputs]]
+name = "component_group"
+kind = "label"
+labels_file = "tests/fixtures/defect/groups.toml"
+allow_unclear = true
+truth_field = "component_group"
+
+[[outputs]]
+name = "safety_relevant"
+kind = "bool"
+truth_field = "safety_relevant"
+
+[metrics]
+primary = "component_group.macro_f1"
+report = [
+  "component_group.accuracy",
+  "component_group.coverage",
+  "component_group.accuracy_answered",
+  "safety_relevant.recall",
+  "safety_relevant.precision",
+  "schema_valid_rate",
+]
+
+[gate]
+primary_drop_points = 2.0
+schema_valid_floor = 0.98
+[[gate.floors]]
+metric = "safety_relevant.recall"
+min = 0.80
+max_drop_points = 2.0

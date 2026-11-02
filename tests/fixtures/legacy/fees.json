@@ -1,0 +1,24 @@
+{
+  "_notice": "Fictional example bank fees for the legacy demo and its tests. Not a real bank, not real prices.",
+  "currency": "USD",
+  "fees": {
+    "debit": {
+      "cash_withdrawal": 2.5,
+      "foreign_transaction": 1.75,
+      "replacement_card": 10.0,
+      "late_payment": 0.0
+    },
+    "credit": {
+      "cash_withdrawal": 5.0,
+      "foreign_transaction": 2.95,
+      "replacement_card": 15.0,
+      "late_payment": 25.0
+    },
+    "prepaid": {
+      "cash_withdrawal": 1.5,
+      "foreign_transaction": 0.0,
+      "replacement_card": 5.0,
+      "late_payment": 0.0
+    }
+  }
+}

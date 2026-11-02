@@ -1,0 +1,4 @@
+{"item_id": "clinc-plus-test-1", "text": "What is the weather in Paris tomorrow?", "intent": "weather", "out_of_scope": true}
+{"item_id": "clinc-plus-test-2", "text": "Book me a table for two at an Italian restaurant.", "intent": "restaurant", "out_of_scope": true}
+{"item_id": "clinc-plus-test-3", "text": "My transfer has not arrived yet.", "intent": "transfer_timing", "out_of_scope": false}
+{"item_id": "clinc-plus-test-4", "text": "How do I change my card PIN?", "intent": "change_pin", "out_of_scope": false}

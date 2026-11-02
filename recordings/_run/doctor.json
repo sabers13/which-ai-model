@@ -1,0 +1,231 @@
+{
+  "generated_at": "2026-10-29T04:31:18.235586+00:00",
+  "session_id": "wam-doctor-20261029T043118Z-38187",
+  "benchmark_models": [
+    "claude-haiku-5-5",
+    "gpt-6-luna",
+    "gemini-4-argon",
+    "muse-spark-1.3-contributor",
+    "deepseek-v4.1-flash",
+    "mimo-v2.6-flash",
+    "glm-5.3-flash"
+  ],
+  "connections": [
+    {
+      "id": "opencode-go-openai",
+      "provider": "opencode-go",
+      "protocol": "OPENAI_COMPATIBLE",
+      "base_url": "https://opencode.ai/inference/go/openai/v1",
+      "key": "found",
+      "reason": "OK",
+      "latency_ms": 388,
+      "detail": null,
+      "model_count": 30,
+      "models": {
+        "claude-haiku-5-5": "yes",
+        "gpt-6-luna": "yes",
+        "gemini-4-argon": "yes",
+        "muse-spark-1.3-contributor": "yes",
+        "deepseek-v4.1-flash": "yes",
+        "mimo-v2.6-flash": "yes",
+        "glm-5.3-flash": "yes"
+      },
+      "stale": false
+    },
+    {
+      "id": "opencode-go-responses",
+      "provider": "opencode-go",
+      "protocol": "OPENAI_RESPONSES",
+      "base_url": "https://opencode.ai/inference/go/openai/v1",
+      "key": "found",
+      "reason": "OK",
+      "latency_ms": 462,
+      "detail": null,
+      "model_count": 30,
+      "models": {
+        "claude-haiku-5-5": "yes",
+        "gpt-6-luna": "yes",
+        "gemini-4-argon": "yes",
+        "muse-spark-1.3-contributor": "yes",
+        "deepseek-v4.1-flash": "yes",
+        "mimo-v2.6-flash": "yes",
+        "glm-5.3-flash": "yes"
+      },
+      "stale": false
+    },
+    {
+      "id": "opencode-go-anthropic",
+      "provider": "opencode-go",
+      "protocol": "ANTHROPIC",
+      "base_url": "https://opencode.ai/inference/go/anthropic",
+      "key": "found",
+      "reason": "OK",
+      "latency_ms": 369,
+      "detail": null,
+      "model_count": 30,
+      "models": {
+        "claude-haiku-5-5": "yes",
+        "gpt-6-luna": "yes",
+        "gemini-4-argon": "yes",
+        "muse-spark-1.3-contributor": "yes",
+        "deepseek-v4.1-flash": "yes",
+        "mimo-v2.6-flash": "yes",
+        "glm-5.3-flash": "yes"
+      },
+      "stale": false
+    },
+    {
+      "id": "opencode-go-google",
+      "provider": "opencode-go",
+      "protocol": "GEMINI",
+      "base_url": "https://opencode.ai/inference/go/google/",
+      "key": "found",
+      "reason": "OK",
+      "latency_ms": 329,
+      "detail": null,
+      "model_count": 30,
+      "models": {
+        "claude-haiku-5-5": "yes",
+        "gpt-6-luna": "yes",
+        "gemini-4-argon": "yes",
+        "muse-spark-1.3-contributor": "yes",
+        "deepseek-v4.1-flash": "yes",
+        "mimo-v2.6-flash": "yes",
+        "glm-5.3-flash": "yes"
+      },
+      "stale": false
+    },
+    {
+      "id": "openai",
+      "provider": "openai",
+      "protocol": "OPENAI_COMPATIBLE",
+      "base_url": "https://api.openai.com/v1",
+      "key": "MISSING",
+      "reason": "CREDENTIAL_MISSING",
+      "latency_ms": 0,
+      "detail": "env var not set",
+      "model_count": null,
+      "models": {
+        "claude-haiku-5-5": "unknown",
+        "gpt-6-luna": "unknown",
+        "gemini-4-argon": "unknown",
+        "muse-spark-1.3-contributor": "unknown",
+        "deepseek-v4.1-flash": "unknown",
+        "mimo-v2.6-flash": "unknown",
+        "glm-5.3-flash": "unknown"
+      },
+      "stale": false
+    },
+    {
+      "id": "anthropic",
+      "provider": "anthropic",
+      "protocol": "ANTHROPIC",
+      "base_url": "https://api.anthropic.com",
+      "key": "MISSING",
+      "reason": "CREDENTIAL_MISSING",
+      "latency_ms": 0,
+      "detail": "env var not set",
+      "model_count": null,
+      "models": {
+        "claude-haiku-5-5": "unknown",
+        "gpt-6-luna": "unknown",
+        "gemini-4-argon": "unknown",
+        "muse-spark-1.3-contributor": "unknown",
+        "deepseek-v4.1-flash": "unknown",
+        "mimo-v2.6-flash": "unknown",
+        "glm-5.3-flash": "unknown"
+      },
+      "stale": false
+    },
+    {
+      "id": "gemini",
+      "provider": "google",
+      "protocol": "GEMINI",
+      "base_url": "https://generativelanguage.googleapis.com",
+      "key": "found",
+      "reason": "OK",
+      "latency_ms": 163,
+      "detail": null,
+      "model_count": 50,
+      "models": {
+        "claude-haiku-5-5": "no",
+        "gpt-6-luna": "no",
+        "gemini-4-argon": "yes",
+        "muse-spark-1.3-contributor": "no",
+        "deepseek-v4.1-flash": "no",
+        "mimo-v2.6-flash": "no",
+        "glm-5.3-flash": "no"
+      },
+      "stale": false
+    },
+    {
+      "id": "openrouter",
+      "provider": "openrouter",
+      "protocol": "OPENAI_COMPATIBLE",
+      "base_url": "https://openrouter.ai/api/v1",
+      "key": "MISSING",
+      "reason": "CREDENTIAL_MISSING",
+      "latency_ms": 0,
+      "detail": "env var not set",
+      "model_count": null,
+      "models": {
+        "claude-haiku-5-5": "unknown",
+        "gpt-6-luna": "unknown",
+        "gemini-4-argon": "unknown",
+        "muse-spark-1.3-contributor": "unknown",
+        "deepseek-v4.1-flash": "unknown",
+        "mimo-v2.6-flash": "unknown",
+        "glm-5.3-flash": "unknown"
+      },
+      "stale": false
+    },
+    {
+      "id": "custom",
+      "provider": "custom",
+      "protocol": "OPENAI_COMPATIBLE",
+      "base_url": null,
+      "key": "MISSING",
+      "reason": "CREDENTIAL_MISSING",
+      "latency_ms": 0,
+      "detail": "env var not set",
+      "model_count": null,
+      "models": {
+        "claude-haiku-5-5": "unknown",
+        "gpt-6-luna": "unknown",
+        "gemini-4-argon": "unknown",
+        "muse-spark-1.3-contributor": "unknown",
+        "deepseek-v4.1-flash": "unknown",
+        "mimo-v2.6-flash": "unknown",
+        "glm-5.3-flash": "unknown"
+      },
+      "stale": false
+    }
+  ],
+  "subscription_clis": [
+    {
+      "name": "claude",
+      "installed": true,
+      "note": "subscription CLI \u2014 not used for model calls"
+    },
+    {
+      "name": "codex",
+      "installed": true,
+      "note": "subscription CLI \u2014 not used for model calls"
+    },
+    {
+      "name": "opencode",
+      "installed": true,
+      "note": "subscription CLI \u2014 not used for model calls"
+    },
+    {
+      "name": "gemini",
+      "installed": false,
+      "note": "subscription CLI \u2014 not used for model calls"
+    },
+    {
+      "name": "agy",
+      "installed": true,
+      "note": "subscription CLI \u2014 not used for model calls"
+    }
+  ]
+}

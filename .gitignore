@@ -1,0 +1,30 @@
+# Secrets and local state — never committed
+.env
+.venv/
+data/raw/
+traces/live/
+traces/replay/
+config/models.catalog.json
+work/
+
+# Python / tooling caches
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+
+# OS noise
+.DS_Store
+
+# Local UI review files.
+.ui-shots/
+.taste-skill/
+.playwright-cli/
+
+# dist/ is the committed static page build.

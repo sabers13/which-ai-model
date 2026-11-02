@@ -1,0 +1,14 @@
+# Synthetic prices for the committed replay fixture.
+[models."fixture-accurate"]
+input_per_mtok = 1.00
+output_per_mtok = 2.00
+currency = "USD"
+source_url = "https://example.invalid/fixture"
+retrieved = "2026-10-29"
+
+[models."fixture-cheap"]
+input_per_mtok = 0.10
+output_per_mtok = 0.20
+currency = "USD"
+source_url = "https://example.invalid/fixture"
+retrieved = "2026-10-29"

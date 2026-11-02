@@ -1,0 +1,16 @@
+{"item_id": "b77-test-1000", "text": "My card was swallowed by the ATM.", "intent": "card_not_working"}
+{"item_id": "b77-test-1001", "text": "The card reader rejected my card at the shop.", "intent": "card_not_working"}
+{"item_id": "b77-test-1002", "text": "My card does not work at the till.", "intent": "card_not_working"}
+{"item_id": "b77-test-1003", "text": "The chip on my card is not recognised.", "intent": "card_not_working"}
+{"item_id": "b77-test-1004", "text": "My new card will not work in the machine.", "intent": "card_not_working"}
+{"item_id": "b77-test-1005", "text": "The terminal keeps saying card not working.", "intent": "card_not_working"}
+{"item_id": "b77-test-1006", "text": "I cannot pay with my card anywhere.", "intent": "card_not_working"}
+{"item_id": "b77-test-1007", "text": "My card is not accepted by the reader.", "intent": "card_not_working"}
+{"item_id": "b77-test-2000", "text": "How long until my new card arrives?", "intent": "card_arrival"}
+{"item_id": "b77-test-2001", "text": "When will the replacement card reach me?", "intent": "card_arrival"}
+{"item_id": "b77-test-2002", "text": "I am still waiting for my card.", "intent": "card_arrival"}
+{"item_id": "b77-test-2003", "text": "Has my card been posted yet?", "intent": "card_arrival"}
+{"item_id": "b77-test-2004", "text": "My card has not arrived after two weeks.", "intent": "card_arrival"}
+{"item_id": "b77-test-2005", "text": "Where is the card you promised to send?", "intent": "card_arrival"}
+{"item_id": "b77-test-2006", "text": "Can you tell me when the card is delivered?", "intent": "card_arrival"}
+{"item_id": "b77-test-2007", "text": "My card delivery is late.", "intent": "card_arrival"}

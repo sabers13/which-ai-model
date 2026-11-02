@@ -1,0 +1,259 @@
+{
+  "baseline": {
+    "cost_per_1k": 0.0,
+    "is_baseline": true,
+    "latency_p50": null,
+    "metrics": {
+      "accuracy": 0.862012987012987,
+      "macro_f1": 0.8593174160843333
+    },
+    "model_id": "tfidf-logreg",
+    "primary_ci": [
+      0.8242103069317241,
+      0.878958295263897
+    ],
+    "primary_metric": 0.8593174160843333
+  },
+  "cheapest": "gemini-4-argon",
+  "data_source": "Banking77 (PolyAI), test split, 8 messages per intent",
+  "fastest": "gemini-4-argon",
+  "gate": {
+    "floors": [],
+    "primary_drop_points": 2.0,
+    "schema_valid_floor": 0.98
+  },
+  "job": "Send each customer message to the one of 77 banking intents that fits it.",
+  "licence": "CC-BY-4.0",
+  "limits": [
+    "77 fixed English-language banking intents; a different intent set needs its own task.",
+    "Public Banking77 messages may be known to the models.",
+    "One fixed sample; a different domain, language or message mix needs its own run.",
+    "Cost is linear from the measured cost per 1,000 items; the price date is in config/prices.toml.",
+    "Point estimates carry 95% intervals; compare intervals before treating a small gap as real."
+  ],
+  "models": [
+    {
+      "cost_per_1k": 1.5679188311688312,
+      "is_baseline": false,
+      "latency_p50": 2788.5,
+      "metrics": {
+        "accuracy": 0.8912337662337663,
+        "macro_f1": 0.8893685568939881
+      },
+      "model_id": "gemini-4-argon",
+      "primary_ci": [
+        0.8541213135467691,
+        0.9074484722016839
+      ],
+      "primary_metric": 0.8893685568939881
+    },
+    {
+      "cost_per_1k": 0.07971964285714286,
+      "is_baseline": false,
+      "latency_p50": 1881.0,
+      "metrics": {
+        "accuracy": 0.8262987012987013,
+        "macro_f1": 0.8177352071978343
+      },
+      "model_id": "muse-spark-1.3-contributor",
+      "primary_ci": [
+        0.780141925796235,
+        0.8370943086240239
+      ],
+      "primary_metric": 0.8177352071978343
+    },
+    {
+      "cost_per_1k": 0.14687857142857141,
+      "is_baseline": false,
+      "latency_p50": 1256.0,
+      "metrics": {
+        "accuracy": 0.8198051948051948,
+        "macro_f1": 0.8088262958231998
+      },
+      "model_id": "claude-haiku-5-5",
+      "primary_ci": [
+        0.7691124379229952,
+        0.8274774052852696
+      ],
+      "primary_metric": 0.8088262958231998
+    },
+    {
+      "cost_per_1k": 0.06100097402597403,
+      "is_baseline": false,
+      "latency_p50": 1387.0,
+      "metrics": {
+        "accuracy": 0.8051948051948052,
+        "macro_f1": 0.7963576560061815
+      },
+      "model_id": "gpt-6-luna",
+      "primary_ci": [
+        0.755614929471599,
+        0.8162686545753437
+      ],
+      "primary_metric": 0.7963576560061815
+    },
+    {
+      "cost_per_1k": 0.02794904220779221,
+      "is_baseline": false,
+      "latency_p50": 1376.0,
+      "metrics": {
+        "accuracy": 0.7987012987012987,
+        "macro_f1": 0.7880785761642285
+      },
+      "model_id": "glm-5.3-flash",
+      "primary_ci": [
+        0.7462648019210986,
+        0.8091591452122913
+      ],
+      "primary_metric": 0.7880785761642285
+    },
+    {
+      "cost_per_1k": 0.09159329545454546,
+      "is_baseline": false,
+      "latency_p50": 1117.5,
+      "metrics": {
+        "accuracy": 0.810064935064935,
+        "macro_f1": 0.7873684862165556
+      },
+      "model_id": "deepseek-v4.1-flash",
+      "primary_ci": [
+        0.7478456714068307,
+        0.8066218776985539
+      ],
+      "primary_metric": 0.7873684862165556
+    },
+    {
+      "cost_per_1k": 0.028188035714285714,
+      "is_baseline": false,
+      "latency_p50": 3265.0,
+      "metrics": {
+        "accuracy": 0.7905844155844156,
+        "macro_f1": 0.7796877761599726
+      },
+      "model_id": "mimo-v2.6-flash",
+      "primary_ci": [
+        0.7393037512460248,
+        0.8000566927139051
+      ],
+      "primary_metric": 0.7796877761599726
+    }
+  ],
+  "most_accurate": "gemini-4-argon",
+  "no_model_meets_floor": false,
+  "notes": [
+    "Every number is read from `results/runs/live/cells.json`, `results/baseline/metrics.json` and the committed recommendations. No model call was made to build this card."
+  ],
+  "picker_rule": "within 3.0 points of the best model on the primary metric; a model below any gate floor is not good enough; ties go to lower cost",
+  "prompt_version": "v1",
+  "recheck": "`wam recheck run --tasks T-ROUTE --against results/runs/live` when a new model is released, when a model changes under the same id, or after a prompt change (that needs a new baseline run first).",
+  "sample_size": 616,
+  "task": "T-ROUTE",
+  "title": "Route a support message",
+  "volumes": [
+    {
+      "cost_usd": 1.5679188311688312,
+      "items_per_month": 1000,
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "cost_usd": 15.679188311688312,
+      "items_per_month": 10000,
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "cost_usd": 156.79188311688313,
+      "items_per_month": 100000,
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "cost_usd": 0.07971964285714286,
+      "items_per_month": 1000,
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "cost_usd": 0.7971964285714287,
+      "items_per_month": 10000,
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "cost_usd": 7.971964285714286,
+      "items_per_month": 100000,
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "cost_usd": 0.14687857142857141,
+      "items_per_month": 1000,
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "cost_usd": 1.4687857142857141,
+      "items_per_month": 10000,
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "cost_usd": 14.68785714285714,
+      "items_per_month": 100000,
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "cost_usd": 0.06100097402597403,
+      "items_per_month": 1000,
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "cost_usd": 0.6100097402597403,
+      "items_per_month": 10000,
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "cost_usd": 6.100097402597402,
+      "items_per_month": 100000,
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "cost_usd": 0.02794904220779221,
+      "items_per_month": 1000,
+      "model_id": "glm-5.3-flash"
+    },
+    {
+      "cost_usd": 0.27949042207792213,
+      "items_per_month": 10000,
+      "model_id": "glm-5.3-flash"
+    },
+    {
+      "cost_usd": 2.7949042207792214,
+      "items_per_month": 100000,
+      "model_id": "glm-5.3-flash"
+    },
+    {
+      "cost_usd": 0.09159329545454545,
+      "items_per_month": 1000,
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "cost_usd": 0.9159329545454546,
+      "items_per_month": 10000,
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "cost_usd": 9.159329545454545,
+      "items_per_month": 100000,
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "cost_usd": 0.028188035714285714,
+      "items_per_month": 1000,
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "cost_usd": 0.28188035714285714,
+      "items_per_month": 10000,
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "cost_usd": 2.8188035714285715,
+      "items_per_month": 100000,
+      "model_id": "mimo-v2.6-flash"
+    }
+  ]
+}

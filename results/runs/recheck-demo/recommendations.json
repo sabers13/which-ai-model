@@ -1,0 +1,81 @@
+{
+  "good_enough_points": 3.0,
+  "scorer_version": "v1",
+  "tasks": {
+    "T-ROUTE": {
+      "best_primary": 0.8593174160843333,
+      "cheapest": {
+        "baseline": true,
+        "connection_id": "baseline",
+        "cost_per_1k": 0.0,
+        "latency_p50": null,
+        "model": "tfidf-logreg",
+        "primary_metric": 0.8593174160843333
+      },
+      "fastest": null,
+      "good_enough": [
+        {
+          "baseline": true,
+          "connection_id": "baseline",
+          "cost_per_1k": 0.0,
+          "latency_p50": null,
+          "model": "tfidf-logreg",
+          "primary_metric": 0.8593174160843333
+        }
+      ],
+      "most_accurate": {
+        "baseline": true,
+        "connection_id": "baseline",
+        "cost_per_1k": 0.0,
+        "latency_p50": null,
+        "model": "tfidf-logreg",
+        "primary_metric": 0.8593174160843333
+      }
+    },
+    "T-SCOPE": {
+      "best_primary": 0.711111111111111,
+      "cheapest": {
+        "baseline": true,
+        "connection_id": "baseline",
+        "cost_per_1k": 0.0,
+        "latency_p50": null,
+        "model": "tfidf-logreg",
+        "primary_metric": 0.6839826839826838
+      },
+      "fastest": {
+        "baseline": false,
+        "connection_id": "opencode-go-responses",
+        "cost_per_1k": 0.01708166666666667,
+        "latency_p50": 1264.5,
+        "model": "gpt-6-luna",
+        "primary_metric": 0.711111111111111
+      },
+      "good_enough": [
+        {
+          "baseline": false,
+          "connection_id": "opencode-go-responses",
+          "cost_per_1k": 0.01708166666666667,
+          "latency_p50": 1264.5,
+          "model": "gpt-6-luna",
+          "primary_metric": 0.711111111111111
+        },
+        {
+          "baseline": true,
+          "connection_id": "baseline",
+          "cost_per_1k": 0.0,
+          "latency_p50": null,
+          "model": "tfidf-logreg",
+          "primary_metric": 0.6839826839826838
+        }
+      ],
+      "most_accurate": {
+        "baseline": false,
+        "connection_id": "opencode-go-responses",
+        "cost_per_1k": 0.01708166666666667,
+        "latency_p50": 1264.5,
+        "model": "gpt-6-luna",
+        "primary_metric": 0.711111111111111
+      }
+    }
+  }
+}

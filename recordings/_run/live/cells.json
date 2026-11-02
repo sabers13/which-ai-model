@@ -1,0 +1,684 @@
+{
+  "cells": [
+    {
+      "ci": {
+        "citation_precision_high": 0.475,
+        "citation_precision_low": 0.175,
+        "hit_at_4_high": 1.0,
+        "hit_at_4_low": 1.0
+      },
+      "cost_per_1k": 0.2693375,
+      "latency_p50": 1558.5,
+      "latency_p95": 2800.5499999999997,
+      "metrics": {
+        "abstain_correct": 1.0,
+        "citation_precision": 0.325,
+        "hit_at_4": 1.0,
+        "n_answerable": 35.0,
+        "n_unanswerable": 5.0
+      },
+      "model": {
+        "connection_id": "opencode-go-anthropic",
+        "model_id": "claude-haiku-5-5"
+      },
+      "n": 40,
+      "primary_metric": 1.0,
+      "task": "T-DOCS"
+    },
+    {
+      "ci": {
+        "citation_precision_high": 0.525,
+        "citation_precision_low": 0.225,
+        "hit_at_4_high": 1.0,
+        "hit_at_4_low": 1.0
+      },
+      "cost_per_1k": 3.47605,
+      "latency_p50": 4852.5,
+      "latency_p95": 28186.19999999998,
+      "metrics": {
+        "abstain_correct": 1.0,
+        "citation_precision": 0.375,
+        "hit_at_4": 1.0,
+        "n_answerable": 35.0,
+        "n_unanswerable": 5.0
+      },
+      "model": {
+        "connection_id": "opencode-go-google",
+        "model_id": "gemini-4-argon"
+      },
+      "n": 40,
+      "primary_metric": 1.0,
+      "task": "T-DOCS"
+    },
+    {
+      "ci": {
+        "citation_precision_high": 0.575,
+        "citation_precision_low": 0.275,
+        "hit_at_4_high": 1.0,
+        "hit_at_4_low": 1.0
+      },
+      "cost_per_1k": 0.29702249999999997,
+      "latency_p50": 1717.5,
+      "latency_p95": 3523.9,
+      "metrics": {
+        "abstain_correct": 1.0,
+        "citation_precision": 0.425,
+        "hit_at_4": 1.0,
+        "n_answerable": 35.0,
+        "n_unanswerable": 5.0
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "deepseek-v4.1-flash"
+      },
+      "n": 40,
+      "primary_metric": 1.0,
+      "task": "T-DOCS"
+    },
+    {
+      "ci": {
+        "citation_precision_high": 0.675,
+        "citation_precision_low": 0.375,
+        "hit_at_4_high": 1.0,
+        "hit_at_4_low": 1.0
+      },
+      "cost_per_1k": 0.20484775000000002,
+      "latency_p50": 2774.0,
+      "latency_p95": 5132.55,
+      "metrics": {
+        "abstain_correct": 1.0,
+        "citation_precision": 0.525,
+        "hit_at_4": 1.0,
+        "n_answerable": 35.0,
+        "n_unanswerable": 5.0
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "glm-5.3-flash"
+      },
+      "n": 40,
+      "primary_metric": 1.0,
+      "task": "T-DOCS"
+    },
+    {
+      "ci": {
+        "citation_precision_high": 0.225,
+        "citation_precision_low": 0.025,
+        "hit_at_4_high": 1.0,
+        "hit_at_4_low": 1.0
+      },
+      "cost_per_1k": 0.19950875000000004,
+      "latency_p50": 6298.5,
+      "latency_p95": 14128.349999999997,
+      "metrics": {
+        "abstain_correct": 0.4,
+        "citation_precision": 0.125,
+        "hit_at_4": 1.0,
+        "n_answerable": 35.0,
+        "n_unanswerable": 5.0
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "mimo-v2.6-flash"
+      },
+      "n": 40,
+      "primary_metric": 1.0,
+      "task": "T-DOCS"
+    },
+    {
+      "ci": {
+        "citation_precision_high": 0.625,
+        "citation_precision_low": 0.325,
+        "hit_at_4_high": 1.0,
+        "hit_at_4_low": 1.0
+      },
+      "cost_per_1k": 0.14825750000000001,
+      "latency_p50": 1928.0,
+      "latency_p95": 2964.9999999999986,
+      "metrics": {
+        "abstain_correct": 1.0,
+        "citation_precision": 0.475,
+        "hit_at_4": 1.0,
+        "n_answerable": 35.0,
+        "n_unanswerable": 5.0
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "gpt-6-luna"
+      },
+      "n": 40,
+      "primary_metric": 1.0,
+      "task": "T-DOCS"
+    },
+    {
+      "ci": {
+        "citation_precision_high": 0.55,
+        "citation_precision_low": 0.25,
+        "hit_at_4_high": 1.0,
+        "hit_at_4_low": 1.0
+      },
+      "cost_per_1k": 0.1580025,
+      "latency_p50": 3237.0,
+      "latency_p95": 14077.249999999965,
+      "metrics": {
+        "abstain_correct": 1.0,
+        "citation_precision": 0.4,
+        "hit_at_4": 1.0,
+        "n_answerable": 35.0,
+        "n_unanswerable": 5.0
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "muse-spark-1.3-contributor"
+      },
+      "n": 40,
+      "primary_metric": 1.0,
+      "task": "T-DOCS"
+    },
+    {
+      "ci": {
+        "intent_correct_high": 0.761494751720803,
+        "intent_correct_low": 0.6095459841941793,
+        "schema_valid_rate_high": 0.9585611848396149,
+        "schema_valid_rate_low": 0.8734642066329596
+      },
+      "cost_per_1k": 0.22150933333333334,
+      "latency_p50": 2666.5,
+      "latency_p95": 5677.899999999998,
+      "metrics": {
+        "intent_correct": 0.6906474820143885,
+        "intent_correct_all": 0.64,
+        "n_valid": 139.0,
+        "schema_valid_rate": 0.9266666666666666
+      },
+      "model": {
+        "connection_id": "opencode-go-anthropic",
+        "model_id": "claude-haiku-5-5"
+      },
+      "n": 150,
+      "primary_metric": 0.6906474820143885,
+      "task": "T-REPLY"
+    },
+    {
+      "ci": {
+        "intent_correct_high": 0.8504110584500398,
+        "intent_correct_low": 0.7216063981873552,
+        "schema_valid_rate_high": 1.0,
+        "schema_valid_rate_low": 0.9750297556319235
+      },
+      "cost_per_1k": 1.2561200000000001,
+      "latency_p50": 6809.5,
+      "latency_p95": 42636.59999999993,
+      "metrics": {
+        "intent_correct": 0.7933333333333333,
+        "intent_correct_all": 0.7933333333333333,
+        "n_valid": 150.0,
+        "schema_valid_rate": 1.0
+      },
+      "model": {
+        "connection_id": "opencode-go-google",
+        "model_id": "gemini-4-argon"
+      },
+      "n": 150,
+      "primary_metric": 0.7933333333333333,
+      "task": "T-REPLY"
+    },
+    {
+      "ci": {
+        "intent_correct_high": 0.6675484942248558,
+        "intent_correct_low": 0.4993185914156349,
+        "schema_valid_rate_high": 0.9011056278741189,
+        "schema_valid_rate_low": 0.7879153994391072
+      },
+      "cost_per_1k": 0.36536199999999996,
+      "latency_p50": 5689.0,
+      "latency_p95": 14432.449999999973,
+      "metrics": {
+        "intent_correct": 0.5859375,
+        "intent_correct_all": 0.5,
+        "n_valid": 128.0,
+        "schema_valid_rate": 0.8533333333333334
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "deepseek-v4.1-flash"
+      },
+      "n": 150,
+      "primary_metric": 0.5859375,
+      "task": "T-REPLY"
+    },
+    {
+      "ci": {
+        "intent_correct_high": 0.35888627965316,
+        "intent_correct_low": 0.18202221087474602,
+        "schema_valid_rate_high": 0.6875088322080735,
+        "schema_valid_rate_low": 0.5334979124018292
+      },
+      "cost_per_1k": 0.08185506666666666,
+      "latency_p50": 3976.5,
+      "latency_p95": 8512.049999999994,
+      "metrics": {
+        "intent_correct": 0.2608695652173913,
+        "intent_correct_all": 0.16,
+        "n_valid": 92.0,
+        "schema_valid_rate": 0.6133333333333333
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "glm-5.3-flash"
+      },
+      "n": 150,
+      "primary_metric": 0.2608695652173913,
+      "task": "T-REPLY"
+    },
+    {
+      "ci": {
+        "intent_correct_high": 0.28710446104494924,
+        "intent_correct_low": 0.14189945306384225,
+        "schema_valid_rate_high": 0.8388397629824609,
+        "schema_valid_rate_low": 0.7071769001714163
+      },
+      "cost_per_1k": 0.1151448,
+      "latency_p50": 9289.0,
+      "latency_p95": 35309.799999999996,
+      "metrics": {
+        "intent_correct": 0.20512820512820512,
+        "intent_correct_all": 0.16,
+        "n_valid": 117.0,
+        "schema_valid_rate": 0.78
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "mimo-v2.6-flash"
+      },
+      "n": 150,
+      "primary_metric": 0.20512820512820512,
+      "task": "T-REPLY"
+    },
+    {
+      "ci": {
+        "intent_correct_high": 0.04730690870036751,
+        "intent_correct_low": 0.0036641291512270503,
+        "schema_valid_rate_high": 1.0,
+        "schema_valid_rate_low": 0.9750297556319235
+      },
+      "cost_per_1k": 0.04185666666666667,
+      "latency_p50": 1771.0,
+      "latency_p95": 2400.65,
+      "metrics": {
+        "intent_correct": 0.013333333333333334,
+        "intent_correct_all": 0.013333333333333334,
+        "n_valid": 150.0,
+        "schema_valid_rate": 1.0
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "gpt-6-luna"
+      },
+      "n": 150,
+      "primary_metric": 0.013333333333333334,
+      "task": "T-REPLY"
+    },
+    {
+      "ci": {
+        "intent_correct_high": 0.4546439734595923,
+        "intent_correct_low": 0.30006537310021497,
+        "schema_valid_rate_high": 0.9931752486770326,
+        "schema_valid_rate_low": 0.9428533167296139
+      },
+      "cost_per_1k": 0.08955933333333334,
+      "latency_p50": 4999.0,
+      "latency_p95": 13866.349999999975,
+      "metrics": {
+        "intent_correct": 0.3741496598639456,
+        "intent_correct_all": 0.36666666666666664,
+        "n_valid": 147.0,
+        "schema_valid_rate": 0.98
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "muse-spark-1.3-contributor"
+      },
+      "n": 150,
+      "primary_metric": 0.3741496598639456,
+      "task": "T-REPLY"
+    },
+    {
+      "ci": {
+        "accuracy_high": 0.849025974025974,
+        "accuracy_low": 0.7873376623376623,
+        "macro_f1_high": 0.8274774052852696,
+        "macro_f1_low": 0.7691124379229952
+      },
+      "cost_per_1k": 0.14687857142857141,
+      "latency_p50": 1256.0,
+      "latency_p95": 2144.0,
+      "metrics": {
+        "accuracy": 0.8198051948051948,
+        "macro_f1": 0.8088262958231998
+      },
+      "model": {
+        "connection_id": "opencode-go-anthropic",
+        "model_id": "claude-haiku-5-5"
+      },
+      "n": 616,
+      "primary_metric": 0.8088262958231998,
+      "task": "T-ROUTE"
+    },
+    {
+      "ci": {
+        "accuracy_high": 0.913961038961039,
+        "accuracy_low": 0.8652597402597403,
+        "macro_f1_high": 0.9074484722016839,
+        "macro_f1_low": 0.8541213135467691
+      },
+      "cost_per_1k": 1.5679188311688312,
+      "latency_p50": 2788.5,
+      "latency_p95": 7983.25,
+      "metrics": {
+        "accuracy": 0.8912337662337663,
+        "macro_f1": 0.8893685568939881
+      },
+      "model": {
+        "connection_id": "opencode-go-google",
+        "model_id": "gemini-4-argon"
+      },
+      "n": 616,
+      "primary_metric": 0.8893685568939881,
+      "task": "T-ROUTE"
+    },
+    {
+      "ci": {
+        "accuracy_high": 0.8392857142857143,
+        "accuracy_low": 0.775974025974026,
+        "macro_f1_high": 0.8066218776985539,
+        "macro_f1_low": 0.7478456714068307
+      },
+      "cost_per_1k": 0.09159329545454546,
+      "latency_p50": 1117.5,
+      "latency_p95": 4866.25,
+      "metrics": {
+        "accuracy": 0.810064935064935,
+        "macro_f1": 0.7873684862165556
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "deepseek-v4.1-flash"
+      },
+      "n": 616,
+      "primary_metric": 0.7873684862165556,
+      "task": "T-ROUTE"
+    },
+    {
+      "ci": {
+        "accuracy_high": 0.8279626623376621,
+        "accuracy_low": 0.7646103896103896,
+        "macro_f1_high": 0.8091591452122913,
+        "macro_f1_low": 0.7462648019210986
+      },
+      "cost_per_1k": 0.02794904220779221,
+      "latency_p50": 1376.0,
+      "latency_p95": 2910.5,
+      "metrics": {
+        "accuracy": 0.7987012987012987,
+        "macro_f1": 0.7880785761642285
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "glm-5.3-flash"
+      },
+      "n": 616,
+      "primary_metric": 0.7880785761642285,
+      "task": "T-ROUTE"
+    },
+    {
+      "ci": {
+        "accuracy_high": 0.8214285714285714,
+        "accuracy_low": 0.7564935064935064,
+        "macro_f1_high": 0.8000566927139051,
+        "macro_f1_low": 0.7393037512460248
+      },
+      "cost_per_1k": 0.028188035714285714,
+      "latency_p50": 3265.0,
+      "latency_p95": 14321.5,
+      "metrics": {
+        "accuracy": 0.7905844155844156,
+        "macro_f1": 0.7796877761599726
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "mimo-v2.6-flash"
+      },
+      "n": 616,
+      "primary_metric": 0.7796877761599726,
+      "task": "T-ROUTE"
+    },
+    {
+      "ci": {
+        "accuracy_high": 0.8344155844155844,
+        "accuracy_low": 0.7711038961038961,
+        "macro_f1_high": 0.8162686545753437,
+        "macro_f1_low": 0.755614929471599
+      },
+      "cost_per_1k": 0.06100097402597403,
+      "latency_p50": 1387.0,
+      "latency_p95": 2282.25,
+      "metrics": {
+        "accuracy": 0.8051948051948052,
+        "macro_f1": 0.7963576560061815
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "gpt-6-luna"
+      },
+      "n": 616,
+      "primary_metric": 0.7963576560061815,
+      "task": "T-ROUTE"
+    },
+    {
+      "ci": {
+        "accuracy_high": 0.8539366883116881,
+        "accuracy_low": 0.7954545454545454,
+        "macro_f1_high": 0.8370943086240239,
+        "macro_f1_low": 0.780141925796235
+      },
+      "cost_per_1k": 0.07971964285714286,
+      "latency_p50": 1881.0,
+      "latency_p95": 6057.75,
+      "metrics": {
+        "accuracy": 0.8262987012987013,
+        "macro_f1": 0.8177352071978343
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "muse-spark-1.3-contributor"
+      },
+      "n": 616,
+      "primary_metric": 0.8177352071978343,
+      "task": "T-ROUTE"
+    },
+    {
+      "ci": {
+        "f1_high": 0.7799066985645934,
+        "f1_low": 0.6816838984042761,
+        "precision_high": 0.6579811015748316,
+        "precision_low": 0.5338122615333776,
+        "recall_high": 0.9681159557907947,
+        "recall_low": 0.8899102291652979
+      },
+      "cost_per_1k": 0.040420333333333336,
+      "latency_p50": 968.0,
+      "latency_p95": 2066.1,
+      "metrics": {
+        "accuracy": 0.6533333333333333,
+        "f1": 0.7305699481865284,
+        "precision": 0.597457627118644,
+        "recall": 0.94
+      },
+      "model": {
+        "connection_id": "opencode-go-anthropic",
+        "model_id": "claude-haiku-5-5"
+      },
+      "n": 300,
+      "primary_metric": 0.7305699481865284,
+      "task": "T-SCOPE"
+    },
+    {
+      "ci": {
+        "f1_high": 0.7541858320676936,
+        "f1_low": 0.6546216445636395,
+        "precision_high": 0.6064213938080661,
+        "precision_low": 0.48852405423318274,
+        "recall_high": 0.9963358708487731,
+        "recall_low": 0.9526930912996325
+      },
+      "cost_per_1k": 0.43643999999999994,
+      "latency_p50": 4205.5,
+      "latency_p95": 29304.350000000013,
+      "metrics": {
+        "accuracy": 0.5866666666666667,
+        "f1": 0.7047619047619047,
+        "precision": 0.5481481481481482,
+        "recall": 0.9866666666666667
+      },
+      "model": {
+        "connection_id": "opencode-go-google",
+        "model_id": "gemini-4-argon"
+      },
+      "n": 300,
+      "primary_metric": 0.7047619047619047,
+      "task": "T-SCOPE"
+    },
+    {
+      "ci": {
+        "f1_high": 0.7616823906872451,
+        "f1_low": 0.6615374677002583,
+        "precision_high": 0.6302410531840325,
+        "precision_low": 0.50818561213916,
+        "recall_high": 0.9727304600798061,
+        "recall_low": 0.8982961216180454
+      },
+      "cost_per_1k": 0.055584999999999996,
+      "latency_p50": 825.5,
+      "latency_p95": 3057.2000000000007,
+      "metrics": {
+        "accuracy": 0.6166666666666667,
+        "f1": 0.7117794486215537,
+        "precision": 0.570281124497992,
+        "recall": 0.9466666666666667
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "deepseek-v4.1-flash"
+      },
+      "n": 300,
+      "primary_metric": 0.7117794486215537,
+      "task": "T-SCOPE"
+    },
+    {
+      "ci": {
+        "f1_high": 0.7692399049881236,
+        "f1_low": 0.6718336314847942,
+        "precision_high": 0.6388495968497283,
+        "precision_low": 0.5166270942178273,
+        "recall_high": 0.9772134508387381,
+        "recall_low": 0.9068135276008725
+      },
+      "cost_per_1k": 0.017356233333333332,
+      "latency_p50": 1680.5,
+      "latency_p95": 5222.5,
+      "metrics": {
+        "accuracy": 0.63,
+        "f1": 0.7204030226700253,
+        "precision": 0.5789473684210527,
+        "recall": 0.9533333333333334
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "glm-5.3-flash"
+      },
+      "n": 300,
+      "primary_metric": 0.7204030226700253,
+      "task": "T-SCOPE"
+    },
+    {
+      "ci": {
+        "f1_high": 0.7748259323192419,
+        "f1_low": 0.6773312169312169,
+        "precision_high": 0.6529161046857211,
+        "precision_low": 0.5290212695534181,
+        "recall_high": 0.9681159557907947,
+        "recall_low": 0.8899102291652979
+      },
+      "cost_per_1k": 0.020660133333333334,
+      "latency_p50": 2616.0,
+      "latency_p95": 10716.750000000002,
+      "metrics": {
+        "accuracy": 0.6466666666666666,
+        "f1": 0.7268041237113401,
+        "precision": 0.592436974789916,
+        "recall": 0.94
+      },
+      "model": {
+        "connection_id": "opencode-go-openai",
+        "model_id": "mimo-v2.6-flash"
+      },
+      "n": 300,
+      "primary_metric": 0.7268041237113401,
+      "task": "T-SCOPE"
+    },
+    {
+      "ci": {
+        "f1_high": 0.7584665006398948,
+        "f1_low": 0.6595730420398151,
+        "precision_high": 0.6248758744842811,
+        "precision_low": 0.5036080554525828,
+        "recall_high": 0.9772134508387381,
+        "recall_low": 0.9068135276008725
+      },
+      "cost_per_1k": 0.01708166666666667,
+      "latency_p50": 1222.0,
+      "latency_p95": 2052.2000000000007,
+      "metrics": {
+        "accuracy": 0.61,
+        "f1": 0.7096774193548386,
+        "precision": 0.5652173913043478,
+        "recall": 0.9533333333333334
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "gpt-6-luna"
+      },
+      "n": 300,
+      "primary_metric": 0.7096774193548386,
+      "task": "T-SCOPE"
+    },
+    {
+      "ci": {
+        "f1_high": 0.7707899419777685,
+        "f1_low": 0.6748498458944706,
+        "precision_high": 0.6412376039403818,
+        "precision_low": 0.5188639268015882,
+        "recall_high": 0.9772134508387381,
+        "recall_low": 0.9068135276008725
+      },
+      "cost_per_1k": 0.04149266666666667,
+      "latency_p50": 1874.0,
+      "latency_p95": 3997.800000000001,
+      "metrics": {
+        "accuracy": 0.6333333333333333,
+        "f1": 0.7222222222222223,
+        "precision": 0.5813008130081301,
+        "recall": 0.9533333333333334
+      },
+      "model": {
+        "connection_id": "opencode-go-responses",
+        "model_id": "muse-spark-1.3-contributor"
+      },
+      "n": 300,
+      "primary_metric": 0.7222222222222223,
+      "task": "T-SCOPE"
+    }
+  ],
+  "scorer_version": "v1"
+}

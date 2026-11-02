@@ -1,0 +1,50 @@
+{
+  "description": "Source line counts, including blank lines and comments.",
+  "files": [
+    {
+      "tool": "L1 router",
+      "before_file": "src/which_ai_model/legacy/l1_router.py",
+      "after_file": "src/which_ai_model/tools/router.py",
+      "before": 77,
+      "after": 97,
+      "before_sha256": "1c9d0866cc381a6c99849368bbd8a4873458088aa4fe7512ce64fc859f2089a4",
+      "after_sha256": "9593d4c5e770ab526c837ef8170692c732ba2122ca4a455d671de704051aef2d"
+    },
+    {
+      "tool": "L2 reply drafter",
+      "before_file": "src/which_ai_model/legacy/l2_drafter.py",
+      "after_file": "src/which_ai_model/tools/drafter.py",
+      "before": 87,
+      "after": 97,
+      "before_sha256": "e923def4345b1146eaf841845fa538283e8246bef732f70c1754f6f536ce0531",
+      "after_sha256": "887a3682ee23995f773447aaf84268ea8b0b9fa148998e017c2d277ab096bae8"
+    },
+    {
+      "tool": "L3 scope checker",
+      "before_file": "src/which_ai_model/legacy/l3_scope.py",
+      "after_file": "src/which_ai_model/tools/scope.py",
+      "before": 70,
+      "after": 157,
+      "before_sha256": "4e97c11ef0f6f201a97a61faea547b72d27f89982bb5ba48e771139a43fce2c8",
+      "after_sha256": "0bdd89b84da5861c6eec2adde1a401231193e683f20f772603f424e774d00c59"
+    },
+    {
+      "tool": "L5 tool agent",
+      "before_file": "src/which_ai_model/legacy/l5_agent.py",
+      "after_file": "src/which_ai_model/tools/agent.py",
+      "before": 124,
+      "after": 271,
+      "before_sha256": "38393f43a6f4056845d51f8a52c69a0242ea64560e637a31089cca05db9e9599",
+      "after_sha256": "3db7440cfbd59af90965fc9dcb9bfcf6758049f6dd83f8c426630e9aae72c5fd"
+    },
+    {
+      "tool": "Shared plumbing",
+      "before_file": "src/which_ai_model/legacy/_common.py",
+      "after_file": "src/which_ai_model/tools/_template.py",
+      "before": 76,
+      "after": 297,
+      "before_sha256": "1f63dfaf38c6ffc39d799842274f9cd1460f05cfe689e59bf38a751d5baabc0d",
+      "after_sha256": "44aac4dbba03b07a3a7036977db80999e27f6825b2c336f1e1659c49e3e23094"
+    }
+  ]
+}

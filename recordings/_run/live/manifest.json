@@ -1,0 +1,38 @@
+{
+  "finished_at": "2026-10-29T10:04:22.234719Z",
+  "models": [
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "deepseek-v4.1-flash"
+    },
+    {
+      "connection_id": "opencode-go-anthropic",
+      "model_id": "claude-haiku-5-5"
+    },
+    {
+      "connection_id": "opencode-go-responses",
+      "model_id": "gpt-6-luna"
+    },
+    {
+      "connection_id": "opencode-go-google",
+      "model_id": "gemini-4-argon"
+    },
+    {
+      "connection_id": "opencode-go-responses",
+      "model_id": "muse-spark-1.3-contributor"
+    },
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "mimo-v2.6-flash"
+    },
+    {
+      "connection_id": "opencode-go-openai",
+      "model_id": "glm-5.3-flash"
+    }
+  ],
+  "prompt_version": "v1",
+  "run_id": "live",
+  "sample_hash": "2d9708cfaef7037d778183410f8085b43ff344be3f1c6cc0b8bda383487bde53",
+  "scorer_version": "v1",
+  "started_at": "2026-10-29T04:42:49.595085Z"
+}

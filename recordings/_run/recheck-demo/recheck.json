@@ -1,0 +1,45 @@
+{
+  "against": "results/runs/live",
+  "candidate_run": "results/runs/recheck-demo",
+  "gate": {
+    "exit_code": 2,
+    "outcome": "REFUSED",
+    "pairs": [
+      {
+        "comparisons": [],
+        "exit_code": 2,
+        "outcome": "REFUSED",
+        "pair": "gpt-6-luna",
+        "reasons": [
+          "sampling settings differ for gpt-6-luna vs gpt-6-luna: temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+        ],
+        "warnings": []
+      }
+    ],
+    "reasons": [
+      "gpt-6-luna: sampling settings differ for gpt-6-luna vs gpt-6-luna: temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+    ],
+    "warnings": []
+  },
+  "mode": "record",
+  "recorded_at": "2026-11-01T10:45:47.120458Z",
+  "recordings_root": "recordings/fresh/recheck-demo",
+  "run_id": "recheck-demo",
+  "settings": {
+    "accept_mismatch": false,
+    "pairs": [
+      {
+        "accepted": false,
+        "baseline_model": "gpt-6-luna",
+        "candidate_model": "gpt-6-luna",
+        "comparable": false,
+        "differences": [
+          "temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+        ]
+      }
+    ]
+  },
+  "tasks": [
+    "T-SCOPE"
+  ]
+}

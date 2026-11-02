@@ -1,0 +1,40 @@
+{"answerable": true, "gold_ids": ["guide/connect-provider#0", "guide/connect-provider#2"], "id": "t-docs-001", "question": "Where should I keep my provider API key, and how do I point the project configuration at it without pasting the secret anywhere?"}
+{"answerable": true, "gold_ids": ["guide/connect-provider#1"], "id": "t-docs-002", "question": "What are the four connection protocols in this project, and which provider-side API does each one speak?"}
+{"answerable": true, "gold_ids": ["guide/connect-provider#3"], "id": "t-docs-003", "question": "What information does the doctor command show for every connection, and which result values can it report?"}
+{"answerable": true, "gold_ids": ["guide/connect-provider#2"], "id": "t-docs-004", "question": "Which function resolves the credential reference into a real key, and which parts of the codebase are permitted to read secrets from the environment?"}
+{"answerable": true, "gold_ids": ["guide/call-model-schema#1"], "id": "t-docs-005", "question": "How do I construct a chat model from a connection object, and which LangChain class gets picked for each protocol?"}
+{"answerable": true, "gold_ids": ["guide/call-model-schema#2"], "id": "t-docs-006", "question": "How can I get a model to return data matching my pydantic schema, and what do I receive when the output fails validation?"}
+{"answerable": true, "gold_ids": ["guide/call-model-schema#0"], "id": "t-docs-007", "question": "Which shared data shapes define the answers for routing, scope, replies, and docs, and why are they better than extracting fields with regular expressions?"}
+{"answerable": true, "gold_ids": ["guide/add-tool#0"], "id": "t-docs-008", "question": "What should a tool function look like, and why is its documentation string more important than usual?"}
+{"answerable": true, "gold_ids": ["guide/add-tool#1"], "id": "t-docs-009", "question": "Once I have tool functions, how do I assemble them into an agent and run it, and should the call be synchronous or asynchronous?"}
+{"answerable": true, "gold_ids": ["guide/add-tool#2"], "id": "t-docs-010", "question": "Where do I configure a backup model and automatic retries for a tool, and which failures actually trigger them?"}
+{"answerable": true, "gold_ids": ["guide/mcp-tools#1"], "id": "t-docs-011", "question": "How do I expose new functions through the local MCP server, and which class do I build them on?"}
+{"answerable": true, "gold_ids": ["guide/mcp-tools#2"], "id": "t-docs-012", "question": "From the LangChain side, how do I connect to the server script and enumerate the tools it offers?"}
+{"answerable": true, "gold_ids": ["guide/mcp-tools#2"], "id": "t-docs-013", "question": "What goes wrong if I invoke an MCP tool synchronously, and what shape does a successful tool result take?"}
+{"answerable": true, "gold_ids": ["guide/langgraph-flow#1"], "id": "t-docs-014", "question": "What is the standard recipe for defining a small LangGraph flow with state, nodes, and branching?"}
+{"answerable": true, "gold_ids": ["guide/langgraph-flow#2"], "id": "t-docs-015", "question": "In the documentation answering flow, how do retrieval, generation, and citation attach to each other, and how are citations verified?"}
+{"answerable": true, "gold_ids": ["guide/langgraph-flow#2"], "id": "t-docs-016", "question": "What is the flow supposed to return when a user asks something the guide does not cover?"}
+{"answerable": true, "gold_ids": ["guide/tracing#1"], "id": "t-docs-017", "question": "Which fields are recorded for every single model invocation in the local trace?"}
+{"answerable": true, "gold_ids": ["guide/tracing#2"], "id": "t-docs-018", "question": "How does the callback handler gather token counts and metadata for the trace while keeping credentials out of it?"}
+{"answerable": true, "gold_ids": ["guide/tracing#2"], "id": "t-docs-019", "question": "How do I know whether a structured answer validated, and are failed calls kept in the trace file?"}
+{"answerable": true, "gold_ids": ["guide/record-replay#1"], "id": "t-docs-020", "question": "How is the lookup key for a stored model response computed from the model, the prompt, and the request?"}
+{"answerable": true, "gold_ids": ["guide/record-replay#2"], "id": "t-docs-021", "question": "When is it appropriate to record live traffic versus replaying stored responses, and what does a cache miss tell me?"}
+{"answerable": true, "gold_ids": ["guide/record-replay#1"], "id": "t-docs-022", "question": "What does one row in the recordings directory contain, and which sensitive items must never appear there?"}
+{"answerable": true, "gold_ids": ["guide/benchmark#1"], "id": "t-docs-023", "question": "What are the four benchmark tasks, how many items does each use, and where do the samples come from?"}
+{"answerable": true, "gold_ids": ["guide/benchmark#2"], "id": "t-docs-024", "question": "Which quality numbers are reported for routing, scope detection, replies, and docs retrieval, and why is scoring fully rule-based?"}
+{"answerable": true, "gold_ids": ["guide/benchmark#3"], "id": "t-docs-025", "question": "What limits keep the benchmark runner polite toward the shared model gateway during the paid run?"}
+{"answerable": true, "gold_ids": ["guide/benchmark#0"], "id": "t-docs-026", "question": "How are blank, truncated, or unparsable model answers treated during scoring?"}
+{"answerable": true, "gold_ids": ["guide/gate#1"], "id": "t-docs-027", "question": "Under what circumstances does the regression gate reject a replacement model?"}
+{"answerable": true, "gold_ids": ["guide/gate#2"], "id": "t-docs-028", "question": "What differences between two runs make them impossible to compare fairly, and does such a refusal count as approval?"}
+{"answerable": true, "gold_ids": ["guide/gate#2"], "id": "t-docs-029", "question": "How do I call the gate checker from Python, and how should I organise baseline and candidate result folders?"}
+{"answerable": true, "gold_ids": ["guide/gate#1"], "id": "t-docs-030", "question": "What does it mean for a model to be good enough on a task, and how does the picker turn that into cheapest, most accurate, and fastest recommendations?"}
+{"answerable": true, "gold_ids": ["guide/new-tool-template#1", "guide/new-tool-template#2"], "id": "t-docs-031", "question": "If I want to contribute a sixth tool, which four ingredients do I need to provide?"}
+{"answerable": true, "gold_ids": ["guide/new-tool-template#2"], "id": "t-docs-032", "question": "How do I demonstrate that my reimplemented tool behaves identically to the original legacy version?"}
+{"answerable": true, "gold_ids": ["guide/new-tool-template#2"], "id": "t-docs-033", "question": "Why does the documentation helper get a weaker equivalence check than the other migrated tools?"}
+{"answerable": true, "gold_ids": ["guide/cost-budget#1"], "id": "t-docs-034", "question": "How is the dollar price of an individual model call determined, and what is shown when no pricing source is available?"}
+{"answerable": true, "gold_ids": ["guide/cost-budget#2"], "id": "t-docs-035", "question": "What mechanism guarantees the full benchmark run stays within its spending cap, and what happens first when money runs short?"}
+{"answerable": false, "gold_ids": [], "id": "t-docs-036", "question": "Which editor plugins does the project suggest for syntax highlighting of prompt templates?"}
+{"answerable": false, "gold_ids": [], "id": "t-docs-037", "question": "What is the refund process if the paid benchmark run accidentally overspends its budget?"}
+{"answerable": false, "gold_ids": [], "id": "t-docs-038", "question": "How do I publish the built results page to a public static hosting service?"}
+{"answerable": false, "gold_ids": [], "id": "t-docs-039", "question": "Which JavaScript charting package draws the latency percentile graphs on the results page?"}
+{"answerable": false, "gold_ids": [], "id": "t-docs-040", "question": "How can I fine-tune one of the benchmark models on the traces collected during the run?"}

@@ -1,0 +1,30 @@
+{"id": "item-01", "text": "My card was charged twice for the same invoice this month.", "queue": "billing", "urgent": true}
+{"id": "item-02", "text": "The dashboard will not load and shows an error in the browser.", "queue": "technical", "urgent": false}
+{"id": "item-03", "text": "Please change the e-mail address on my profile.", "queue": "account", "urgent": false}
+{"id": "item-04", "text": "The export is missing rows and the totals do not add up at all.", "queue": "billing", "urgent": true}
+{"id": "item-05", "text": "Our integration stopped syncing after the last update.", "queue": "technical", "urgent": false}
+{"id": "item-06", "text": "I cannot sign in after resetting my password.", "queue": "account", "urgent": false}
+{"id": "item-07", "text": "The invoice shows an old plan price that we cancelled last year.", "queue": "billing", "urgent": true}
+{"id": "item-08", "text": "The mobile app crashes every time I open the reports tab.", "queue": "technical", "urgent": false}
+{"id": "item-09", "text": "Please remove a former colleague from our workspace members.", "queue": "account", "urgent": false}
+{"id": "item-10", "text": "We were billed for a seat that nobody has used this quarter.", "queue": "billing", "urgent": true}
+{"id": "item-11", "text": "Uploads hang at ninety percent and then fail with a timeout.", "queue": "technical", "urgent": false}
+{"id": "item-12", "text": "Two-factor codes never arrive on my phone any more.", "queue": "account", "urgent": false}
+{"id": "item-13", "text": "The refund we were promised last week has not appeared.", "queue": "billing", "urgent": true}
+{"id": "item-14", "text": "Search returns nothing even for records I can see in the list.", "queue": "technical", "urgent": false}
+{"id": "item-15", "text": "I need the owner of the workspace changed to another person.", "queue": "account", "urgent": false}
+{"id": "item-16", "text": "Our annual invoice was sent to the wrong billing contact.", "queue": "billing", "urgent": true}
+{"id": "item-17", "text": "The API rejects every request with a schema error since Tuesday.", "queue": "technical", "urgent": false}
+{"id": "item-18", "text": "Please add a new administrator to the account today.", "queue": "account", "urgent": false}
+{"id": "item-19", "text": "We need a corrected invoice with the company tax number on it.", "queue": "billing", "urgent": true}
+{"id": "item-20", "text": "Notifications are delayed by several hours for the whole team.", "queue": "technical", "urgent": false}
+{"id": "item-21", "text": "The password reset link says it has expired immediately.", "queue": "account", "urgent": false}
+{"id": "item-22", "text": "A duplicate payment was taken and we need it returned.", "queue": "billing", "urgent": true}
+{"id": "item-23", "text": "The webhook fires twice for every completed order.", "queue": "technical", "urgent": false}
+{"id": "item-24", "text": "Please close the accounts of two people who left the company.", "queue": "account", "urgent": false}
+{"id": "item-25", "text": "The plan upgrade charged us but the new limits are not active.", "queue": "billing", "urgent": true}
+{"id": "item-26", "text": "Time zone settings reset to the default after every sign-in.", "queue": "technical", "urgent": false}
+{"id": "item-27", "text": "We cannot invite new members because the button is greyed out.", "queue": "account", "urgent": false}
+{"id": "item-28", "text": "The latest statement includes a line item we never agreed to.", "queue": "billing", "urgent": true}
+{"id": "item-29", "text": "The background job that builds our report fails silently.", "queue": "technical", "urgent": false}
+{"id": "item-30", "text": "Please transfer ownership of the project to our new team lead.", "queue": "account", "urgent": false}

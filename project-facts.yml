@@ -1,0 +1,49 @@
+# project-facts.yml — project summary and evidence references.
+# The project must stand on its own as a standalone public project: never name the company this research was done for
+# (title, slug, repo, one_line, mention, summary, bullets, keywords, live_url). The ONE exception is a resource
+# you actually used from them (a dataset, an API, open-source code): credit it under "resources" with its licence.
+
+title: "Which AI Model?"
+slug: which-ai-model
+repo: https://github.com/sabers13/which-ai-model
+live_url: https://sabersojudi.com/which-ai-model/
+stack: [Python, LangChain, LangGraph, MCP, PostgreSQL, pgvector, pytest]
+stack_label: "Python, LangChain, LangGraph, PostgreSQL"
+one_line: "a per-task LLM benchmark and provider-portability layer for customer-service tools"
+mention: "an LLM model-selection benchmark"
+summary: "A benchmark that asked which AI model each customer-service tool should use, and what it would take to switch provider without a rewrite. It ran seven models on four tasks over public data and produced a per-task picker plus a gate that blocks a model change when quality drops. A later release added a task-spec format for your own data, a fifth task on public vehicle complaints, re-checking, and a card and prompt library per task."
+tags: [python, llm, nlp, api, testing, ci]
+keywords: "LLM benchmark, AI model comparison, model routing, LLM cost optimisation, LangChain, LangGraph, BYOK, intent classification, RAG, regression testing for models, provider portability, task specification, model re-check, safety triage"
+claim_limits: "Independent project. All seven models were reached through one gateway, each in the API format its lab publishes; direct provider endpoints outside that gateway were mock-tested only, never called. Model tiers are mixed on purpose (one flagship, six small models). Four of the five legacy tools are staged reconstructions written for this project and labelled as such; only the fifth is real earlier code. Results use public benchmark data, are dated 2026-10-29, and are not a production deployment. Cost is gateway-measured for four models and price-table-bounded for three. The T-DEFECT task uses a dated NHTSA snapshot (2026-10-31); its sample oversamples safety-relevant complaints, and Gemini 4 Argon is scored on 400 of 600 items after the run's budget cut."
+
+# Summary bullets: outcome, technical, stack. **bold** marks the numbers. Every number is listed under
+# numbers with the repo file that proves it and the text that file contains (default: the number itself).
+bullets:
+  - kind: outcome
+    text: "Benchmarked seven models on four customer-service tasks: the flagship won routing (**0.8894** macro-F1) and reply (**0.7933** intent-correct), the cheapest good-enough scope model cost **$0.0171** per thousand items, and the free TF-IDF baseline reached **0.6840** F1 on scope at zero cost. A fifth task defined as a config file — sorting **600** public electrical complaints and flagging safety reports — reached **0.7616** macro-F1 at best, against a **0.6918** zero-cost baseline, with the cheapest good-enough model at **$0.09** per thousand items."
+    numbers:
+      - { value: "0.8894", file: "results/SUMMARY.md", contains: "0.8894" }
+      - { value: "0.7933", file: "results/SUMMARY.md", contains: "0.7933" }
+      - { value: "0.0171", file: "results/SUMMARY.md", contains: "0.0171" }
+      - { value: "0.6840", file: "results/SUMMARY.md", contains: "0.6840" }
+      - { value: "600", file: "results/cards/defect.md", contains: "600 items" }
+      - { value: "0.7616", file: "results/cards/defect.md", contains: "0.7616" }
+      - { value: "0.6918", file: "results/cards/defect.md", contains: "0.6918" }
+      - { value: "0.09", file: "results/cards/defect.md", contains: "$0.09" }
+  - kind: technical
+    text: "Ran one paid benchmark pass for **$1.94**, cross-checked **$0.37** of it against the gateway's own measured cost (a **25.63%** gap versus the committed token price table), then rebuilt every number offline from committed recordings. A second paid pass on a task defined as a config file cost **$0.8937**, and the gate accepted the cheapest good-enough model on that task with a **1.92**-point primary drop."
+    numbers:
+      - { value: "1.94", file: "results/SUMMARY.md", contains: "1.94" }
+      - { value: "0.37", file: "results/SUMMARY.md", contains: "0.37" }
+      - { value: "25.63", file: "results/SUMMARY.md", contains: "25.63" }
+      - { value: "0.8937", file: "results/runs/live-v1.1/budget.json", contains: "0.8937" }
+      - { value: "1.92", file: "results/gate_demo_defect.json", contains: "1.9154" }
+  - kind: stack
+    text: "Python with LangChain and LangGraph, MCP tools, PostgreSQL with pgvector for retrieval, and a deterministic record/replay run guarded by pytest, Ruff and strict mypy."
+    numbers: []
+
+resources:                                # only what you used FROM someone else
+  - { name: "BANKING77", owner: "PolyAI", licence: "CC-BY-4.0", url: "https://huggingface.co/datasets/PolyAI/banking77", used_as: "routing and structured-reply items, plus the TF-IDF routing baseline" }
+  - { name: "CLINC150 (clinc_oos, plus)", owner: "CLINC", licence: "CC-BY-3.0", url: "https://huggingface.co/datasets/clinc/clinc_oos", used_as: "out-of-scope items and the TF-IDF scope baseline" }
+  - { name: "BAAI/bge-small-en-v1.5", owner: "BAAI", licence: "MIT", url: "https://huggingface.co/BAAI/bge-small-en-v1.5", used_as: "CPU embeddings for the guide retrieval index" }
+  - { name: "NHTSA ODI complaints and recalls", owner: "U.S. Department of Transportation", licence: "U.S. government work, public domain", url: "https://static.nhtsa.gov/odi/ffdd/", used_as: "T-DEFECT electrical-complaint sample and its TF-IDF and keyword baselines" }

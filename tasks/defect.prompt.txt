@@ -1,0 +1,19 @@
+A vehicle owner has filed a complaint about an electrical or electronic part of a
+vehicle. Read the complaint and answer two questions about it.
+
+Question 1: which component group does the complaint describe?
+Use exactly one of these group ids. Each line is the id, then what the group covers.
+
+{labels}
+
+If the complaint does not clearly fit one group, answer "unclear". Do not guess.
+
+Question 2: is the complaint safety-relevant?
+Answer true when the complaint says the vehicle crashed or caught fire, or that someone
+was injured or killed. Answer false when it does not. Judge only what the text says.
+
+Complaint:
+{text}
+
+Reply with one JSON object and nothing else, in exactly this shape:
+{"component_group": "<one group id, or unclear>", "safety_relevant": true or false}

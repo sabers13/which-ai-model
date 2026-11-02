@@ -1,0 +1,2755 @@
+{
+  "before_after": {
+    "after": {
+      "end": 65,
+      "file": "src/which_ai_model/tools/router.py",
+      "language": "python",
+      "start": 49,
+      "text": "def route_message(\n    message: str,\n    model: BaseChatModel,\n    *,\n    call: TraceCall | None = None,\n) -> RouteOut | None:\n    \"\"\"One structured call; ``None`` means the answer did not match ``RouteOut``.\"\"\"\n    answer = ask(\n        model,\n        RouteOut,\n        prompt_messages(SYSTEM_PROMPT, message),\n        task=TASK,\n        tool=TOOL,\n        prompt_version=PROMPT_VERSION,\n        call=call,\n    )\n    return answer.parsed if answer.schema_valid else None"
+    },
+    "after_caption": "src/which_ai_model/tools/router.py — 97 lines",
+    "after_label": "After · shared layer",
+    "before": {
+      "end": 71,
+      "file": "src/which_ai_model/legacy/l1_router.py",
+      "language": "python",
+      "start": 34,
+      "text": "def route_message(\n    message: str,\n    *,\n    transport: httpx.BaseTransport | None = None,\n    base_url: str | None = None,\n    model: str | None = None,\n    api_key: str | None = None,\n    timeout_s: float = 30.0,\n) -> LegacyResult:\n    \"\"\"Send one raw chat-completions request and return the unparsed reply.\"\"\"\n    started = time.perf_counter()\n    key = api_key if api_key is not None else env(\"ROUTER_KEY\")\n    if not key:\n        return LegacyResult(\"\", [], elapsed_ms(started), \"ROUTER_KEY is not set\")\n    url = (base_url or env(\"ROUTER_BASE_URL\", \"http://localhost:8080/v1\") or \"\").rstrip(\"/\")\n    body = {\n        \"model\": model or env(\"ROUTER_MODEL\", \"router-small\"),\n        \"messages\": [{\"role\": \"user\", \"content\": _PROMPT.format(message=message)}],\n        \"temperature\": 0,\n    }\n    headers = {\"Authorization\": f\"Bearer {key}\", \"Content-Type\": \"application/json\"}\n    try:\n        with httpx.Client(transport=transport, timeout=timeout_s, follow_redirects=False) as client:\n            response = client.post(f\"{url}/chat/completions\", headers=headers, json=body)\n            if response.status_code >= 400:\n                return LegacyResult(\n                    \"\", [], elapsed_ms(started), f\"API request failed (HTTP {response.status_code})\"\n                )\n            data: Any = response.json()\n    except (httpx.HTTPError, ValueError) as exc:\n        return LegacyResult(\"\", [], elapsed_ms(started), error_text(exc, key))\n    try:\n        content = data[\"choices\"][0][\"message\"][\"content\"] or \"\"\n        if not isinstance(content, str):\n            raise TypeError(\"assistant content is not a string\")\n    except (KeyError, IndexError, TypeError) as exc:\n        return LegacyResult(\"\", [], elapsed_ms(started), error_text(exc))\n    return LegacyResult(content, [], elapsed_ms(started), None)"
+    },
+    "before_caption": "src/which_ai_model/legacy/l1_router.py — 77 lines",
+    "before_label": "Before · raw HTTP",
+    "inventory_after": "After",
+    "inventory_after_note": "The other three tools now run through the same shared module, so the scanner sees two call sites instead of five.",
+    "inventory_before": "Before",
+    "inventory_col_output": "Structured output",
+    "inventory_col_path": "File",
+    "inventory_col_provider": "Provider",
+    "inventory_col_style": "Call style",
+    "inventory_col_tool": "Tool",
+    "inventory_lead": "A static scanner reads the code and lists every place a model is called. The before column is five different wirings; the after column is two shared call sites for the same five jobs.",
+    "inventory_title": "What the scanner found",
+    "kicker": "Before / after",
+    "lead": "The router used to call a provider directly: a raw HTTP request, a key read from the environment, and a label pulled out of free text. The migrated version asks for a typed schema through the shared layer and never parses free text.",
+    "line_counts": [
+      {
+        "after": {
+          "display": "97",
+          "source": "results/inventory/migration.json",
+          "value": 97
+        },
+        "after_file": "src/which_ai_model/tools/router.py",
+        "before": {
+          "display": "77",
+          "source": "results/inventory/migration.json",
+          "value": 77
+        },
+        "before_file": "src/which_ai_model/legacy/l1_router.py",
+        "source": "results/inventory/migration.json",
+        "tool": "L1 router"
+      },
+      {
+        "after": {
+          "display": "97",
+          "source": "results/inventory/migration.json",
+          "value": 97
+        },
+        "after_file": "src/which_ai_model/tools/drafter.py",
+        "before": {
+          "display": "87",
+          "source": "results/inventory/migration.json",
+          "value": 87
+        },
+        "before_file": "src/which_ai_model/legacy/l2_drafter.py",
+        "source": "results/inventory/migration.json",
+        "tool": "L2 reply drafter"
+      },
+      {
+        "after": {
+          "display": "157",
+          "source": "results/inventory/migration.json",
+          "value": 157
+        },
+        "after_file": "src/which_ai_model/tools/scope.py",
+        "before": {
+          "display": "70",
+          "source": "results/inventory/migration.json",
+          "value": 70
+        },
+        "before_file": "src/which_ai_model/legacy/l3_scope.py",
+        "source": "results/inventory/migration.json",
+        "tool": "L3 scope checker"
+      },
+      {
+        "after": {
+          "display": "271",
+          "source": "results/inventory/migration.json",
+          "value": 271
+        },
+        "after_file": "src/which_ai_model/tools/agent.py",
+        "before": {
+          "display": "124",
+          "source": "results/inventory/migration.json",
+          "value": 124
+        },
+        "before_file": "src/which_ai_model/legacy/l5_agent.py",
+        "source": "results/inventory/migration.json",
+        "tool": "L5 tool agent"
+      },
+      {
+        "after": {
+          "display": "297",
+          "source": "results/inventory/migration.json",
+          "value": 297
+        },
+        "after_file": "src/which_ai_model/tools/_template.py",
+        "before": {
+          "display": "76",
+          "source": "results/inventory/migration.json",
+          "value": 76
+        },
+        "before_file": "src/which_ai_model/legacy/_common.py",
+        "source": "results/inventory/migration.json",
+        "tool": "Shared plumbing"
+      }
+    ],
+    "lines_after": "after",
+    "lines_before": "before",
+    "lines_lead": "Raw lines went up, because every function is typed and documented. The tool's own logic moved into a shared frame, so what each tool owns is now a schema, a prompt and two small functions.",
+    "lines_source": "Counts and source hashes are recorded in results/inventory/migration.json.",
+    "lines_title": "Lines are not the whole story",
+    "max_lines": 297,
+    "title": "One tool, two wirings"
+  },
+  "docs": {
+    "abstain_note": "",
+    "answer_label": "Answer",
+    "answerable": {
+      "display": "35",
+      "source": "results/runs/live/cells.json",
+      "value": 35.0
+    },
+    "citations_label": "Cited passages",
+    "examples": [
+      {
+        "answer": "Keep the provider API key in the repository-root `.env` file, which is gitignored. In `config/providers.toml`, reference it with an `env:NAME` pointer (for example, `env:OPENAI_API_KEY`) rather than pasting the key. The project resolves that named environment variable when needed.",
+        "answer_source": "results/runs/live/predictions/T-DOCS-gpt-6-luna.jsonl",
+        "hit_at_4": {
+          "display": "100.0%",
+          "source": "results/runs/live/cells.json",
+          "value": 1.0
+        },
+        "item_id": "t-docs-001",
+        "model": "gpt-6-luna",
+        "model_name": "GPT 6 Luna",
+        "passages": [
+          {
+            "id": "guide/connect-provider#0",
+            "label": "connect-provider · passage 0",
+            "source": "docs/guide/connect-provider.md",
+            "text": "Connect a provider with BYOK and wam doctor Every model call in this project goes through a Connection: a small record that says where to call, which wire protocol to speak, and which environment variable holds the key. You bring your own key (BYOK). Keys live only in the gitignored .env file at the repository root and are referenced from configuration as env:NAME pointers, never pasted into code, logs, traces, or recordings."
+          },
+          {
+            "id": "guide/connect-provider#2",
+            "label": "connect-provider · passage 2",
+            "source": "docs/guide/connect-provider.md",
+            "text": "Presets and the credential rule The gateway preset used for the benchmark is exposed as four connections sharing one key, one per API format, beside the standard openai, anthropic, gemini, openrouter, local-openai-compatible, and custom presets. resolve_credential reads the named variable at call time and returns the key value, or None for keyless connections. Only the credentials module and the live benchmark runner may touch the environment for a secret;"
+          }
+        ],
+        "question": "Where should I keep my provider API key, and how do I point the project configuration at it without pasting the secret anywhere?",
+        "question_source": "data/rag/gold.jsonl"
+      },
+      {
+        "answer": "The four connection protocols and the provider-side APIs they speak are: `OPENAI_COMPATIBLE` — Chat Completions endpoints; `OPENAI_RESPONSES` — the Responses API; `ANTHROPIC` — the Messages API; and `GEMINI` — the Google Generative Language API.",
+        "answer_source": "results/runs/live/predictions/T-DOCS-gpt-6-luna.jsonl",
+        "hit_at_4": {
+          "display": "100.0%",
+          "source": "results/runs/live/cells.json",
+          "value": 1.0
+        },
+        "item_id": "t-docs-002",
+        "model": "gpt-6-luna",
+        "model_name": "GPT 6 Luna",
+        "passages": [
+          {
+            "id": "guide/connect-provider#1",
+            "label": "connect-provider · passage 1",
+            "source": "docs/guide/connect-provider.md",
+            "text": "How a connection is described A connection has an id, a provider label, a protocol, a base URL, and a credential reference. The protocol is one of four fixed values: OPENAI_COMPATIBLE for Chat Completions endpoints, OPENAI_RESPONSES for the Responses API, ANTHROPIC for the Messages API, and GEMINI for the Google Generative Language API. The base URL never carries credentials; a URL with an @ before its first path slash is rejected by the contracts."
+          }
+        ],
+        "question": "What are the four connection protocols in this project, and which provider-side API does each one speak?",
+        "question_source": "data/rag/gold.jsonl"
+      },
+      {
+        "answer": "For each configured connection, `wam doctor` shows its id, protocol, outcome, and latency in milliseconds. It can report these outcome values: `OK`, `CONFIG_INVALID`, `CREDENTIAL_MISSING`, `CREDENTIAL_REJECTED`, `ENDPOINT_UNREACHABLE`, `RATE_LIMITED`, `PROTOCOL_UNSUPPORTED`, or `UNKNOWN`.",
+        "answer_source": "results/runs/live/predictions/T-DOCS-gpt-6-luna.jsonl",
+        "hit_at_4": {
+          "display": "100.0%",
+          "source": "results/runs/live/cells.json",
+          "value": 1.0
+        },
+        "item_id": "t-docs-003",
+        "model": "gpt-6-luna",
+        "model_name": "GPT 6 Luna",
+        "passages": [
+          {
+            "id": "guide/connect-provider#3",
+            "label": "connect-provider · passage 3",
+            "source": "docs/guide/connect-provider.md",
+            "text": "Checking what works with wam doctor Run wam doctor before spending anything. It probes every configured connection and prints one row per connection with its id, protocol, outcome, and latency in milliseconds. The outcome vocabulary is fixed: OK, CONFIG_INVALID, CREDENTIAL_MISSING, CREDENTIAL_REJECTED, ENDPOINT_UNREACHABLE, RATE_LIMITED, PROTOCOL_UNSUPPORTED, or UNKNOWN. Scripts and the runner switch on these values without guessing, and the detail field is scrubbed of headers and key material first."
+          }
+        ],
+        "question": "What information does the doctor command show for every connection, and which result values can it report?",
+        "question_source": "data/rag/gold.jsonl"
+      }
+    ],
+    "kicker": "Docs assistant",
+    "lead": "The docs assistant retrieves passages from this project's own guide and must cite the ids it used. These three answers are recorded from the live run, not rewritten for the page.",
+    "metric": {
+      "display": "100.0%",
+      "source": "results/runs/live/cells.json",
+      "value": 1.0
+    },
+    "metric_label": "retrieval hit@4",
+    "metric_note": "",
+    "model_label": "Answered by",
+    "question_label": "Question",
+    "title": "It answers with citations, or it says it does not know",
+    "unanswerable": {
+      "display": "5",
+      "source": "results/runs/live/cells.json",
+      "value": 5.0
+    }
+  },
+  "example": {
+    "correct": 4,
+    "dataset": "Banking77 (PolyAI), CC-BY-4.0",
+    "dataset_url": "https://huggingface.co/datasets/PolyAI/banking77",
+    "item_id": "b77-test-808",
+    "rows": [
+      {
+        "answer": "card_payment_fee_charged",
+        "answer_display": "card payment fee charged",
+        "correct": true,
+        "cost": {
+          "display": "$0.00025",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 0.0002512
+        },
+        "latency": {
+          "display": "2,284 ms",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 2284.0
+        },
+        "model": "claude-haiku-5-5",
+        "name": "Claude Haiku 5.5",
+        "schema_valid": true
+      },
+      {
+        "answer": "card_payment_fee_charged",
+        "answer_display": "card payment fee charged",
+        "correct": true,
+        "cost": {
+          "display": "$0.00025",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 0.00024634
+        },
+        "latency": {
+          "display": "3,231 ms",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 3231.0
+        },
+        "model": "deepseek-v4.1-flash",
+        "name": "DeepSeek V4.1 Flash",
+        "schema_valid": true
+      },
+      {
+        "answer": "card_payment_fee_charged",
+        "answer_display": "card payment fee charged",
+        "correct": true,
+        "cost": {
+          "display": "$0.0016",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 0.001644
+        },
+        "latency": {
+          "display": "2,793 ms",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 2793.0
+        },
+        "model": "gemini-4-argon",
+        "name": "Gemini 4 Argon",
+        "schema_valid": true
+      },
+      {
+        "answer": "extra_charge_on_statement",
+        "answer_display": "extra charge on statement",
+        "correct": false,
+        "cost": {
+          "display": "$0.000030",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 2.971e-05
+        },
+        "latency": {
+          "display": "1,568 ms",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 1568.0
+        },
+        "model": "glm-5.3-flash",
+        "name": "GLM-5.3-Flash",
+        "schema_valid": true
+      },
+      {
+        "answer": "extra_charge_on_statement",
+        "answer_display": "extra charge on statement",
+        "correct": false,
+        "cost": {
+          "display": "$0.000064",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 6.42e-05
+        },
+        "latency": {
+          "display": "1,682 ms",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 1682.0
+        },
+        "model": "gpt-6-luna",
+        "name": "GPT 6 Luna",
+        "schema_valid": true
+      },
+      {
+        "answer": "card_payment_fee_charged",
+        "answer_display": "card payment fee charged",
+        "correct": true,
+        "cost": {
+          "display": "$0.000057",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 5.715e-05
+        },
+        "latency": {
+          "display": "7,453 ms",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 7453.0
+        },
+        "model": "mimo-v2.6-flash",
+        "name": "MiMo-V2.6-Flash",
+        "schema_valid": true
+      },
+      {
+        "answer": "extra_charge_on_statement",
+        "answer_display": "extra charge on statement",
+        "correct": false,
+        "cost": {
+          "display": "$0.000081",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 8.130000000000001e-05
+        },
+        "latency": {
+          "display": "2,482 ms",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 2482.0
+        },
+        "model": "muse-spark-1.3-contributor",
+        "name": "Muse Spark 1.3 Contributor",
+        "schema_valid": true
+      }
+    ],
+    "source": "data/samples/route.txt",
+    "task": "T-ROUTE",
+    "task_name": "Route a message",
+    "text": "I would appreciate that someone let me know when there is an extra charge for payments. I was checking the app earlier and saying a charge on one of my payments that was additional that no one made me aware of before.",
+    "total": 7,
+    "true_label": "card_payment_fee_charged",
+    "true_label_display": "card payment fee charged"
+  },
+  "footer": {
+    "github": "GitHub",
+    "line": "Independent project by Saber Sojudi. MIT licence. Every number on this page is rebuilt from files under results/.",
+    "portfolio": "Portfolio",
+    "top": "Back to top"
+  },
+  "gate": {
+    "blocked": "blocked",
+    "blocked_count": {
+      "display": "2",
+      "source": "results/gate_demo.json",
+      "value": 2
+    },
+    "blocked_word": "would lose",
+    "floor_label": "Schema-valid floor",
+    "kicker": "Safety check",
+    "lead": "The regression gate compares a candidate model with the current baseline. It blocks a change when any task drops more than the point limit, or when structured replies fall below the schema-valid floor, or when the runs are not comparable at all.",
+    "limit": {
+      "display": "2.0",
+      "source": "results/gate_demo.json",
+      "value": 2.0
+    },
+    "limit_label": "Point limit",
+    "limit_word": "limit",
+    "pairs": [
+      {
+        "baseline": "gemini-4-argon",
+        "baseline_name": "Gemini 4 Argon",
+        "candidate": "glm-5.3-flash",
+        "candidate_name": "GLM-5.3-Flash",
+        "outcome": "FAIL",
+        "reasons": [
+          "T-REPLY primary metric dropped 53.25 points (0.7933 → 0.2609); limit 2.0",
+          "T-REPLY schema-valid rate 0.6133 is below 0.98",
+          "T-ROUTE primary metric dropped 10.13 points (0.8894 → 0.7881); limit 2.0"
+        ],
+        "reply_drop": {
+          "display": "53.25",
+          "source": "results/gate_demo.json",
+          "value": 53.25
+        },
+        "route_drop": {
+          "display": "10.13",
+          "source": "results/gate_demo.json",
+          "value": 10.13
+        },
+        "schema_valid": {
+          "display": "61.3%",
+          "source": "results/gate_demo.json",
+          "value": 0.6133333333333333
+        },
+        "tasks": [
+          "T-ROUTE"
+        ]
+      },
+      {
+        "baseline": "gemini-4-argon",
+        "baseline_name": "Gemini 4 Argon",
+        "candidate": "gpt-6-luna",
+        "candidate_name": "GPT 6 Luna",
+        "outcome": "FAIL",
+        "reasons": [
+          "T-REPLY primary metric dropped 78.00 points (0.7933 → 0.0133); limit 2.0",
+          "T-ROUTE primary metric dropped 9.30 points (0.8894 → 0.7964); limit 2.0"
+        ],
+        "reply_drop": {
+          "display": "78.00",
+          "source": "results/gate_demo.json",
+          "value": 78.0
+        },
+        "route_drop": {
+          "display": "9.30",
+          "source": "results/gate_demo.json",
+          "value": 9.3
+        },
+        "schema_valid": {
+          "display": "100.0%",
+          "source": "results/gate_demo.json",
+          "value": 1.0
+        },
+        "tasks": [
+          "T-DOCS",
+          "T-REPLY",
+          "T-SCOPE"
+        ]
+      }
+    ],
+    "passed": "passed",
+    "points_word": "points",
+    "refusal": {
+      "outcome": "REFUSED",
+      "reason": "runs are not comparable: prompt_version differs ('v1' vs 'v2-refusal-demo')",
+      "source": "results/gate_refused_demo.json"
+    },
+    "refusal_body": "Two fixture runs with the same metrics but a different prompt version were refused before any comparison. An incomparable run cannot silently pass the gate.",
+    "refusal_title": "A refusal is never a pass",
+    "schema_floor": {
+      "display": "98.0%",
+      "source": "results/gate_demo.json",
+      "value": 0.98
+    },
+    "schema_word": "schema-valid",
+    "source_label": "Gate evidence",
+    "title": "A cheaper model is not automatically a safe swap"
+  },
+  "hero": {
+    "example_correct_label": "Correct answer",
+    "example_kicker": "One real example",
+    "example_legend": "Each row is one model answering the same message. ✓ means the intent matched; time and cost are that single recorded call.",
+    "example_note": "The dataset is public, so a model may have seen this message during training. That is a limit of public benchmarks, not a hidden advantage: all seven models saw the same text.",
+    "example_source_prefix": "Message from",
+    "example_source_suffix": "shown exactly as the model saw it.",
+    "example_task": "Ticket routing · one of 77 intents",
+    "eyebrow": "Portfolio project · AI engineering",
+    "fine": "Independent project. Public datasets only. No employer or client is named anywhere on this page.",
+    "lead": "I moved five scattered AI tools onto one shared foundation, then tested which AI model does each job best for the money. The whole benchmark ran on real customer messages, and every number here is rebuilt from the committed results.",
+    "primary_cta": "Read the code",
+    "secondary_cta": "See the example",
+    "tags": [
+      "Python",
+      "LangChain",
+      "LangGraph",
+      "Postgres + pgvector",
+      "Pydantic"
+    ],
+    "title_after": " use?",
+    "title_before": "Which AI model should ",
+    "title_highlight": "each tool"
+  },
+  "inventory": {
+    "after": [
+      {
+        "call_style": "LangChain",
+        "path": "src/which_ai_model/tools/agent.py",
+        "provider": "langchain",
+        "structured_output": "none",
+        "tool": "arun_agent"
+      },
+      {
+        "call_style": "LangChain",
+        "path": "src/which_ai_model/tools/scope.py",
+        "provider": "langchain",
+        "structured_output": "none",
+        "tool": "check_scope"
+      }
+    ],
+    "after_count": {
+      "display": "2",
+      "source": "results/inventory/after.json",
+      "value": 2
+    },
+    "after_source": "results/inventory/after.json",
+    "before": [
+      {
+        "call_style": "raw HTTP",
+        "path": "src/which_ai_model/legacy/l1_router.py",
+        "provider": "openai-compatible",
+        "structured_output": "none",
+        "tool": "route_message"
+      },
+      {
+        "call_style": "vendor SDK",
+        "path": "src/which_ai_model/legacy/l2_drafter.py",
+        "provider": "anthropic",
+        "structured_output": "regex",
+        "tool": "draft_reply"
+      },
+      {
+        "call_style": "vendor SDK",
+        "path": "src/which_ai_model/legacy/l3_scope.py",
+        "provider": "gemini",
+        "structured_output": "substring",
+        "tool": "check_scope"
+      },
+      {
+        "call_style": "vendor SDK",
+        "path": "src/which_ai_model/legacy/l4_docs.py",
+        "provider": "openai-compatible",
+        "structured_output": "none",
+        "tool": "docs_answer"
+      },
+      {
+        "call_style": "hand-written tool loop",
+        "path": "src/which_ai_model/legacy/l5_agent.py",
+        "provider": "openai-compatible",
+        "structured_output": "none",
+        "tool": "run_agent"
+      }
+    ],
+    "before_count": {
+      "display": "5",
+      "source": "results/inventory/before.json",
+      "value": 5
+    },
+    "before_source": "results/inventory/before.json"
+  },
+  "limits": {
+    "entries": [
+      "All seven models were reached through one gateway (OpenCode Go), each in its lab's own API format. Other providers' direct endpoints were tested only with mocks.",
+      "Four of the five before tools were written for this project. Only the tool-calling agent is adapted from real earlier code, and it is credited in THIRD_PARTY.md.",
+      "Tiers are mixed on purpose: Gemini 4 Argon is a flagship, the other six are small models. A flagship winning on quality is expected; the useful question is what the small models cost.",
+      "The datasets are public, so models may already know some test messages. All seven saw the same text, so the comparison is still like for like, but absolute scores may be optimistic.",
+      "The structured-reply sample is a subset of the routing sample, so the recorded answers are not independent questions.",
+      "The gateway did not send measured cost on every model. Where it did not, the committed price table is used, and the measured-versus-list gap is computed only over models that have both.",
+      "Results and prices are dated in the technical details below. A later price change is not reflected here.",
+      "The docs task was scored with an in-memory index built from the same guide and the same pinned embeddings as the pgvector store. Retrieval ids matched pgvector on every gold question."
+    ],
+    "items": [
+      "All seven models were reached through one gateway (OpenCode Go), each in its lab's own API format. Other providers' direct endpoints were tested only with mocks.",
+      "Four of the five before tools were written for this project. Only the tool-calling agent is adapted from real earlier code, and it is credited in THIRD_PARTY.md.",
+      "Tiers are mixed on purpose: Gemini 4 Argon is a flagship, the other six are small models. A flagship winning on quality is expected; the useful question is what the small models cost.",
+      "The datasets are public, so models may already know some test messages. All seven saw the same text, so the comparison is still like for like, but absolute scores may be optimistic.",
+      "The structured-reply sample is a subset of the routing sample, so the recorded answers are not independent questions.",
+      "The gateway did not send measured cost on every model. Where it did not, the committed price table is used, and the measured-versus-list gap is computed only over models that have both.",
+      "Results and prices are dated in the technical details below. A later price change is not reflected here.",
+      "The docs task was scored with an in-memory index built from the same guide and the same pinned embeddings as the pgvector store. Retrieval ids matched pgvector on every gold question."
+    ],
+    "kicker": "Limits",
+    "lead": "Read these before quoting a number.",
+    "title": "What this benchmark does not prove"
+  },
+  "numbers": {
+    "baseline": {
+      "best_route": {
+        "display": "88.9%",
+        "source": "results/runs/live/cells.json",
+        "value": 0.8893685568939881
+      },
+      "best_scope": {
+        "display": "73.1%",
+        "source": "results/runs/live/cells.json",
+        "value": 0.7305699481865284
+      },
+      "cost": {
+        "display": "$0",
+        "source": "results/baseline/metrics.json",
+        "value": 0.0
+      },
+      "route": {
+        "display": "85.9%",
+        "source": "results/baseline/metrics.json",
+        "value": 0.8593174160843333
+      },
+      "scope": {
+        "display": "68.4%",
+        "source": "results/baseline/metrics.json",
+        "value": 0.6839826839826838
+      }
+    },
+    "baseline_lead": "A word-count model (TF-IDF plus logistic regression) trained on the public training split. It costs nothing and needs no API.",
+    "baseline_note": "The models still beat it, but not by a landslide. Any claimed AI win has to clear this line.",
+    "baseline_route": "Routing macro-F1",
+    "baseline_scope": "Out-of-scope F1",
+    "baseline_title": "The simple non-AI method",
+    "best_route": {
+      "display": "88.9%",
+      "source": "results/runs/live/cells.json",
+      "value": 0.8893685568939881
+    },
+    "best_scope": {
+      "display": "73.1%",
+      "source": "results/runs/live/cells.json",
+      "value": 0.7305699481865284
+    },
+    "best_suffix": "best model",
+    "cards": [
+      {
+        "id": "tools-moved",
+        "label": "AI tools moved onto one foundation",
+        "note": "Five different wirings before, two shared call sites after.",
+        "value": {
+          "display": "5",
+          "source": "results/inventory/before.json",
+          "value": 5
+        }
+      },
+      {
+        "id": "messages-per-model",
+        "label": "Messages and questions per model",
+        "note": "Routing, scope, reply and docs items, each answered by all seven models.",
+        "value": {
+          "display": "1,106",
+          "source": "results/runs/live/cells.json",
+          "value": 1106
+        }
+      },
+      {
+        "id": "recorded-answers",
+        "label": "Recorded model answers",
+        "note": "One trace row per item and model. The reply sample is a subset of the routing sample.",
+        "value": {
+          "display": "7,742",
+          "source": "results/runs/live/calls.jsonl",
+          "value": 7742
+        }
+      },
+      {
+        "id": "models",
+        "label": "Models compared",
+        "note": "One flagship and six small models, all through one gateway.",
+        "value": {
+          "display": "7",
+          "source": "results/runs/live/manifest.json",
+          "value": 7
+        }
+      },
+      {
+        "id": "spend",
+        "label": "Total benchmark spend",
+        "note": "The only paid step in the project. make all replays it for free.",
+        "value": {
+          "display": "$1.94",
+          "source": "results/runs/live/budget.json",
+          "value": 1.9385439600000018
+        }
+      },
+      {
+        "id": "gate-blocked",
+        "label": "Cheaper candidates blocked by the gate",
+        "note": "Both cheaper candidates lost quality. A blocked swap is a result, not a failure.",
+        "value": {
+          "display": "2",
+          "source": "results/gate_demo.json",
+          "value": 2
+        }
+      }
+    ],
+    "cheapest_picks": [
+      {
+        "cost": {
+          "display": "$1.57",
+          "source": "results/recommendations.json",
+          "value": 1.5679188311688312
+        },
+        "metric": {
+          "display": "88.9%",
+          "source": "results/recommendations.json",
+          "value": 0.8893685568939881
+        },
+        "model": "Gemini 4 Argon",
+        "task": "Routing",
+        "task_id": "T-ROUTE"
+      },
+      {
+        "cost": {
+          "display": "$0.02",
+          "source": "results/recommendations.json",
+          "value": 0.01708166666666667
+        },
+        "metric": {
+          "display": "71.0%",
+          "source": "results/recommendations.json",
+          "value": 0.7096774193548386
+        },
+        "model": "GPT 6 Luna",
+        "task": "Scope",
+        "task_id": "T-SCOPE"
+      },
+      {
+        "cost": {
+          "display": "$1.26",
+          "source": "results/recommendations.json",
+          "value": 1.2561200000000001
+        },
+        "metric": {
+          "display": "79.3%",
+          "source": "results/recommendations.json",
+          "value": 0.7933333333333333
+        },
+        "model": "Gemini 4 Argon",
+        "task": "Replies",
+        "task_id": "T-REPLY"
+      },
+      {
+        "cost": {
+          "display": "$0.15",
+          "source": "results/recommendations.json",
+          "value": 0.14825750000000001
+        },
+        "metric": {
+          "display": "100.0%",
+          "source": "results/recommendations.json",
+          "value": 1.0
+        },
+        "model": "GPT 6 Luna",
+        "task": "Docs",
+        "task_id": "T-DOCS"
+      }
+    ],
+    "kicker": "The headline numbers",
+    "lead": "Every value below is copied from a committed file under results/ and names that file in the technical details.",
+    "title": "What the benchmark found"
+  },
+  "picker": {
+    "announce": "Showing picks for",
+    "cost_label": "cost / 1k items",
+    "good_enough": "good enough",
+    "kicker": "Choose what matters",
+    "latency_label": "median time",
+    "lead": "A model is good enough when it is within three points of the best model on that task. The picker then chooses the cheapest, the most accurate or the fastest good-enough model. Ties go to the lower cost.",
+    "metric_label": "primary metric",
+    "not_good_enough": "only good-enough pick",
+    "priorities": [
+      {
+        "hint": "lowest cost per 1,000 items",
+        "id": "cheapest",
+        "label": "Cheapest"
+      },
+      {
+        "hint": "highest primary metric",
+        "id": "most_accurate",
+        "label": "Most accurate"
+      },
+      {
+        "hint": "lowest median latency",
+        "id": "fastest",
+        "label": "Fastest"
+      }
+    ],
+    "rule_prefix": "Good enough means",
+    "rule_suffix": "points behind the best.",
+    "task_summary": "What the tool does",
+    "title": "Pick a model for the job"
+  },
+  "schema_version": 1,
+  "site": {
+    "back_label": "Back to the portfolio",
+    "brand": "Saber Sojudi",
+    "description": "Five AI tools moved onto one shared foundation, then seven models tested on real customer messages for quality, cost and speed. Results, a decision picker and the limits, stated plainly.",
+    "github_label": "View source on GitHub",
+    "github_url": "https://github.com/sabers13/which-ai-model",
+    "nav": [
+      {
+        "id": "example",
+        "label": "Example"
+      },
+      {
+        "id": "numbers",
+        "label": "Numbers"
+      },
+      {
+        "id": "picker",
+        "label": "Pick a model"
+      },
+      {
+        "id": "before-after",
+        "label": "Before / after"
+      },
+      {
+        "id": "safety",
+        "label": "Safety check"
+      },
+      {
+        "id": "docs",
+        "label": "Docs assistant"
+      },
+      {
+        "id": "your-task",
+        "label": "Your own task"
+      },
+      {
+        "id": "limits",
+        "label": "Limits"
+      }
+    ],
+    "portfolio_url": "https://sabersojudi.com/",
+    "skip": "Skip to the content",
+    "theme_dark": "Dark appearance",
+    "theme_light": "Light appearance",
+    "title": "Which AI Model? — a portfolio project by Saber Sojudi"
+  },
+  "sources": [
+    "results/runs/live/manifest.json",
+    "results/runs/live/cells.json",
+    "results/runs/live/calls.jsonl",
+    "results/runs/live/budget.json",
+    "results/recommendations.json",
+    "results/baseline/metrics.json",
+    "results/inventory/before.json",
+    "results/inventory/after.json",
+    "results/gate_demo.json",
+    "results/gate_refused_demo.json",
+    "results/runs/live-v1.1/manifest.json",
+    "results/runs/live-v1.1/cells.json",
+    "results/baseline/defect.json",
+    "results/gate_demo_defect.json",
+    "results/runs/recheck-demo/recheck.json",
+    "results/runs/recheck-demo-accepted/recheck.json",
+    "results/cards/T-ROUTE.json",
+    "results/cards/T-SCOPE.json",
+    "results/cards/T-REPLY.json",
+    "results/cards/T-DOCS.json",
+    "results/cards/defect.json"
+  ],
+  "tasks": [
+    {
+      "best": {
+        "display": "88.9%",
+        "source": "results/recommendations.json",
+        "value": 0.8893685568939881
+      },
+      "good_enough": {
+        "display": "3",
+        "source": "results/recommendations.json",
+        "value": 3.0
+      },
+      "id": "T-ROUTE",
+      "metric_label": "macro-F1",
+      "name": "Route a message",
+      "picks": {
+        "cheapest": {
+          "cost": {
+            "display": "$1.57",
+            "source": "results/recommendations.json",
+            "value": 1.5679188311688312
+          },
+          "good_enough": 1,
+          "latency": {
+            "display": "2,788 ms",
+            "source": "results/recommendations.json",
+            "value": 2788.5
+          },
+          "metric": {
+            "display": "88.9%",
+            "source": "results/recommendations.json",
+            "value": 0.8893685568939881
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        "fastest": {
+          "cost": {
+            "display": "$1.57",
+            "source": "results/recommendations.json",
+            "value": 1.5679188311688312
+          },
+          "good_enough": 1,
+          "latency": {
+            "display": "2,788 ms",
+            "source": "results/recommendations.json",
+            "value": 2788.5
+          },
+          "metric": {
+            "display": "88.9%",
+            "source": "results/recommendations.json",
+            "value": 0.8893685568939881
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        "most_accurate": {
+          "cost": {
+            "display": "$1.57",
+            "source": "results/recommendations.json",
+            "value": 1.5679188311688312
+          },
+          "good_enough": 1,
+          "latency": {
+            "display": "2,788 ms",
+            "source": "results/recommendations.json",
+            "value": 2788.5
+          },
+          "metric": {
+            "display": "88.9%",
+            "source": "results/recommendations.json",
+            "value": 0.8893685568939881
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        }
+      },
+      "question": "Which of 77 banking intents is this message?",
+      "rows": [
+        {
+          "cost": {
+            "display": "$1.57",
+            "source": "results/runs/live/cells.json",
+            "value": 1.5679188311688312
+          },
+          "latency": {
+            "display": "2,788 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 2788.5
+          },
+          "metric": {
+            "display": "88.9%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.8893685568939881
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        {
+          "cost": {
+            "display": "$0.08",
+            "source": "results/runs/live/cells.json",
+            "value": 0.07971964285714286
+          },
+          "latency": {
+            "display": "1,881 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1881.0
+          },
+          "metric": {
+            "display": "81.8%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.8177352071978343
+          },
+          "model": "muse-spark-1.3-contributor",
+          "name": "Muse Spark 1.3 Contributor"
+        },
+        {
+          "cost": {
+            "display": "$0.15",
+            "source": "results/runs/live/cells.json",
+            "value": 0.14687857142857141
+          },
+          "latency": {
+            "display": "1,256 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1256.0
+          },
+          "metric": {
+            "display": "80.9%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.8088262958231998
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5"
+        },
+        {
+          "cost": {
+            "display": "$0.06",
+            "source": "results/runs/live/cells.json",
+            "value": 0.06100097402597403
+          },
+          "latency": {
+            "display": "1,387 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1387.0
+          },
+          "metric": {
+            "display": "79.6%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7963576560061815
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna"
+        },
+        {
+          "cost": {
+            "display": "$0.03",
+            "source": "results/runs/live/cells.json",
+            "value": 0.02794904220779221
+          },
+          "latency": {
+            "display": "1,376 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1376.0
+          },
+          "metric": {
+            "display": "78.8%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7880785761642285
+          },
+          "model": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.09",
+            "source": "results/runs/live/cells.json",
+            "value": 0.09159329545454546
+          },
+          "latency": {
+            "display": "1,118 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1117.5
+          },
+          "metric": {
+            "display": "78.7%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7873684862165556
+          },
+          "model": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.03",
+            "source": "results/runs/live/cells.json",
+            "value": 0.028188035714285714
+          },
+          "latency": {
+            "display": "3,265 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 3265.0
+          },
+          "metric": {
+            "display": "78.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7796877761599726
+          },
+          "model": "mimo-v2.6-flash",
+          "name": "MiMo-V2.6-Flash"
+        }
+      ],
+      "short": "Routing"
+    },
+    {
+      "best": {
+        "display": "73.1%",
+        "source": "results/recommendations.json",
+        "value": 0.7305699481865284
+      },
+      "good_enough": {
+        "display": "3",
+        "source": "results/recommendations.json",
+        "value": 3.0
+      },
+      "id": "T-SCOPE",
+      "metric_label": "out-of-scope F1",
+      "name": "Check the scope",
+      "picks": {
+        "cheapest": {
+          "cost": {
+            "display": "$0.02",
+            "source": "results/recommendations.json",
+            "value": 0.01708166666666667
+          },
+          "good_enough": 7,
+          "latency": {
+            "display": "1,222 ms",
+            "source": "results/recommendations.json",
+            "value": 1222.0
+          },
+          "metric": {
+            "display": "71.0%",
+            "source": "results/recommendations.json",
+            "value": 0.7096774193548386
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna"
+        },
+        "fastest": {
+          "cost": {
+            "display": "$0.06",
+            "source": "results/recommendations.json",
+            "value": 0.055584999999999996
+          },
+          "good_enough": 7,
+          "latency": {
+            "display": "826 ms",
+            "source": "results/recommendations.json",
+            "value": 825.5
+          },
+          "metric": {
+            "display": "71.2%",
+            "source": "results/recommendations.json",
+            "value": 0.7117794486215537
+          },
+          "model": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash"
+        },
+        "most_accurate": {
+          "cost": {
+            "display": "$0.04",
+            "source": "results/recommendations.json",
+            "value": 0.040420333333333336
+          },
+          "good_enough": 7,
+          "latency": {
+            "display": "968 ms",
+            "source": "results/recommendations.json",
+            "value": 968.0
+          },
+          "metric": {
+            "display": "73.1%",
+            "source": "results/recommendations.json",
+            "value": 0.7305699481865284
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5"
+        }
+      },
+      "question": "Is this message in scope for the support team, or out of scope?",
+      "rows": [
+        {
+          "cost": {
+            "display": "$0.04",
+            "source": "results/runs/live/cells.json",
+            "value": 0.040420333333333336
+          },
+          "latency": {
+            "display": "968 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 968.0
+          },
+          "metric": {
+            "display": "73.1%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7305699481865284
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5"
+        },
+        {
+          "cost": {
+            "display": "$0.02",
+            "source": "results/runs/live/cells.json",
+            "value": 0.020660133333333334
+          },
+          "latency": {
+            "display": "2,616 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 2616.0
+          },
+          "metric": {
+            "display": "72.7%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7268041237113401
+          },
+          "model": "mimo-v2.6-flash",
+          "name": "MiMo-V2.6-Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.04",
+            "source": "results/runs/live/cells.json",
+            "value": 0.04149266666666667
+          },
+          "latency": {
+            "display": "1,874 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1874.0
+          },
+          "metric": {
+            "display": "72.2%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7222222222222223
+          },
+          "model": "muse-spark-1.3-contributor",
+          "name": "Muse Spark 1.3 Contributor"
+        },
+        {
+          "cost": {
+            "display": "$0.02",
+            "source": "results/runs/live/cells.json",
+            "value": 0.017356233333333332
+          },
+          "latency": {
+            "display": "1,680 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1680.5
+          },
+          "metric": {
+            "display": "72.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7204030226700253
+          },
+          "model": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.06",
+            "source": "results/runs/live/cells.json",
+            "value": 0.055584999999999996
+          },
+          "latency": {
+            "display": "826 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 825.5
+          },
+          "metric": {
+            "display": "71.2%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7117794486215537
+          },
+          "model": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.02",
+            "source": "results/runs/live/cells.json",
+            "value": 0.01708166666666667
+          },
+          "latency": {
+            "display": "1,222 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1222.0
+          },
+          "metric": {
+            "display": "71.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7096774193548386
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna"
+        },
+        {
+          "cost": {
+            "display": "$0.44",
+            "source": "results/runs/live/cells.json",
+            "value": 0.43643999999999994
+          },
+          "latency": {
+            "display": "4,206 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 4205.5
+          },
+          "metric": {
+            "display": "70.5%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7047619047619047
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        }
+      ],
+      "short": "Scope"
+    },
+    {
+      "best": {
+        "display": "79.3%",
+        "source": "results/recommendations.json",
+        "value": 0.7933333333333333
+      },
+      "good_enough": {
+        "display": "3",
+        "source": "results/recommendations.json",
+        "value": 3.0
+      },
+      "id": "T-REPLY",
+      "metric_label": "intent-correct",
+      "name": "Draft a structured reply",
+      "picks": {
+        "cheapest": {
+          "cost": {
+            "display": "$1.26",
+            "source": "results/recommendations.json",
+            "value": 1.2561200000000001
+          },
+          "good_enough": 1,
+          "latency": {
+            "display": "6,810 ms",
+            "source": "results/recommendations.json",
+            "value": 6809.5
+          },
+          "metric": {
+            "display": "79.3%",
+            "source": "results/recommendations.json",
+            "value": 0.7933333333333333
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        "fastest": {
+          "cost": {
+            "display": "$1.26",
+            "source": "results/recommendations.json",
+            "value": 1.2561200000000001
+          },
+          "good_enough": 1,
+          "latency": {
+            "display": "6,810 ms",
+            "source": "results/recommendations.json",
+            "value": 6809.5
+          },
+          "metric": {
+            "display": "79.3%",
+            "source": "results/recommendations.json",
+            "value": 0.7933333333333333
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        "most_accurate": {
+          "cost": {
+            "display": "$1.26",
+            "source": "results/recommendations.json",
+            "value": 1.2561200000000001
+          },
+          "good_enough": 1,
+          "latency": {
+            "display": "6,810 ms",
+            "source": "results/recommendations.json",
+            "value": 6809.5
+          },
+          "metric": {
+            "display": "79.3%",
+            "source": "results/recommendations.json",
+            "value": 0.7933333333333333
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        }
+      },
+      "question": "Return a valid intent, urgency and reply as one typed object.",
+      "rows": [
+        {
+          "cost": {
+            "display": "$1.26",
+            "source": "results/runs/live/cells.json",
+            "value": 1.2561200000000001
+          },
+          "latency": {
+            "display": "6,810 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 6809.5
+          },
+          "metric": {
+            "display": "79.3%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.7933333333333333
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        {
+          "cost": {
+            "display": "$0.22",
+            "source": "results/runs/live/cells.json",
+            "value": 0.22150933333333334
+          },
+          "latency": {
+            "display": "2,666 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 2666.5
+          },
+          "metric": {
+            "display": "69.1%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.6906474820143885
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5"
+        },
+        {
+          "cost": {
+            "display": "$0.37",
+            "source": "results/runs/live/cells.json",
+            "value": 0.36536199999999996
+          },
+          "latency": {
+            "display": "5,689 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 5689.0
+          },
+          "metric": {
+            "display": "58.6%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.5859375
+          },
+          "model": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.09",
+            "source": "results/runs/live/cells.json",
+            "value": 0.08955933333333334
+          },
+          "latency": {
+            "display": "4,999 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 4999.0
+          },
+          "metric": {
+            "display": "37.4%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.3741496598639456
+          },
+          "model": "muse-spark-1.3-contributor",
+          "name": "Muse Spark 1.3 Contributor"
+        },
+        {
+          "cost": {
+            "display": "$0.08",
+            "source": "results/runs/live/cells.json",
+            "value": 0.08185506666666666
+          },
+          "latency": {
+            "display": "3,976 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 3976.5
+          },
+          "metric": {
+            "display": "26.1%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.2608695652173913
+          },
+          "model": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.12",
+            "source": "results/runs/live/cells.json",
+            "value": 0.1151448
+          },
+          "latency": {
+            "display": "9,289 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 9289.0
+          },
+          "metric": {
+            "display": "20.5%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.20512820512820512
+          },
+          "model": "mimo-v2.6-flash",
+          "name": "MiMo-V2.6-Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.04",
+            "source": "results/runs/live/cells.json",
+            "value": 0.04185666666666667
+          },
+          "latency": {
+            "display": "1,771 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1771.0
+          },
+          "metric": {
+            "display": "1.3%",
+            "source": "results/runs/live/cells.json",
+            "value": 0.013333333333333334
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna"
+        }
+      ],
+      "short": "Replies"
+    },
+    {
+      "best": {
+        "display": "100.0%",
+        "source": "results/recommendations.json",
+        "value": 1.0
+      },
+      "good_enough": {
+        "display": "3",
+        "source": "results/recommendations.json",
+        "value": 3.0
+      },
+      "id": "T-DOCS",
+      "metric_label": "retrieval hit@4",
+      "name": "Answer from the guide",
+      "picks": {
+        "cheapest": {
+          "cost": {
+            "display": "$0.15",
+            "source": "results/recommendations.json",
+            "value": 0.14825750000000001
+          },
+          "good_enough": 7,
+          "latency": {
+            "display": "1,928 ms",
+            "source": "results/recommendations.json",
+            "value": 1928.0
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/recommendations.json",
+            "value": 1.0
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna"
+        },
+        "fastest": {
+          "cost": {
+            "display": "$0.27",
+            "source": "results/recommendations.json",
+            "value": 0.2693375
+          },
+          "good_enough": 7,
+          "latency": {
+            "display": "1,558 ms",
+            "source": "results/recommendations.json",
+            "value": 1558.5
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/recommendations.json",
+            "value": 1.0
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5"
+        },
+        "most_accurate": {
+          "cost": {
+            "display": "$0.15",
+            "source": "results/recommendations.json",
+            "value": 0.14825750000000001
+          },
+          "good_enough": 7,
+          "latency": {
+            "display": "1,928 ms",
+            "source": "results/recommendations.json",
+            "value": 1928.0
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/recommendations.json",
+            "value": 1.0
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna"
+        }
+      },
+      "question": "Answer a question about this stack and cite the passages used.",
+      "rows": [
+        {
+          "cost": {
+            "display": "$0.27",
+            "source": "results/runs/live/cells.json",
+            "value": 0.2693375
+          },
+          "latency": {
+            "display": "1,558 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1558.5
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 1.0
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5"
+        },
+        {
+          "cost": {
+            "display": "$0.30",
+            "source": "results/runs/live/cells.json",
+            "value": 0.29702249999999997
+          },
+          "latency": {
+            "display": "1,718 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1717.5
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 1.0
+          },
+          "model": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash"
+        },
+        {
+          "cost": {
+            "display": "$3.48",
+            "source": "results/runs/live/cells.json",
+            "value": 3.47605
+          },
+          "latency": {
+            "display": "4,852 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 4852.5
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 1.0
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        {
+          "cost": {
+            "display": "$0.20",
+            "source": "results/runs/live/cells.json",
+            "value": 0.20484775000000002
+          },
+          "latency": {
+            "display": "2,774 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 2774.0
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 1.0
+          },
+          "model": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.15",
+            "source": "results/runs/live/cells.json",
+            "value": 0.14825750000000001
+          },
+          "latency": {
+            "display": "1,928 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 1928.0
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 1.0
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna"
+        },
+        {
+          "cost": {
+            "display": "$0.20",
+            "source": "results/runs/live/cells.json",
+            "value": 0.19950875000000004
+          },
+          "latency": {
+            "display": "6,298 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 6298.5
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 1.0
+          },
+          "model": "mimo-v2.6-flash",
+          "name": "MiMo-V2.6-Flash"
+        },
+        {
+          "cost": {
+            "display": "$0.16",
+            "source": "results/runs/live/cells.json",
+            "value": 0.1580025
+          },
+          "latency": {
+            "display": "3,237 ms",
+            "source": "results/runs/live/cells.json",
+            "value": 3237.0
+          },
+          "metric": {
+            "display": "100.0%",
+            "source": "results/runs/live/cells.json",
+            "value": 1.0
+          },
+          "model": "muse-spark-1.3-contributor",
+          "name": "Muse Spark 1.3 Contributor"
+        }
+      ],
+      "short": "Docs"
+    }
+  ],
+  "technical": {
+    "arch_title": "The shape of the system",
+    "data": [
+      "Banking77 (PolyAI) — routing and structured replies, CC-BY-4.0",
+      "CLINC150 plus (clinc_oos) — out-of-scope detection, CC-BY-3.0",
+      "BAAI/bge-small-en-v1.5 — CPU embeddings, MIT",
+      "The project guide in docs/guide — written for this repository, MIT"
+    ],
+    "data_title": "Data and licences",
+    "kicker": "Technical details",
+    "measured": {
+      "display": "$0.37",
+      "source": "results/runs/live/budget.json",
+      "value": 0.37481696000000014
+    },
+    "measured_label": "Gateway-measured, four models",
+    "method_label": "Read the method",
+    "method_link": "https://github.com/sabers13/which-ai-model/blob/main/METHOD.md",
+    "models": [
+      {
+        "connection": "opencode-go-openai",
+        "lab": "DeepSeek",
+        "model": "deepseek-v4.1-flash",
+        "name": "DeepSeek V4.1 Flash",
+        "source": "results/runs/live/manifest.json",
+        "tier": "small"
+      },
+      {
+        "connection": "opencode-go-anthropic",
+        "lab": "Anthropic",
+        "model": "claude-haiku-5-5",
+        "name": "Claude Haiku 5.5",
+        "source": "results/runs/live/manifest.json",
+        "tier": "small"
+      },
+      {
+        "connection": "opencode-go-responses",
+        "lab": "OpenAI",
+        "model": "gpt-6-luna",
+        "name": "GPT 6 Luna",
+        "source": "results/runs/live/manifest.json",
+        "tier": "small"
+      },
+      {
+        "connection": "opencode-go-google",
+        "lab": "Google",
+        "model": "gemini-4-argon",
+        "name": "Gemini 4 Argon",
+        "source": "results/runs/live/manifest.json",
+        "tier": "flagship"
+      },
+      {
+        "connection": "opencode-go-responses",
+        "lab": "Muse",
+        "model": "muse-spark-1.3-contributor",
+        "name": "Muse Spark 1.3 Contributor",
+        "source": "results/runs/live/manifest.json",
+        "tier": "small"
+      },
+      {
+        "connection": "opencode-go-openai",
+        "lab": "Xiaomi",
+        "model": "mimo-v2.6-flash",
+        "name": "MiMo-V2.6-Flash",
+        "source": "results/runs/live/manifest.json",
+        "tier": "small"
+      },
+      {
+        "connection": "opencode-go-openai",
+        "lab": "Zhipu (Z.ai)",
+        "model": "glm-5.3-flash",
+        "name": "GLM-5.3-Flash",
+        "source": "results/runs/live/manifest.json",
+        "tier": "small"
+      }
+    ],
+    "price_note": "Prices as of 29 October 2026.",
+    "reproduce_body": "Clone the repository, run make all, and open dist/which-ai-model/index.html. Replay uses the committed recordings: no API key, no paid call, no network. The live run is the only step that ever spent money.",
+    "reproduce_command": "make all",
+    "reproduce_title": "Reproduce it",
+    "results_col_cost": "Cost / 1k",
+    "results_col_latency": "Median",
+    "results_col_metric": "Primary",
+    "results_col_model": "Model",
+    "results_lead": "Every model on every task, with the primary metric, cost per 1,000 items and median latency.",
+    "results_title": "All results",
+    "run_date": {
+      "display": "29 October 2026",
+      "source": "results/runs/live/manifest.json",
+      "value": "2026-10-29T04:42:49.595085Z"
+    },
+    "run_date_label": "Run date",
+    "spend": {
+      "display": "$1.94",
+      "source": "results/runs/live/budget.json",
+      "value": 1.9385439600000018
+    },
+    "spend_label": "Recorded spend",
+    "stack": [
+      "Python 3.12, uv, Ruff, strict mypy, pytest",
+      "LangChain v1 and LangGraph v1 for the shared model layer",
+      "Pydantic schemas for every structured output",
+      "Postgres with pgvector for the docs index",
+      "A local JSONL trace for every model call; no hosted tracing required",
+      "Committed recordings replayed by make all, with no key and no network"
+    ],
+    "stack_title": "Stack",
+    "summary": "Fixed samples, versioned prompts and deterministic scoring make the recorded comparisons reproducible. No model judged another model.",
+    "title": "How it was built and how to reproduce it"
+  },
+  "v11": {
+    "cards": {
+      "entries": [
+        {
+          "job": "Send each customer message to the one of 77 banking intents that fits it.",
+          "picks": [
+            {
+              "key": "cheapest",
+              "label": "Cheapest",
+              "model": "gemini-4-argon",
+              "name": "Gemini 4 Argon"
+            },
+            {
+              "key": "most_accurate",
+              "label": "Most accurate",
+              "model": "gemini-4-argon",
+              "name": "Gemini 4 Argon"
+            },
+            {
+              "key": "fastest",
+              "label": "Fastest",
+              "model": "gemini-4-argon",
+              "name": "Gemini 4 Argon"
+            }
+          ],
+          "sample": {
+            "display": "616",
+            "source": "results/cards/T-ROUTE.json",
+            "value": 616
+          },
+          "source": "results/cards/T-ROUTE.json",
+          "task": "T-ROUTE",
+          "title": "Route a support message"
+        },
+        {
+          "job": "Decide whether a support message is inside the supported banking scope or outside it.",
+          "picks": [
+            {
+              "key": "cheapest",
+              "label": "Cheapest",
+              "model": "gpt-6-luna",
+              "name": "GPT 6 Luna"
+            },
+            {
+              "key": "most_accurate",
+              "label": "Most accurate",
+              "model": "claude-haiku-5-5",
+              "name": "Claude Haiku 5.5"
+            },
+            {
+              "key": "fastest",
+              "label": "Fastest",
+              "model": "deepseek-v4.1-flash",
+              "name": "DeepSeek V4.1 Flash"
+            }
+          ],
+          "sample": {
+            "display": "300",
+            "source": "results/cards/T-SCOPE.json",
+            "value": 300
+          },
+          "source": "results/cards/T-SCOPE.json",
+          "task": "T-SCOPE",
+          "title": "Check whether a message is in scope"
+        },
+        {
+          "job": "Turn a customer message into one typed object: intent, urgency and reply text.",
+          "picks": [
+            {
+              "key": "cheapest",
+              "label": "Cheapest",
+              "model": "gemini-4-argon",
+              "name": "Gemini 4 Argon"
+            },
+            {
+              "key": "most_accurate",
+              "label": "Most accurate",
+              "model": "gemini-4-argon",
+              "name": "Gemini 4 Argon"
+            },
+            {
+              "key": "fastest",
+              "label": "Fastest",
+              "model": "gemini-4-argon",
+              "name": "Gemini 4 Argon"
+            }
+          ],
+          "sample": {
+            "display": "150",
+            "source": "results/cards/T-REPLY.json",
+            "value": 150
+          },
+          "source": "results/cards/T-REPLY.json",
+          "task": "T-REPLY",
+          "title": "Draft a structured reply"
+        },
+        {
+          "job": "Answer a question about this stack from retrieved guide passages and cite the passages used.",
+          "picks": [
+            {
+              "key": "cheapest",
+              "label": "Cheapest",
+              "model": "gpt-6-luna",
+              "name": "GPT 6 Luna"
+            },
+            {
+              "key": "most_accurate",
+              "label": "Most accurate",
+              "model": "gpt-6-luna",
+              "name": "GPT 6 Luna"
+            },
+            {
+              "key": "fastest",
+              "label": "Fastest",
+              "model": "claude-haiku-5-5",
+              "name": "Claude Haiku 5.5"
+            }
+          ],
+          "sample": {
+            "display": "40",
+            "source": "results/cards/T-DOCS.json",
+            "value": 40
+          },
+          "source": "results/cards/T-DOCS.json",
+          "task": "T-DOCS",
+          "title": "Answer from the guide"
+        },
+        {
+          "job": "Sort a vehicle owner's electrical complaint into a component group and say whether it describes a crash, a fire or an injury.",
+          "picks": [
+            {
+              "key": "cheapest",
+              "label": "Cheapest",
+              "model": "muse-spark-1.3-contributor",
+              "name": "Muse Spark 1.3 Contributor"
+            },
+            {
+              "key": "most_accurate",
+              "label": "Most accurate",
+              "model": "gemini-4-argon",
+              "name": "Gemini 4 Argon"
+            },
+            {
+              "key": "fastest",
+              "label": "Fastest",
+              "model": "glm-5.3-flash",
+              "name": "GLM-5.3-Flash"
+            }
+          ],
+          "sample": {
+            "display": "600",
+            "source": "results/cards/defect.json",
+            "value": 600
+          },
+          "source": "results/cards/defect.json",
+          "task": "T-DEFECT",
+          "title": "Sort electrical complaints and flag safety"
+        }
+      ],
+      "lead": "Every card states the job, the data, the results, the recommendation, the gate rule, the exact re-check command and the monthly cost.",
+      "title": "Five cards, one job each"
+    },
+    "defect": {
+      "baseline_label": "TF-IDF + keyword rule (baseline)",
+      "columns": {
+        "answered": "Right when answered",
+        "cost": "Cost / 1k",
+        "coverage": "Coverage",
+        "latency": "Median",
+        "model": "Model",
+        "primary": "Group macro-F1",
+        "safety": "Safety recall"
+      },
+      "coverage": {
+        "sentence": "Every model may answer unclear, and unclear counts as wrong in the group score. Coverage ran from 80.7% to 88.7%; on the items a model did answer, 91.8% to 95.7% were sorted correctly.",
+        "title": "Coverage and accuracy on answered"
+      },
+      "data": "NHTSA ODI vehicle owner complaints (2020-2024 and 2025-2026 received-date flat files), sampled into data/defect/test.jsonl",
+      "floor": {
+        "baseline_met": false,
+        "met": true,
+        "rule_prefix": "A model below",
+        "rule_suffix": "safety recall on this task is never recommended, whatever its group accuracy.",
+        "sentence": "All 7 models cleared the 90.0% floor. The keyword baseline reached 88.3%, below it.",
+        "title": "The safety floor, stated plainly",
+        "value": {
+          "display": "90.0%",
+          "source": "results/cards/defect.json",
+          "value": 0.9
+        }
+      },
+      "gate_demo": {
+        "baseline": "Gemini 4 Argon",
+        "candidate": "Muse Spark 1.3 Contributor",
+        "floor": {
+          "display": "97.5%",
+          "source": "results/gate_demo_defect.json",
+          "value": 0.975
+        },
+        "floor_drop": {
+          "display": "1.22",
+          "source": "results/gate_demo_defect.json",
+          "value": 1.22
+        },
+        "floor_min": {
+          "display": "90.0%",
+          "source": "results/cards/defect.json",
+          "value": 0.9
+        },
+        "outcome": "PASS",
+        "primary_drop": {
+          "display": "1.92",
+          "source": "results/gate_demo_defect.json",
+          "value": 1.92
+        },
+        "primary_limit": {
+          "display": "2.0",
+          "source": "results/cards/defect.json",
+          "value": 2.0
+        },
+        "source": "results/gate_demo_defect.json"
+      },
+      "job": "Sort a vehicle owner's electrical complaint into a component group and say whether it describes a crash, a fire or an injury.",
+      "kicker": "Spec task · T-DEFECT",
+      "licence": "U.S. government work, public domain",
+      "metric_label": "group macro-F1",
+      "picks": [
+        {
+          "key": "cheapest",
+          "label": "Cheapest",
+          "model": "muse-spark-1.3-contributor",
+          "name": "Muse Spark 1.3 Contributor"
+        },
+        {
+          "key": "most_accurate",
+          "label": "Most accurate",
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon"
+        },
+        {
+          "key": "fastest",
+          "label": "Fastest",
+          "model": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash"
+        }
+      ],
+      "rows": [
+        {
+          "answered": {
+            "display": "95.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.9573
+          },
+          "baseline": false,
+          "cost": {
+            "display": "$1.31",
+            "source": "results/cards/defect.json",
+            "value": 1.3065
+          },
+          "coverage": {
+            "display": "87.8%",
+            "source": "results/cards/defect.json",
+            "value": 0.8775
+          },
+          "items": 400,
+          "latency": {
+            "display": "2,624 ms",
+            "source": "results/cards/defect.json",
+            "value": 2623.5
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon",
+          "primary": {
+            "display": "0.7616 (95% CI 0.7307 to 0.7899)",
+            "source": "results/cards/defect.json",
+            "value": 0.7616
+          },
+          "safety": {
+            "display": "98.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.9872
+          }
+        },
+        {
+          "answered": {
+            "display": "95.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.9571
+          },
+          "baseline": false,
+          "cost": {
+            "display": "$0.09",
+            "source": "results/cards/defect.json",
+            "value": 0.0889
+          },
+          "coverage": {
+            "display": "85.5%",
+            "source": "results/cards/defect.json",
+            "value": 0.855
+          },
+          "items": 600,
+          "latency": {
+            "display": "2,261 ms",
+            "source": "results/cards/defect.json",
+            "value": 2261.0
+          },
+          "model": "muse-spark-1.3-contributor",
+          "name": "Muse Spark 1.3 Contributor",
+          "primary": {
+            "display": "0.7425 (95% CI 0.7131 to 0.7680)",
+            "source": "results/cards/defect.json",
+            "value": 0.7425
+          },
+          "safety": {
+            "display": "97.5%",
+            "source": "results/cards/defect.json",
+            "value": 0.975
+          }
+        },
+        {
+          "answered": {
+            "display": "93.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.9373
+          },
+          "baseline": false,
+          "cost": {
+            "display": "$0.10",
+            "source": "results/cards/defect.json",
+            "value": 0.0962
+          },
+          "coverage": {
+            "display": "87.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.8767
+          },
+          "items": 600,
+          "latency": {
+            "display": "4,016 ms",
+            "source": "results/cards/defect.json",
+            "value": 4016.5
+          },
+          "model": "mimo-v2.6-flash",
+          "name": "MiMo-V2.6-Flash",
+          "primary": {
+            "display": "0.7393 (95% CI 0.7121 to 0.7647)",
+            "source": "results/cards/defect.json",
+            "value": 0.7393
+          },
+          "safety": {
+            "display": "98.3%",
+            "source": "results/cards/defect.json",
+            "value": 0.9833
+          }
+        },
+        {
+          "answered": {
+            "display": "92.9%",
+            "source": "results/cards/defect.json",
+            "value": 0.9286
+          },
+          "baseline": false,
+          "cost": {
+            "display": "$0.09",
+            "source": "results/cards/defect.json",
+            "value": 0.0892
+          },
+          "coverage": {
+            "display": "88.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.8867
+          },
+          "items": 600,
+          "latency": {
+            "display": "1,012 ms",
+            "source": "results/cards/defect.json",
+            "value": 1011.5
+          },
+          "model": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash",
+          "primary": {
+            "display": "0.7388 (95% CI 0.7104 to 0.7637)",
+            "source": "results/cards/defect.json",
+            "value": 0.7388
+          },
+          "safety": {
+            "display": "96.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.9667
+          }
+        },
+        {
+          "answered": {
+            "display": "94.8%",
+            "source": "results/cards/defect.json",
+            "value": 0.9484
+          },
+          "baseline": false,
+          "cost": {
+            "display": "$0.13",
+            "source": "results/cards/defect.json",
+            "value": 0.1277
+          },
+          "coverage": {
+            "display": "84.0%",
+            "source": "results/cards/defect.json",
+            "value": 0.84
+          },
+          "items": 600,
+          "latency": {
+            "display": "—",
+            "source": "results/cards/defect.json",
+            "value": null
+          },
+          "model": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "primary": {
+            "display": "0.7210 (95% CI 0.6914 to 0.7476)",
+            "source": "results/cards/defect.json",
+            "value": 0.721
+          },
+          "safety": {
+            "display": "98.3%",
+            "source": "results/cards/defect.json",
+            "value": 0.9833
+          }
+        },
+        {
+          "answered": {
+            "display": "91.8%",
+            "source": "results/cards/defect.json",
+            "value": 0.9183
+          },
+          "baseline": false,
+          "cost": {
+            "display": "$0.06",
+            "source": "results/cards/defect.json",
+            "value": 0.06
+          },
+          "coverage": {
+            "display": "83.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.8367
+          },
+          "items": 600,
+          "latency": {
+            "display": "—",
+            "source": "results/cards/defect.json",
+            "value": null
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna",
+          "primary": {
+            "display": "0.6922 (95% CI 0.6644 to 0.7190)",
+            "source": "results/cards/defect.json",
+            "value": 0.6922
+          },
+          "safety": {
+            "display": "92.5%",
+            "source": "results/cards/defect.json",
+            "value": 0.925
+          }
+        },
+        {
+          "answered": {
+            "display": "92.8%",
+            "source": "results/cards/defect.json",
+            "value": 0.9277
+          },
+          "baseline": false,
+          "cost": {
+            "display": "$0.16",
+            "source": "results/cards/defect.json",
+            "value": 0.1564
+          },
+          "coverage": {
+            "display": "80.7%",
+            "source": "results/cards/defect.json",
+            "value": 0.8067
+          },
+          "items": 600,
+          "latency": {
+            "display": "—",
+            "source": "results/cards/defect.json",
+            "value": null
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5",
+          "primary": {
+            "display": "0.6819 (95% CI 0.6510 to 0.7102)",
+            "source": "results/cards/defect.json",
+            "value": 0.6819
+          },
+          "safety": {
+            "display": "97.5%",
+            "source": "results/cards/defect.json",
+            "value": 0.975
+          }
+        },
+        {
+          "answered": {
+            "display": "81.3%",
+            "source": "results/baseline/defect.json",
+            "value": 0.8133
+          },
+          "baseline": true,
+          "cost": {
+            "display": "$0",
+            "source": "results/baseline/defect.json",
+            "value": 0.0
+          },
+          "coverage": {
+            "display": "100.0%",
+            "source": "results/baseline/defect.json",
+            "value": 1.0
+          },
+          "items": 600,
+          "latency": {
+            "display": "—",
+            "source": "results/baseline/defect.json",
+            "value": null
+          },
+          "model": "tfidf-logreg + keyword rule",
+          "name": "TF-IDF + keyword rule (baseline)",
+          "primary": {
+            "display": "0.6918 (95% CI 0.6405 to 0.7328)",
+            "source": "results/baseline/defect.json",
+            "value": 0.6918
+          },
+          "safety": {
+            "display": "88.3%",
+            "source": "results/baseline/defect.json",
+            "value": 0.8833
+          }
+        }
+      ],
+      "sample": {
+        "display": "600",
+        "source": "results/cards/defect.json",
+        "value": 600
+      },
+      "sample_note": "600 items, sampled from public NHTSA complaints. Gemini 4 Argon was scored on 400 of them after the budget cut, so its interval is wider.",
+      "source": "results/cards/defect.json",
+      "source_note": "Every row is a committed cell in results/runs/live-v1.1/cells.json; the baseline is results/baseline/defect.json. No model was called to build this page.",
+      "title": "Sort electrical complaints and flag safety"
+    },
+    "kicker": "Your own task",
+    "lead": "The four tasks above are fixed benchmarks. This one is the template for your own: one specification file plus one labelled data file, no Python. It is T-DEFECT, sorting public vehicle-owner complaints into component groups and flagging the safety-relevant ones.",
+    "recheck": {
+      "demo": {
+        "accepted": {
+          "baseline": {
+            "display": "71.0%",
+            "source": "results/runs/recheck-demo-accepted/recheck.json",
+            "value": 0.7097
+          },
+          "candidate": {
+            "display": "71.1%",
+            "source": "results/runs/recheck-demo-accepted/recheck.json",
+            "value": 0.7111
+          },
+          "outcome": "PASS",
+          "source": "results/runs/recheck-demo-accepted/recheck.json",
+          "warning_count": {
+            "display": "1",
+            "source": "results/runs/recheck-demo-accepted/recheck.json",
+            "value": 1
+          },
+          "warnings": [
+            "temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+          ]
+        },
+        "candidate": "GPT 6 Luna",
+        "refused": {
+          "differences": [
+            "temperature differs for gpt-6-luna: baseline 'provider-default', candidate 0.0"
+          ],
+          "outcome": "REFUSED",
+          "source": "results/runs/recheck-demo/recheck.json"
+        },
+        "task": "T-SCOPE"
+      },
+      "demo_accepted_label": "With --accept-settings-mismatch",
+      "demo_lead": "GPT 6 Luna on T-SCOPE, recorded fresh at temperature 0 and gated against the committed v1 run.",
+      "demo_note": "The demo answers are committed under recordings/fresh/recheck-demo/, so make all replays them with no network call and no cost.",
+      "demo_refused_label": "Without --accept-settings-mismatch",
+      "demo_title": "The re-check demo, as it ran",
+      "lead": "A benchmark result is about one model, at one moment, with one prompt and one set of settings. When any of those changes, re-test instead of trusting the old number. These are the exact commands from docs/recheck.md.",
+      "steps": [
+        {
+          "body": "A new model has no earlier answers, so a normal record run is enough: only the new model's calls are made. Then gate it against the committed run.",
+          "commands": [
+            {
+              "note": "",
+              "text": "wam bench --mode record --models config/new-model.lock.toml \\\n  --tasks T-SCOPE --run-id new-model"
+            },
+            {
+              "note": "Then compare it with the committed run:",
+              "text": "wam gate --baseline results/runs/live --candidate results/runs/new-model \\\n  --model-a <same-task-model> --model-b new-model-id"
+            }
+          ],
+          "title": "A new model came out"
+        },
+        {
+          "body": "This is what re-check is for. It records fresh answers, never reuses a saved one, scores them, and gates them against the earlier run with the same model id on both sides.",
+          "commands": [
+            {
+              "note": "",
+              "text": "wam recheck run \\\n  --models config/models.lock.toml \\\n  --tasks T-SCOPE \\\n  --against results/runs/live \\\n  --candidate gpt-6-luna \\\n  --run-id recheck-gpt-6-luna"
+            }
+          ],
+          "title": "The same model id behaves differently"
+        },
+        {
+          "body": "Temperature, reasoning and the output allowance are recorded in the run manifest. A difference is refused unless you say it was intended; then the gate returns its normal verdict plus a WARN line naming every difference.",
+          "commands": [
+            {
+              "note": "",
+              "text": "wam recheck run \\\n  --models config/models.lock.toml \\\n  --tasks T-SCOPE \\\n  --against results/runs/live \\\n  --candidate gpt-6-luna \\\n  --accept-settings-mismatch \\\n  --run-id recheck-gpt-6-luna-warm"
+            }
+          ],
+          "title": "You changed a setting"
+        }
+      ],
+      "title": "When a new model comes out"
+    },
+    "title": "Your own task: test it, re-test it",
+    "volume": {
+      "default_items": 10000,
+      "headers": [
+        {
+          "display": "1,000",
+          "items": 1000
+        },
+        {
+          "display": "10,000",
+          "items": 10000
+        },
+        {
+          "display": "100,000",
+          "items": 100000
+        }
+      ],
+      "hint": "Type a volume and the last column recalculates in the browser.",
+      "label": "Items per month",
+      "lead": "Cost is linear from the measured cost per 1,000 items: cost per month = cost per 1,000 × items per month ÷ 1,000. There are no volume discounts and no other extrapolation.",
+      "live_column": "At your volume",
+      "no_js": "Without JavaScript the three fixed volumes still show the same arithmetic in the static table.",
+      "price_note": "Prices as of 29 October 2026, from the committed price table; a later price change is not reflected.",
+      "rows": [
+        {
+          "cost": {
+            "display": "$1.31",
+            "source": "results/cards/defect.json",
+            "value": 1.3065
+          },
+          "model": "gemini-4-argon",
+          "name": "Gemini 4 Argon",
+          "per_1k": 1.3065099999999998,
+          "volumes": [
+            {
+              "amount": {
+                "display": "$1.31",
+                "source": "results/cards/defect.json",
+                "value": 1.3065
+              },
+              "display": "1,000",
+              "items": 1000
+            },
+            {
+              "amount": {
+                "display": "$13.07",
+                "source": "results/cards/defect.json",
+                "value": 13.0651
+              },
+              "display": "10,000",
+              "items": 10000
+            },
+            {
+              "amount": {
+                "display": "$130.65",
+                "source": "results/cards/defect.json",
+                "value": 130.651
+              },
+              "display": "100,000",
+              "items": 100000
+            }
+          ]
+        },
+        {
+          "cost": {
+            "display": "$0.09",
+            "source": "results/cards/defect.json",
+            "value": 0.0889
+          },
+          "model": "muse-spark-1.3-contributor",
+          "name": "Muse Spark 1.3 Contributor",
+          "per_1k": 0.08888666666666667,
+          "volumes": [
+            {
+              "amount": {
+                "display": "$0.09",
+                "source": "results/cards/defect.json",
+                "value": 0.0889
+              },
+              "display": "1,000",
+              "items": 1000
+            },
+            {
+              "amount": {
+                "display": "$0.89",
+                "source": "results/cards/defect.json",
+                "value": 0.8889
+              },
+              "display": "10,000",
+              "items": 10000
+            },
+            {
+              "amount": {
+                "display": "$8.89",
+                "source": "results/cards/defect.json",
+                "value": 8.8887
+              },
+              "display": "100,000",
+              "items": 100000
+            }
+          ]
+        },
+        {
+          "cost": {
+            "display": "$0.10",
+            "source": "results/cards/defect.json",
+            "value": 0.0962
+          },
+          "model": "mimo-v2.6-flash",
+          "name": "MiMo-V2.6-Flash",
+          "per_1k": 0.09618201666666666,
+          "volumes": [
+            {
+              "amount": {
+                "display": "$0.10",
+                "source": "results/cards/defect.json",
+                "value": 0.0962
+              },
+              "display": "1,000",
+              "items": 1000
+            },
+            {
+              "amount": {
+                "display": "$0.96",
+                "source": "results/cards/defect.json",
+                "value": 0.9618
+              },
+              "display": "10,000",
+              "items": 10000
+            },
+            {
+              "amount": {
+                "display": "$9.62",
+                "source": "results/cards/defect.json",
+                "value": 9.6182
+              },
+              "display": "100,000",
+              "items": 100000
+            }
+          ]
+        },
+        {
+          "cost": {
+            "display": "$0.09",
+            "source": "results/cards/defect.json",
+            "value": 0.0892
+          },
+          "model": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash",
+          "per_1k": 0.0892035,
+          "volumes": [
+            {
+              "amount": {
+                "display": "$0.09",
+                "source": "results/cards/defect.json",
+                "value": 0.0892
+              },
+              "display": "1,000",
+              "items": 1000
+            },
+            {
+              "amount": {
+                "display": "$0.89",
+                "source": "results/cards/defect.json",
+                "value": 0.892
+              },
+              "display": "10,000",
+              "items": 10000
+            },
+            {
+              "amount": {
+                "display": "$8.92",
+                "source": "results/cards/defect.json",
+                "value": 8.9204
+              },
+              "display": "100,000",
+              "items": 100000
+            }
+          ]
+        },
+        {
+          "cost": {
+            "display": "$0.13",
+            "source": "results/cards/defect.json",
+            "value": 0.1277
+          },
+          "model": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "per_1k": 0.1277394,
+          "volumes": [
+            {
+              "amount": {
+                "display": "$0.13",
+                "source": "results/cards/defect.json",
+                "value": 0.1277
+              },
+              "display": "1,000",
+              "items": 1000
+            },
+            {
+              "amount": {
+                "display": "$1.28",
+                "source": "results/cards/defect.json",
+                "value": 1.2774
+              },
+              "display": "10,000",
+              "items": 10000
+            },
+            {
+              "amount": {
+                "display": "$12.77",
+                "source": "results/cards/defect.json",
+                "value": 12.7739
+              },
+              "display": "100,000",
+              "items": 100000
+            }
+          ]
+        },
+        {
+          "cost": {
+            "display": "$0.06",
+            "source": "results/cards/defect.json",
+            "value": 0.06
+          },
+          "model": "gpt-6-luna",
+          "name": "GPT 6 Luna",
+          "per_1k": 0.05998933333333333,
+          "volumes": [
+            {
+              "amount": {
+                "display": "$0.06",
+                "source": "results/cards/defect.json",
+                "value": 0.06
+              },
+              "display": "1,000",
+              "items": 1000
+            },
+            {
+              "amount": {
+                "display": "$0.60",
+                "source": "results/cards/defect.json",
+                "value": 0.5999
+              },
+              "display": "10,000",
+              "items": 10000
+            },
+            {
+              "amount": {
+                "display": "$6.00",
+                "source": "results/cards/defect.json",
+                "value": 5.9989
+              },
+              "display": "100,000",
+              "items": 100000
+            }
+          ]
+        },
+        {
+          "cost": {
+            "display": "$0.16",
+            "source": "results/cards/defect.json",
+            "value": 0.1564
+          },
+          "model": "claude-haiku-5-5",
+          "name": "Claude Haiku 5.5",
+          "per_1k": 0.15643949999999998,
+          "volumes": [
+            {
+              "amount": {
+                "display": "$0.16",
+                "source": "results/cards/defect.json",
+                "value": 0.1564
+              },
+              "display": "1,000",
+              "items": 1000
+            },
+            {
+              "amount": {
+                "display": "$1.56",
+                "source": "results/cards/defect.json",
+                "value": 1.5644
+              },
+              "display": "10,000",
+              "items": 10000
+            },
+            {
+              "amount": {
+                "display": "$15.64",
+                "source": "results/cards/defect.json",
+                "value": 15.6439
+              },
+              "display": "100,000",
+              "items": 100000
+            }
+          ]
+        }
+      ],
+      "title": "What it costs at your volume",
+      "unknown": "An unknown measured cost stays unknown."
+    }
+  }
+}
