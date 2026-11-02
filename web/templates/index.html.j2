@@ -31,7 +31,7 @@
   var q = new URLSearchParams(location.search), theme, lang;
   try { theme = localStorage.getItem('wam-theme'); lang = localStorage.getItem('wam-lang'); } catch (e) {}
   theme = q.get('theme') || theme;
-  if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  if (theme !== 'light' && theme !== 'dark') theme = 'light';
   lang = q.get('lang') || lang || ((navigator.language || 'en').startsWith('de') ? 'de' : 'en');
   document.documentElement.dataset.theme = theme;
   document.documentElement.lang = lang === 'de' ? 'de' : 'en';
